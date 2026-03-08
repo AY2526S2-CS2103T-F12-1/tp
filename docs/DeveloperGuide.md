@@ -293,16 +293,24 @@ Existing tools are too heavy or fragmented. Our app is a lightweight, single‑u
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                 | So that I can…​                                                        |
-|----------|--------------------------------------------|------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                                   | see usage instructions       | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person             |                                                                        |
-| `* * *`  | user                                       | delete a person              | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name        | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name         | locate a person easily                                                 |
+| Priority | As a …​                                   | I want to …​                                                                         | So that I can…​                                         |
+|---------|-------------------------------------------|--------------------------------------------------------------------------------------|---------------------------------------------------------|
+| `* * *` | tour agency operation executive           | add a new contact with name, phone number, email, address, and tags                  | record details of clients, vendors, tour guides, etc    |
+| `* * *` | tour agency operation executive           | add a new itinerary with destination and associated clients, tour guides and vendors | record and view itinerary details at a glance           |
+| `* * *` | tour agency operation executive           | list all itineraries                                                                 | check that all details are in order                     |
+| `* * *` | tour agency operation executive           | list all contacts which includes clients, vendors and tour guides                    | plan itineraries with the relevant information          |
+| `* * *` | tour agency operation executive           | delete a contact or itinerary                                                        | remove data that I no longer need                       |
+| `* * *` | tour agency operation executive           | work offline without internet                                                        | manage trips even in areas with poor connectivity       |
+| `* * *` | forgetful tour agency operation executive | view documentation through a help function                                           | find out how to use the app and what I can do with it   |
+| `* *`   | tour agency operation executive           | sort itineraries by date                                                             | prioritize itineraries according to how urgent they are |
+| `* *`   | tour agency operation executive           | sort contact in alphabetical order                                                   | find a contact easily                                   |
+| `* *`   | tour agency operation executive           | undo and redo commands                                                               | recover from mistakes                                   |
+| `* *`   | tour agency operation executive           | archive completed itineraries                                                        | keep my workplace uncluttered                           |
+| `* *`   | tour agency operation executive           | add pictures to contacts                                                             | recognize the people I work with                        |
+| `* *`   | tour agency operation executive           | update contact information                                                           | make sure my contact information is accurate            |
+| `* *`   | tour agency operation executive           | filter contacts by tags                                                              | search or view contacts associated to a tag             |
 
-*{More to be added}*
+
 
 ### Use cases
 
