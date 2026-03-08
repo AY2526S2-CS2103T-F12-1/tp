@@ -2,13 +2,34 @@
 
 ![Ui](docs/images/Ui.png)
 
-* This is **a sample project for Software Engineering (SE) students**.<br>
-  Example usages:
-  * as a starting point of a course project (as opposed to writing everything from scratch)
-  * as a case study
-* The project simulates an ongoing software project for a desktop application (called _AddressBook_) used for managing contact details.
-  * It is **written in OOP fashion**. It provides a **reasonably well-written** code base **bigger** (around 6 KLoC) than what students usually write in beginner-level SE modules, without being overwhelmingly big.
-  * It comes with a **reasonable level of user and developer documentation**.
-* It is named `AddressBook Level 3` (`AB3` for short) because it was initially created as a part of a series of `AddressBook` projects (`Level 1`, `Level 2`, `Level 3` ...).
-* For the detailed documentation of this project, see the **[Address Book Product Website](https://se-education.org/addressbook-level3)**.
-* This project is a **part of the se-education.org** initiative. If you would like to contribute code to this project, see [se-education.org](https://se-education.org/#contributing-to-se-edu) for more info.
+# TripScribe
+
+## Overview
+
+TripScribe is a desktop application made to help tour agency operations executives **keep track of contacts across
+different itineraries**. It is a CLI based application optimized for fast typers. It features a GUI for visual feedback <br>
+
+## Target Users
+
+The target users are operations executives at a small to mid-sized tour agency who manages client bookings and
+itineraries. Their role would involve frequently updating itineraries, client details and vendor booking notes, while
+coordinating across multiple groups such as transport providers, tour guides, vendors, and tourists.
+
+## Key features
+
+### Contact management
+* Add new contacts (i.e. vendors, clients) with tags for easy identification
+* List all contacts for a quick glance at information
+* Remove past contacts for previous itineraries
+
+### Itinerary management
+* Add new itineraries to contacts to keep track of their upcoming trips
+
+
+## Product Website
+
+* For the detailed documentation of this project, see the **[TripScribe Product Website](https://ay2526s2-cs2103t-f12-1.github.io/tp/)**.
+
+### Acknowledgements
+
+This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org).

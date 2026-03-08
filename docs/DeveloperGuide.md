@@ -4,7 +4,7 @@
   pageNav: 3
 ---
 
-# AB-3 Developer Guide
+# TripScribe Developer Guide
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -13,7 +13,7 @@
 
 ## **Acknowledgements**
 
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
+_Libraries used: [JavaFX](https://openjfx.io/), [Jackson](https://github.com/FasterXML/jackson), [JUnit5](https://github.com/junit-team/junit5)_
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -274,13 +274,19 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
+Operations executives in small to mid-size tour agencies who
+
+* need to manage a significant client bookings and itineraries
+* handle frequent updates to itineraries, client details and vendor booking notes
+* coordinate between multiple groups (e.g. transport, tour guides, tourists, vendor)
 * prefer desktop apps over other types
 * can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* prefers using CLI interfaces over mouse-based interfaces
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**:
+
+Existing tools are too heavy or fragmented. Our app is a lightweight, single‑user solution for tour agency executives, enabling rapid typed commands to manage client contacts, addresses, itineraries, and vendor details. Data is stored locally in editable text files.
+
 
 
 ### User stories
