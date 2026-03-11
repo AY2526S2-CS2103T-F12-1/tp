@@ -62,6 +62,18 @@ public class Person {
     }
 
     /**
+     * Returns true if the person has the specified tag (case-insensitive)
+     */
+    public boolean hasSpecifiedTag(Tag specifiedTag) {
+        for (Tag tag : tags) {
+            if (tag.equals(specifiedTag)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
      */

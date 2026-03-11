@@ -14,4 +14,12 @@ public interface ReadOnlyAddressBook {
      */
     ObservableList<Person> getPersonList();
 
+    /*  Temporary, to review again after adding Itinerary class
+     /**
+     * Returns an unmodifiable view of the itineraries list.
+     * This list will not contain any duplicate itineraries.
+
+    ObservableList<Itinerary> getItineraryList();
+     */
+
 }
