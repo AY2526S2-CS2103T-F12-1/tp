@@ -36,11 +36,11 @@ public class ParserUtilTest {
     private static final String VALID_TAG_2 = "neighbour";
 
     private static final String WHITESPACE = " \t\r\n";
-    public static final String VALID_ITINERARY_NAME = "3D2N Bali";
-    public static final LocalDate VALID_DATE = LocalDate.of(2020, 2, 2);
-    public static final String VALID_DATE_STRING = "2020-02-02";
-    public static final String INVALID_DATE_STR = "02-02-2020";
-    public static final String VALID_ITINERARY_DESTNATION = "France";
+    private static final String VALID_ITINERARY_NAME = "3D2N Bali";
+    private static final LocalDate VALID_DATE = LocalDate.of(2020, 2, 2);
+    private static final String VALID_DATE_STRING = "2020-02-02";
+    private static final String INVALID_DATE_STR = "02-02-2020";
+    private static final String VALID_ITINERARY_DESTNATION = "France";
 
     @Test
     public void parseIndex_invalidInput_throwsParseException() {
