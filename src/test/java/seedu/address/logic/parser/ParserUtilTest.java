@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -193,4 +194,30 @@ public class ParserUtilTest {
 
         assertEquals(expectedTagSet, actualTagSet);
     }
+
+    @Test
+    public void parseItineraryName_validValueWithoutWhitespace_returnsItineraryName() throws Exception {
+        assertEquals("3D2N Bali", ParserUtil.parseItineraryName("     3D2N Bali     "));
+    }
+
+    @Test
+    public void parseDestination_validValueWithoutWhiteSpace_returnsItineraryDestination() throws Exception {
+        assertEquals("France", ParserUtil.parseDestination("France"));
+    }
+
+    @Test
+    public void parseDate_validValueWithoutWhitespace_returnsItineraryDate() throws Exception {
+        assertEquals(LocalDate.of(2020, 2, 2), ParserUtil.parseDate("2020-02-02"));
+    }
+
+    @Test
+    public void parseDate_validValueWithWhitespace_returnsItineraryDate() throws Exception {
+        assertEquals(LocalDate.of(2020, 2, 2), ParserUtil.parseDate("       2020-02-02       "));
+    }
+
+    @Test
+    public void parseDate_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseDate("02-02-2020"));
+    }
+
 }
