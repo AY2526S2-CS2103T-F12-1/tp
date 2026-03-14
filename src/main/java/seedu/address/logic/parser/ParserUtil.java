@@ -2,6 +2,9 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,6 +12,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.itinerary.Itinerary;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -21,6 +25,7 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String DATE_PARSE_PATTERN = "yyyy-MM-dd";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -120,5 +125,42 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses {@code itineraryName} into a {@code String} as the name of the itinerary.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static String parseItineraryName(String itineraryName) {
+        requireNonNull(itineraryName);
+        return itineraryName.trim();
+    }
+
+    /**
+     * Parses {@code destName} into a {@code Destination}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static String parseDestination(String destName) {
+        requireNonNull(destName);
+        return destName.trim();
+    }
+
+    /**
+     * Parses a {@code String email} into an {@code LocalDate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code dateStr} is invalid.
+     */
+    public static LocalDate parseDate(String dateStr) throws ParseException {
+
+        requireNonNull(dateStr);
+        dateStr = dateStr.trim();
+        LocalDate date;
+        try {
+            date = LocalDate.parse(dateStr, DateTimeFormatter.ofPattern(ParserUtil.DATE_PARSE_PATTERN));
+            return date;
+        } catch (DateTimeParseException e) {
+            throw new ParseException(Itinerary.ITINERARY_DATE_CONSTRAINTS);
+        }
     }
 }

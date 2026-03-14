@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -35,6 +36,11 @@ public class ParserUtilTest {
     private static final String VALID_TAG_2 = "neighbour";
 
     private static final String WHITESPACE = " \t\r\n";
+    private static final String VALID_ITINERARY_NAME = "3D2N Bali";
+    private static final LocalDate VALID_DATE = LocalDate.of(2020, 2, 2);
+    private static final String VALID_DATE_STRING = "2020-02-02";
+    private static final String INVALID_DATE_STR = "02-02-2020";
+    private static final String VALID_ITINERARY_DESTNATION = "France";
 
     @Test
     public void parseIndex_invalidInput_throwsParseException() {
@@ -193,4 +199,30 @@ public class ParserUtilTest {
 
         assertEquals(expectedTagSet, actualTagSet);
     }
+
+    @Test
+    public void parseItineraryName_validValueWithoutWhitespace_returnsItineraryName() throws Exception {
+        assertEquals(VALID_ITINERARY_NAME, ParserUtil.parseItineraryName("3D2N Bali"));
+    }
+
+    @Test
+    public void parseDestination_validValueWithoutWhiteSpace_returnsItineraryDestination() throws Exception {
+        assertEquals(VALID_ITINERARY_DESTNATION, ParserUtil.parseDestination("France"));
+    }
+
+    @Test
+    public void parseDate_validValueWithoutWhitespace_returnsItineraryDate() throws Exception {
+        assertEquals(VALID_DATE, ParserUtil.parseDate(VALID_DATE_STRING));
+    }
+
+    @Test
+    public void parseDate_validValueWithWhitespace_returnsItineraryDate() throws Exception {
+        assertEquals(VALID_DATE, ParserUtil.parseDate(WHITESPACE + VALID_DATE_STRING + WHITESPACE));
+    }
+
+    @Test
+    public void parseDate_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseDate(INVALID_DATE_STR));
+    }
+
 }
