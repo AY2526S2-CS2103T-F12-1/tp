@@ -1,11 +1,18 @@
 package seedu.address.model.itinerary;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.testutil.ItineraryBuilder;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static seedu.address.logic.commands.CommandTestUtil.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ITINERARY_DEST_BALI;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ITINERARY_END_DATE_BALI;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ITINERARY_NAME_BALI;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ITINERARY_NAME_FRANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ITINERARY_START_DATE_BALI;
 import static seedu.address.testutil.TypicalItinerary.TRIP_TO_FRANCE;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.testutil.ItineraryBuilder;
 
 public class ItineraryTest {
 
@@ -39,7 +46,8 @@ public class ItineraryTest {
 
     @Test
     public void toStringMethod() {
-        String expected = Itinerary.class.getCanonicalName() + "{name=" + TRIP_TO_FRANCE.getName() + ", destination=" + TRIP_TO_FRANCE.getDestination()
+        String expected = Itinerary.class.getCanonicalName() + "{name=" + TRIP_TO_FRANCE.getName()
+                + ", destination=" + TRIP_TO_FRANCE.getDestination()
                 + ", date range=" + TRIP_TO_FRANCE.getDateRange() + "}";
         assertEquals(expected, TRIP_TO_FRANCE.toString());
     }
