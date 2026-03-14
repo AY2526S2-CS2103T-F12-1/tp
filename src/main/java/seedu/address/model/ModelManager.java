@@ -101,7 +101,7 @@ public class ModelManager implements Model {
     @Override
     public void addPerson(Person person) {
         addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_CONTACTS);
     }
 
     @Override
@@ -127,6 +127,19 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }
+
+    /* Temporary, to review again after adding Itinerary class
+    @Override
+    public ObservableList<Itinerary> getFilteredItineraryList() {
+        return filteredItineraries;
+    }
+
+    @Override
+    public void updateFilteredItineraryList(Predicate<Itinerary> predicate) {
+        requireNonNull(predicate);
+        filteredItineraries.setPredicate(predicate);
+    }
+    */
 
     @Override
     public boolean equals(Object other) {

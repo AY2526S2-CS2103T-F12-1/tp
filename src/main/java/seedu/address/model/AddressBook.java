@@ -28,6 +28,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons = new UniquePersonList();
     }
 
+    /*  Temporary, to review again after adding Itinerary class
+    private final UniqueItineraryList itineraries;
+    {
+        itineraries = new UniqueItineraryList();
+    }
+    */
+
     public AddressBook() {}
 
     /**
