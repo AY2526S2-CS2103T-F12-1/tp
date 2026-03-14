@@ -54,9 +54,9 @@ public class Itinerary {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("Name", name)
-                .add("Destination", destination)
-                .add("Date Range", dateRange)
+                .add("name", name)
+                .add("destination", destination)
+                .add("date range", dateRange)
                 .toString();
     }
 

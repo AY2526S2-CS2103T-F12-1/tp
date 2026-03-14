@@ -3,6 +3,8 @@ package seedu.address.model.itinerary;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.Locale;
+
 /**
  * Represents an Itinerary's name in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
@@ -12,7 +14,7 @@ public class Name {
     public static final String MESSAGE_CONSTRAINTS =
             "Names should only contain alphanumeric characters and spaces, and it should not be blank";
 
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "[\\p{L}\\p{N}].*";
 
     public final String fullName;
 
@@ -39,4 +41,24 @@ public class Name {
         return fullName;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof Name)) {
+            return false;
+        }
+
+        Name otherName = (Name) other;
+        return fullName.toLowerCase(Locale.ROOT)
+                .equals(otherName.fullName.toLowerCase(Locale.ROOT));
+    }
+
+    @Override
+    public int hashCode() {
+        return fullName.toLowerCase(Locale.ROOT).hashCode();
+    }
 }

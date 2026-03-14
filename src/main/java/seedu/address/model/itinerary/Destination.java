@@ -12,7 +12,7 @@ public class Destination {
     public static final String MESSAGE_CONSTRAINTS =
             "Destinations should only contain alphanumeric characters and spaces, and it should not be blank";
 
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "[\\p{L}\\p{N}].*";
 
     public final String destination;
 
@@ -32,6 +32,26 @@ public class Destination {
      */
     public static boolean isValidDestination(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof Destination)) {
+            return false;
+        }
+
+        Destination otherDestination = (Destination) other;
+        return destination.equals(otherDestination.destination);
+    }
+
+    @Override
+    public int hashCode() {
+        return destination.hashCode();
     }
 
     @Override
