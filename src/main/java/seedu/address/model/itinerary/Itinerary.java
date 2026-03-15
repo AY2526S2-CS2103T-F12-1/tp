@@ -2,83 +2,62 @@ package seedu.address.model.itinerary;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.time.LocalDate;
-
-// This is currently a base implementation to test addi functionality
-// TODO update class
+import seedu.address.commons.util.ToStringBuilder;
 
 /**
- * Represents an itinerary in TripScribe
+ * Represents an Itinerary in the address book.
+ * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Itinerary {
 
-    public static final String ITINERARY_DATE_CONSTRAINTS = "Dates should be in the format yyyy-MM-dd.";
+    // Identity fields
+    private final Name name;
 
-    private String itineraryName;
-    private String itineraryDestination;
-    private LocalDate itineraryStart;
-    private LocalDate itineraryEnd;
+    // Data fields
+    private final Destination destination;
+    private final DateRange dateRange;
 
     /**
-     * Creates an Itinerary
+     * Every field must be present and not null.
      */
-    public Itinerary(String itineraryName, String itineraryDestination, LocalDate itineraryStart,
-                     LocalDate itineraryEnd) {
-        requireAllNonNull(itineraryName, itineraryDestination, itineraryStart, itineraryEnd);
-        this.itineraryName = itineraryName;
-        this.itineraryDestination = itineraryDestination;
-        this.itineraryStart = itineraryStart;
-        this.itineraryEnd = itineraryEnd;
+    public Itinerary(Name name, Destination destination, DateRange dateRange) {
+        requireAllNonNull(name, destination, dateRange);
+        this.name = name;
+        this.destination = destination;
+        this.dateRange = dateRange;
+    }
+
+    public Name getName() {
+        return name;
+    }
+
+    public Destination getDestination() {
+        return destination;
+    }
+
+    public DateRange getDateRange() {
+        return dateRange;
     }
 
     /**
-     * Returns the name of the itinerary
-     * @return String name of the itinerary
+     * Returns true if both itineraries have the same name.
      */
-    public String getName() {
-        return itineraryName;
-    }
-
-    /**
-     * Returns the destination of the itinerary
-     * @return String name of the destination
-     */
-    public String getDestination() {
-        return itineraryDestination;
-    }
-
-    /**
-     * Returns the start date of the itinerary
-     * @return String start date of itinerary
-     */
-    public String getStartDate() {
-        return itineraryStart.toString();
-    }
-
-    /**
-     * Returns the end date of the itinerary
-     * @return String end date of itinerary
-     */
-    public String getEndDate() {
-        return itineraryEnd.toString();
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        if (this == other) {
+    public boolean isSameItinerary(Itinerary otherItinerary) {
+        if (otherItinerary == this) {
             return true;
         }
 
-        if (!(other instanceof Itinerary)) {
-            return false;
-        }
-
-        Itinerary otherItinerary = (Itinerary) other;
-        return itineraryName.equals(otherItinerary.itineraryName)
-                && itineraryDestination.equals(otherItinerary.itineraryDestination)
-                && itineraryStart.equals(otherItinerary.itineraryStart)
-                && itineraryEnd.equals(otherItinerary.itineraryEnd);
+        return otherItinerary != null
+                && otherItinerary.getName().equals(getName());
     }
 
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("name", name)
+                .add("destination", destination)
+                .add("date range", dateRange)
+                .toString();
+    }
 
 }
