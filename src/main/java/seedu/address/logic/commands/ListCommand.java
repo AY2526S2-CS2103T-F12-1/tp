@@ -5,6 +5,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CLIENTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_VENDORS;
 
+import seedu.address.commons.util.*;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
@@ -51,5 +52,27 @@ public class ListCommand extends Command {
         default:
             throw new CommandException("Unknown flag: " + flag);
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof ListCommand)) {
+            return false;
+        }
+
+        ListCommand otherListCommand = (ListCommand) other;
+        return flag.equals(otherListCommand.flag);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("flag", flag)
+                .toString();
     }
 }
