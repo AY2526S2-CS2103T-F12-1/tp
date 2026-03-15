@@ -2,7 +2,9 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -37,6 +39,32 @@ public class AddiCommandTest {
 
         assertEquals(String.format(AddiCommand.MESSAGE_SUCCESS, Messages.format(validItinerary)),
                 commandResult.getFeedbackToUser());
+    }
+
+    @Test
+    public void equals() {
+        Itinerary france = new ItineraryBuilder().build();
+        Itinerary bali = new ItineraryBuilder().withName("3D2N Bali").withDestination("Bali")
+                            .withDateRange("2020-02-01", "2020-02-04").build();
+        AddiCommand addFranceCommand = new AddiCommand(france);
+        AddiCommand addBaliCommand = new AddiCommand(bali);
+
+        // same object -> returns true
+        assertTrue(addFranceCommand.equals(addFranceCommand));
+
+        // same values -> returns true
+        AddiCommand addFranceCommandCopy = new AddiCommand(france);
+        assertTrue(addFranceCommand.equals(addFranceCommandCopy));
+
+        // different types -> returns false
+        assertFalse(addFranceCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(addFranceCommand.equals(null));
+
+        // different person -> returns false
+        assertFalse(addFranceCommand.equals(addBaliCommand));
+
     }
 
 
