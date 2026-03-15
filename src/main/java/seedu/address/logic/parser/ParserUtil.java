@@ -2,9 +2,6 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,7 +9,9 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.itinerary.Itinerary;
+import seedu.address.model.itinerary.DateRange;
+import seedu.address.model.itinerary.Destination;
+import seedu.address.model.itinerary.ItineraryName;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -26,7 +25,6 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String DATE_PARSE_PATTERN = "yyyy-MM-dd";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -145,39 +143,49 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code itineraryName} into a {@code String} as the name of the itinerary.
+     * Parses {@code itineraryName} into a {@code ItineraryName}.
      * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code itineraryName} is invalid.
      */
-    public static String parseItineraryName(String itineraryName) {
+    public static ItineraryName parseItineraryName(String itineraryName) throws ParseException {
         requireNonNull(itineraryName);
-        return itineraryName.trim();
+        String trimmedItineraryName = itineraryName.trim();
+        if (!ItineraryName.isValidName(trimmedItineraryName)) {
+            throw new ParseException(ItineraryName.MESSAGE_CONSTRAINTS);
+        }
+        return new ItineraryName(itineraryName.trim());
     }
 
     /**
      * Parses {@code destName} into a {@code Destination}.
      * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code destName} is invalid.
      */
-    public static String parseDestination(String destName) {
+    public static Destination parseDestination(String destName) throws ParseException {
         requireNonNull(destName);
-        return destName.trim();
+        String trimmedDestName = destName.trim();
+        if (!Destination.isValidDestination(trimmedDestName)) {
+            throw new ParseException(Destination.MESSAGE_CONSTRAINTS);
+        }
+        return new Destination(trimmedDestName);
     }
 
     /**
-     * Parses a {@code String email} into an {@code LocalDate}.
+     * Parses a {@code starDateStr} and {@code endDateStr} into an {@code DateRange}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code dateStr} is invalid.
+     * @throws ParseException if the given dates is invalid.
      */
-    public static LocalDate parseDate(String dateStr) throws ParseException {
-
-        requireNonNull(dateStr);
-        dateStr = dateStr.trim();
-        LocalDate date;
-        try {
-            date = LocalDate.parse(dateStr, DateTimeFormatter.ofPattern(ParserUtil.DATE_PARSE_PATTERN));
-            return date;
-        } catch (DateTimeParseException e) {
-            throw new ParseException(Itinerary.ITINERARY_DATE_CONSTRAINTS);
+    public static DateRange parseItineraryDates(String startDateStr, String endDateStr) throws ParseException {
+        requireNonNull(startDateStr);
+        requireNonNull(endDateStr);
+        String startDateStrTrimmed = startDateStr.trim();
+        String endDateStrTrimmed = endDateStr.trim();
+        if (!DateRange.isValidDateRange(startDateStrTrimmed, endDateStrTrimmed)) {
+            throw new ParseException(DateRange.MESSAGE_CONSTRAINTS);
         }
+        return new DateRange(startDateStrTrimmed, endDateStrTrimmed);
     }
 }

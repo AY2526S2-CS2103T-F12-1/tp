@@ -57,10 +57,8 @@ public class Messages {
         builder.append(itinerary.getName())
                 .append("; Destination: ")
                 .append(itinerary.getDestination())
-                .append("; Start date: ")
-                .append(itinerary.getStartDate())
-                .append("; End Date: ")
-                .append(itinerary.getEndDate());
+                .append("; Date Range: ")
+                .append(itinerary.getDateRange());
         return builder.toString();
     }
 

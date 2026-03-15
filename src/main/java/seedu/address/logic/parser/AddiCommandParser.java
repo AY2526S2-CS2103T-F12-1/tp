@@ -6,12 +6,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ITINERARY_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ITINERARY_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ITINERARY_START;
 
-import java.time.LocalDate;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddiCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.itinerary.DateRange;
+import seedu.address.model.itinerary.Destination;
 import seedu.address.model.itinerary.Itinerary;
+import seedu.address.model.itinerary.ItineraryName;
 
 /**
  * Parses input arguments and creates a new AddiCommand object
@@ -36,12 +38,12 @@ public class AddiCommandParser implements Parser<AddiCommand> {
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_ITINERARY_NAME, PREFIX_ITINERARY_DESTINATION,
                                                  PREFIX_ITINERARY_START, PREFIX_ITINERARY_END);
-        String name = ParserUtil.parseItineraryName(argMultimap.getValue(PREFIX_ITINERARY_NAME).get());
-        String destination = ParserUtil.parseDestination(argMultimap.getValue(PREFIX_ITINERARY_DESTINATION).get());
-        LocalDate startDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_ITINERARY_START).get());
-        LocalDate endDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_ITINERARY_END).get());
+        ItineraryName name = ParserUtil.parseItineraryName(argMultimap.getValue(PREFIX_ITINERARY_NAME).get());
+        Destination destination = ParserUtil.parseDestination(argMultimap.getValue(PREFIX_ITINERARY_DESTINATION).get());
+        DateRange dateRange = ParserUtil.parseItineraryDates(argMultimap.getValue(PREFIX_ITINERARY_START).get(),
+                                                             argMultimap.getValue(PREFIX_ITINERARY_END).get());
 
-        Itinerary itinerary = new Itinerary(name, destination, startDate, endDate);
+        Itinerary itinerary = new Itinerary(name, destination, dateRange);
 
         return new AddiCommand(itinerary);
     }
