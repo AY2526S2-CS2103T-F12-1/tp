@@ -10,12 +10,12 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ITINERARY_NAME_
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ITINERARY_START_DATE_BALI;
 import static seedu.address.testutil.TypicalItinerary.TRIP_TO_FRANCE;
 
+import java.util.Set;
+import java.util.UUID;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.ItineraryBuilder;
-
-import java.util.Set;
-import java.util.UUID;
 
 public class ItineraryTest {
 

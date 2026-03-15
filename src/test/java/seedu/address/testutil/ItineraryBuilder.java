@@ -1,13 +1,13 @@
 package seedu.address.testutil;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
+
 import seedu.address.model.itinerary.DateRange;
 import seedu.address.model.itinerary.Destination;
 import seedu.address.model.itinerary.Itinerary;
 import seedu.address.model.itinerary.ItineraryName;
-
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
 
 /**
  * A utility class to help with building Itinerary objects.
