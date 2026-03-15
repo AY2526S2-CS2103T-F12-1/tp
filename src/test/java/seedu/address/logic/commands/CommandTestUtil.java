@@ -54,6 +54,12 @@ public class CommandTestUtil {
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
+    public static final String VALID_ITINERARY_NAME_FRANCE = "5D4N Trip to France";
+    public static final String VALID_ITINERARY_NAME_BALI = "Island Time: Bali";
+    public static final String VALID_ITINERARY_DEST_BALI = "Bali";
+    public static final String VALID_ITINERARY_START_DATE_BALI = "2026-03-10";
+    public static final String VALID_ITINERARY_END_DATE_BALI = "2026-03-15";
+
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
