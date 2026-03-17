@@ -68,6 +68,15 @@ public class Itinerary {
                 && otherItinerary.getName().equals(getName());
     }
 
+    /**
+     * Removes a person from the itinerary.
+     * @param id UUID of the removed person.
+     */
+    public void removePersonId(UUID id) {
+        clientIds.remove(id);
+        vendorIds.remove(id);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
