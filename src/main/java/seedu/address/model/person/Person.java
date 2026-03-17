@@ -62,7 +62,7 @@ public class Person {
      * Every field must be present and not null.
      */
     public Person(UUID id, Role role, Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(role, name, phone, email, address, tags);
+        requireAllNonNull(id, role, name, phone, email, address, tags);
         this.id = id;
         this.role = role;
         this.name = name;
