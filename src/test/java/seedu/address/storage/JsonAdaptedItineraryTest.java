@@ -3,7 +3,7 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.storage.JsonAdaptedItinerary.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalItinerary.TRIP_TO_FRANCE;
+import static seedu.address.testutil.TypicalItineraries.FRANCE_TRIP;
 
 import java.util.List;
 import java.util.UUID;
@@ -21,19 +21,19 @@ public class JsonAdaptedItineraryTest {
     private static final String INVALID_DESTINATION_NAME = "   ";
     private static final String INVALID_DATE = "2026-02-32";
 
-    private static final String VALID_ITINERARY_NAME = TRIP_TO_FRANCE.getName().toString();
-    private static final String VALID_DESTINATION = TRIP_TO_FRANCE.getDestination().toString();
-    private static final String VALID_START_DATE = TRIP_TO_FRANCE.getDateRange().startDate.toString();
-    private static final String VALID_END_DATE = TRIP_TO_FRANCE.getDateRange().endDate.toString();
-    private static final List<String> VALID_CLIENT_IDS = TRIP_TO_FRANCE.getClientIds().stream().map(UUID::toString)
+    private static final String VALID_ITINERARY_NAME = FRANCE_TRIP.getName().toString();
+    private static final String VALID_DESTINATION = FRANCE_TRIP.getDestination().toString();
+    private static final String VALID_START_DATE = FRANCE_TRIP.getDateRange().startDate.toString();
+    private static final String VALID_END_DATE = FRANCE_TRIP.getDateRange().endDate.toString();
+    private static final List<String> VALID_CLIENT_IDS = FRANCE_TRIP.getClientIds().stream().map(UUID::toString)
             .collect(Collectors.toList());
-    private static final List<String> VALID_VENDOR_IDS = TRIP_TO_FRANCE.getVendorIds().stream().map(UUID::toString)
+    private static final List<String> VALID_VENDOR_IDS = FRANCE_TRIP.getVendorIds().stream().map(UUID::toString)
             .collect(Collectors.toList());
 
     @Test
     public void toModelType_validItineraryDetails_returnsItinerary() throws Exception {
-        JsonAdaptedItinerary itinerary = new JsonAdaptedItinerary(TRIP_TO_FRANCE);
-        assertEquals(TRIP_TO_FRANCE, itinerary.toModelType());
+        JsonAdaptedItinerary itinerary = new JsonAdaptedItinerary(FRANCE_TRIP);
+        assertEquals(FRANCE_TRIP, itinerary.toModelType());
     }
 
     @Test
