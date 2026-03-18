@@ -1,13 +1,16 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ITINERARY_CLIENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ITINERARY_DESTINATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ITINERARY_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ITINERARY_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ITINERARY_START;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ITINERARY_VENDOR;
 
 import java.util.Set;
 import java.util.stream.Stream;
+import java.util.UUID;
 
 import seedu.address.logic.commands.AddiCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -29,7 +32,8 @@ public class AddiCommandParser implements Parser<AddiCommand> {
     public AddiCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_ITINERARY_NAME, PREFIX_ITINERARY_DESTINATION,
-                                           PREFIX_ITINERARY_START, PREFIX_ITINERARY_END);
+                                           PREFIX_ITINERARY_START, PREFIX_ITINERARY_END, PREFIX_ITINERARY_CLIENT,
+                                           PREFIX_ITINERARY_VENDOR);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_ITINERARY_NAME, PREFIX_ITINERARY_DESTINATION,
                                 PREFIX_ITINERARY_START, PREFIX_ITINERARY_END)
@@ -43,9 +47,11 @@ public class AddiCommandParser implements Parser<AddiCommand> {
         Destination destination = ParserUtil.parseDestination(argMultimap.getValue(PREFIX_ITINERARY_DESTINATION).get());
         DateRange dateRange = ParserUtil.parseItineraryDates(argMultimap.getValue(PREFIX_ITINERARY_START).get(),
                                                              argMultimap.getValue(PREFIX_ITINERARY_END).get());
+        Set<UUID> clientIds = ParserUtil.parseUuids(argMultimap.getAllValues(PREFIX_ITINERARY_CLIENT));
+        Set<UUID> vendorIds = ParserUtil.parseUuids(argMultimap.getAllValues(PREFIX_ITINERARY_VENDOR));
 
-        // TODO: parse client and vendor ids.
-        Itinerary itinerary = new Itinerary(name, destination, dateRange, Set.of(), Set.of());
+
+        Itinerary itinerary = new Itinerary(name, destination, dateRange, clientIds, vendorIds);
 
         return new AddiCommand(itinerary);
     }

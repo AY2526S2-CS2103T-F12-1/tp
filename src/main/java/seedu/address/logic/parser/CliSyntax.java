@@ -16,4 +16,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_ITINERARY_DESTINATION = new Prefix("dest/");
     public static final Prefix PREFIX_ITINERARY_START = new Prefix("from/");
     public static final Prefix PREFIX_ITINERARY_END = new Prefix("to/");
+    public static final Prefix PREFIX_ITINERARY_CLIENT = new Prefix("c/");
+    public static final Prefix PREFIX_ITINERARY_VENDOR = new Prefix("v/");
 }
