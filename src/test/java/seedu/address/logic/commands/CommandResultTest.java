@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+import seedu.address.ui.PanelType;
 
 public class CommandResultTest {
     @Test
@@ -59,5 +60,20 @@ public class CommandResultTest {
                 + commandResult.getFeedbackToUser() + ", showHelp=" + commandResult.isShowHelp()
                 + ", exit=" + commandResult.isExit() + "}";
         assertEquals(expected, commandResult.toString());
+    }
+
+    @Test
+    public void constructor_defaultPanelType_bothPanels() {
+        CommandResult commandResult = new CommandResult("feedback");
+        assertEquals(PanelType.BOTH, commandResult.getPanelType());
+    }
+
+    @Test
+    public void constructor_specifiedPanelType_correctPanel() {
+        CommandResult commandResultContact = new CommandResult("feedback", PanelType.CONTACT);
+        assertEquals(PanelType.CONTACT, commandResultContact.getPanelType());
+
+        CommandResult commandResultItinerary = new CommandResult("feedback", PanelType.ITINERARY);
+        assertEquals(PanelType.ITINERARY, commandResultItinerary.getPanelType());
     }
 }

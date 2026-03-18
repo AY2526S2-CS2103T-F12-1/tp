@@ -18,6 +18,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Role;
+import seedu.address.ui.PanelType;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
@@ -117,6 +118,30 @@ public class ListCommandTest {
         assertEquals(ListCommand.MESSAGE_SUCCESS_ITINERARIES, result.getFeedbackToUser());
         assertEquals(getTypicalItineraries().size(),
                 model.getFilteredItineraryList().size());
+    }
+
+    @Test
+    public void execute_contactList_showsContactPanel() throws CommandException {
+        CommandResult result = new ListCommand(ListCommand.Flag.CONTACT).execute(model);
+        assertEquals(PanelType.CONTACT, result.getPanelType());
+    }
+
+    @Test
+    public void execute_clientList_showsContactPanel() throws CommandException {
+        CommandResult result = new ListCommand(ListCommand.Flag.CLIENT).execute(model);
+        assertEquals(PanelType.CONTACT, result.getPanelType());
+    }
+
+    @Test
+    public void execute_vendorList_showsContactPanel() throws CommandException {
+        CommandResult result = new ListCommand(ListCommand.Flag.VENDOR).execute(model);
+        assertEquals(PanelType.CONTACT, result.getPanelType());
+    }
+
+    @Test
+    public void execute_itineraryList_showsItineraryPanel() throws CommandException {
+        CommandResult result = new ListCommand(ListCommand.Flag.ITINERARY).execute(model);
+        assertEquals(PanelType.ITINERARY, result.getPanelType());
     }
 
     @Test
