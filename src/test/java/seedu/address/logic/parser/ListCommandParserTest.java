@@ -49,6 +49,12 @@ public class ListCommandParserTest {
     }
 
     @Test
+    public void parse_itineraryFlag_returnsListCommand() {
+        assertParseSuccess(parser, "/itinerary",
+                new ListCommand(ListCommand.Flag.ITINERARY));
+    }
+
+    @Test
     public void parse_upperCaseFlag_returnsListCommand() {
         assertParseSuccess(parser, "/CONTACT",
                 new ListCommand(ListCommand.Flag.CONTACT));
