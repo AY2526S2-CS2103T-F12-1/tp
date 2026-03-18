@@ -9,40 +9,67 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.itinerary.Itinerary;
 import seedu.address.model.person.Person;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Deletes a contact or itinerary identified using it's displayed index from the address book.
  */
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
+    public static final String CONTACT_FLAG =  "/contact";
+    public static final String ITINERARY_FLAG =  "/itinerary";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the person identified by the index number used in the displayed person list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + ": Deletes the contact or itinerary identified by the index number used in the displayed contact list.\n"
+            + "Parameters: FLAG (" + CONTACT_FLAG + " OR "+ ITINERARY_FLAG + ") INDEX (must be a positive integer)\n"
+            + "Contact Example: " + COMMAND_WORD + " "+ CONTACT_FLAG + " 1  |  "
+            + "Itinerary Example: " + COMMAND_WORD + " " + ITINERARY_FLAG +  " 2";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_DELETE_ITINERARY_SUCCESS = "Deleted Itinerary: %1$s";
+
 
     private final Index targetIndex;
+    private final String flag;
 
-    public DeleteCommand(Index targetIndex) {
+    public DeleteCommand(String flag, Index targetIndex) {
+        this.flag = flag;
         this.targetIndex = targetIndex;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        if (flag.equals(CONTACT_FLAG)) {
+            List<Person> lastShownList = model.getFilteredPersonList();
+
+            if (targetIndex.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            }
+
+            Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
+            model.deletePerson(personToDelete);
+            return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(personToDelete)));
+
+        } else if (flag.equals(ITINERARY_FLAG)) {
+            List<Itinerary> lastShownList = model.getFilteredItineraryList();
+
+            if (targetIndex.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_ITINERARY_DISPLAYED_INDEX);
+            }
+
+            Itinerary itineraryToDelete = lastShownList.get(targetIndex.getZeroBased());
+            model.deleteItinerary(itineraryToDelete);
+            return new CommandResult(String.format(MESSAGE_DELETE_ITINERARY_SUCCESS,
+                                                   Messages.format(itineraryToDelete)));
+
+        } else {
+            throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
         }
 
-        Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deletePerson(personToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(personToDelete)));
     }
 
     @Override
