@@ -1,10 +1,7 @@
 package seedu.address.ui;
 
-import java.util.Comparator;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.itinerary.Itinerary;
@@ -24,7 +21,7 @@ public class ItineraryCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Itinerary Itinerary;
+    public final Itinerary itinerary;
 
     @FXML
     private HBox cardPane;
@@ -38,14 +35,14 @@ public class ItineraryCard extends UiPart<Region> {
     private Label dateRange;
 
     /**
-     * Creates a {@code ItineraryCode} with the given {@code Itinerary} and index to display.
+     * Creates a {@code ItineraryCard} with the given {@code Itinerary} and index to display.
      */
-    public ItineraryCard(Itinerary Itinerary, int displayedIndex) {
+    public ItineraryCard(Itinerary itinerary, int displayedIndex) {
         super(FXML);
-        this.Itinerary = Itinerary;
+        this.itinerary = itinerary;
         id.setText(displayedIndex + ". ");
-        name.setText(Itinerary.getName().fullName);
-        destination.setText(Itinerary.getDestination().toString());
-        dateRange.setText(Itinerary.getDateRange().toString());
+        name.setText(itinerary.getName().fullName);
+        destination.setText(itinerary.getDestination().toString());
+        dateRange.setText(itinerary.getDateRange().toString());
     }
 }

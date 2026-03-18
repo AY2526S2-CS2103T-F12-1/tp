@@ -188,7 +188,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Closes the application.
+     * Manages visibility of the specified panel to the specified visibility.
      */
     private void setPanel(VBox panel, boolean visible) {
         panel.setVisible(visible);

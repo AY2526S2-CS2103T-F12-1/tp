@@ -17,7 +17,7 @@ import seedu.address.model.itinerary.Itinerary;
 import seedu.address.model.itinerary.ItineraryName;
 
 /**
- * Parses input arguments and creates a new AddiCommand object
+ * Parses input arguments and creates a new AddiCommand object.
  */
 public class AddiCommandParser implements Parser<AddiCommand> {
 
