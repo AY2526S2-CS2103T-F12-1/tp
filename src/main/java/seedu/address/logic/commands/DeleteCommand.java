@@ -18,19 +18,22 @@ import seedu.address.model.person.Person;
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
-    public static final String CONTACT_FLAG =  "/contact";
-    public static final String ITINERARY_FLAG =  "/itinerary";
+    public static final String CONTACT_FLAG = "/contact";
+    public static final String ITINERARY_FLAG = "/itinerary";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the contact or itinerary identified by the index number used in the displayed contact list.\n"
-            + "Parameters: FLAG (" + CONTACT_FLAG + " OR "+ ITINERARY_FLAG + ") INDEX (must be a positive integer)\n"
-            + "Contact Example: " + COMMAND_WORD + " "+ CONTACT_FLAG + " 1  |  "
-            + "Itinerary Example: " + COMMAND_WORD + " " + ITINERARY_FLAG +  " 2";
+            + "Parameters: FLAG (" + CONTACT_FLAG + " OR " + ITINERARY_FLAG + ") INDEX (must be a positive integer)\n"
+            + "Contact Example: " + COMMAND_WORD + " " + CONTACT_FLAG + " 1  |  "
+            + "Itinerary Example: " + COMMAND_WORD + " " + ITINERARY_FLAG + " 2";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
     public static final String MESSAGE_DELETE_ITINERARY_SUCCESS = "Deleted Itinerary: %1$s";
 
-    public enum DeleteType {CONTACT, ITINERARY}
+    /**
+     * Represents the possible flags that can be used to delete entries.
+     */
+    public enum DeleteType { CONTACT, ITINERARY }
 
     private final Index targetIndex;
     private final DeleteType flag;
@@ -65,7 +68,7 @@ public class DeleteCommand extends Command {
             Itinerary itineraryToDelete = lastShownItineraryList.get(targetIndex.getZeroBased());
             model.deleteItinerary(itineraryToDelete);
             return new CommandResult(String.format(MESSAGE_DELETE_ITINERARY_SUCCESS,
-                                                   Messages.format(itineraryToDelete)));
+                    Messages.format(itineraryToDelete)));
 
         } else {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
