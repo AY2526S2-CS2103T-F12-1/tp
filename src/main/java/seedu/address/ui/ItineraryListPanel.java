@@ -18,15 +18,15 @@ public class ItineraryListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(ItineraryListPanel.class);
 
     @FXML
-    private ListView<Itinerary> ItineraryListView;
+    private ListView<Itinerary> itineraryListView;
 
     /**
      * Creates a {@code ItineraryListPanel} with the given {@code ObservableList}.
      */
-    public ItineraryListPanel(ObservableList<Itinerary> ItineraryList) {
+    public ItineraryListPanel(ObservableList<Itinerary> itineraryList) {
         super(FXML);
-        ItineraryListView.setItems(ItineraryList);
-        ItineraryListView.setCellFactory(listView -> new ItineraryListViewCell());
+        itineraryListView.setItems(itineraryList);
+        itineraryListView.setCellFactory(listView -> new ItineraryListViewCell());
     }
 
     /**
@@ -34,14 +34,14 @@ public class ItineraryListPanel extends UiPart<Region> {
      */
     class ItineraryListViewCell extends ListCell<Itinerary> {
         @Override
-        protected void updateItem(Itinerary Itinerary, boolean empty) {
-            super.updateItem(Itinerary, empty);
+        protected void updateItem(Itinerary itinerary, boolean empty) {
+            super.updateItem(itinerary, empty);
 
-            if (empty || Itinerary == null) {
+            if (empty || itinerary == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new ItineraryCard(Itinerary, getIndex() + 1).getRoot());
+                setGraphic(new ItineraryCard(itinerary, getIndex() + 1).getRoot());
             }
         }
     }

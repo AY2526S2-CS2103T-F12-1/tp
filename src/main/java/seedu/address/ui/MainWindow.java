@@ -9,6 +9,7 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -47,6 +48,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane itineraryListPanelPlaceholder;
+
+    @FXML
+    private VBox personList;
+
+    @FXML
+    private VBox itineraryList;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -117,6 +124,9 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
+        itineraryListPanel = new ItineraryListPanel(logic.getFilteredItineraryList());
+        itineraryListPanelPlaceholder.getChildren().add(itineraryListPanel.getRoot());
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -125,6 +135,8 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        switchPanels(PanelType.BOTH);
     }
 
     /**
@@ -176,6 +188,36 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Closes the application.
+     */
+    private void setPanel(VBox panel, boolean visible) {
+        panel.setVisible(visible);
+        panel.setManaged(visible);
+    }
+
+    /**
+     * Switches the panel(s) displayed to the specified panel(s).
+     */
+    private void switchPanels(PanelType panelType) {
+        switch (panelType) {
+        case CONTACT:
+            setPanel(personList, true);
+            setPanel(itineraryList, false);
+            break;
+        case ITINERARY:
+            setPanel(personList, false);
+            setPanel(itineraryList, true);
+            break;
+        case BOTH:
+            setPanel(personList, true);
+            setPanel(itineraryList, true);
+            break;
+        default:
+            break;
+        }
+    }
+
+    /**
      * Executes the command and returns the result.
      *
      * @see seedu.address.logic.Logic#execute(String)
@@ -185,6 +227,8 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            switchPanels(commandResult.getPanelType());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

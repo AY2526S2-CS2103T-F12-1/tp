@@ -23,7 +23,7 @@ public interface Model {
     Predicate<Person> PREDICATE_SHOW_ALL_VENDORS = person -> (person.hasSpecifiedRole(new Role("vendor")));
 
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Itinerary> PREDICATE_SHOW_ALL_ITINERARIES = person -> true;
+    Predicate<Itinerary> PREDICATE_SHOW_ALL_ITINERARIES = itinerary -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
