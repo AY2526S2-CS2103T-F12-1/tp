@@ -30,11 +30,12 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
     public static final String MESSAGE_DELETE_ITINERARY_SUCCESS = "Deleted Itinerary: %1$s";
 
+    public enum DeleteType {CONTACT, ITINERARY}
 
     private final Index targetIndex;
-    private final String flag;
+    private final DeleteType flag;
 
-    public DeleteCommand(String flag, Index targetIndex) {
+    public DeleteCommand(DeleteType flag, Index targetIndex) {
         this.flag = flag;
         this.targetIndex = targetIndex;
     }
@@ -43,7 +44,7 @@ public class DeleteCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (flag.equals(CONTACT_FLAG)) {
+        if (flag.equals(DeleteType.CONTACT)) {
             List<Person> lastShownList = model.getFilteredPersonList();
 
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -54,7 +55,7 @@ public class DeleteCommand extends Command {
             model.deletePerson(personToDelete);
             return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(personToDelete)));
 
-        } else if (flag.equals(ITINERARY_FLAG)) {
+        } else if (flag.equals(DeleteType.ITINERARY)) {
             List<Itinerary> lastShownList = model.getFilteredItineraryList();
 
             if (targetIndex.getZeroBased() >= lastShownList.size()) {

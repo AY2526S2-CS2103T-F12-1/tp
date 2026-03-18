@@ -26,14 +26,21 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         }
 
         String[] splitArgs = trimmedArgs.split("\\s+");
-        String flag = splitArgs[0].toLowerCase(); // case-insensitive
+        String flagStr = splitArgs[0].toLowerCase(); // case-insensitive
+        DeleteCommand.DeleteType flag;
 
         if (splitArgs.length != 2) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
 
-        if (!flag.equals(CONTACT_FLAG) && !flag.equals(ITINERARY_FLAG)) {
+        if (!flagStr.equals(CONTACT_FLAG) && !flagStr.equals(ITINERARY_FLAG)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        }
+
+        if (flagStr.equals(CONTACT_FLAG)) {
+            flag = DeleteCommand.DeleteType.CONTACT;
+        } else if (flagStr.equals(ITINERARY_FLAG)) {
+            flag = DeleteCommand.DeleteType.ITINERARY;
         }
 
         try {
