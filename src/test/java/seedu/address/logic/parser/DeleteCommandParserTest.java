@@ -3,7 +3,9 @@ package seedu.address.logic.parser;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ITINERARY;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ITINERARY;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,11 +24,76 @@ public class DeleteCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        assertParseSuccess(parser, "1", new DeleteCommand(INDEX_FIRST_PERSON));
+        assertParseSuccess(parser, "/contact 1", new DeleteCommand(DeleteCommand.DeleteType.CONTACT,
+                                                                   INDEX_FIRST_PERSON));
+        assertParseSuccess(parser, "/itinerary 2", new DeleteCommand(DeleteCommand.DeleteType.CONTACT,
+                                                                     INDEX_SECOND_ITINERARY));
+
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+
+        // non-index
+        assertParseFailure(parser, "/contact a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "/itinerary bali", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteCommand.MESSAGE_USAGE));
+
+
+        // wrong flag
+        assertParseFailure(parser, "/i 1", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "/c 3", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+
+        // wrong flag and non-index
+        assertParseFailure(parser, "/g banana", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteCommand.MESSAGE_USAGE));
+
     }
+
+    @Test
+    public void parse_missingArgs_throwsParseException() {
+
+        // no flag
+        assertParseFailure(parser, "1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteCommand.MESSAGE_USAGE));
+
+        // no index
+        assertParseFailure(parser, "/contact", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "/itinerary", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteCommand.MESSAGE_USAGE));
+
+    }
+
+    @Test
+    public void parse_extraArgs_throwsParseException() {
+
+        // extra index
+        assertParseFailure(parser, "/contact 1 1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteCommand.MESSAGE_USAGE));
+
+        // extra flag
+        assertParseFailure(parser, "/contact /itinerary 1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteCommand.MESSAGE_USAGE));
+
+    }
+
+    @Test
+    public void parse_contactFlag_returnsDeleteCommandWithContactFlag() {
+
+        assertParseSuccess(parser, "/contact 2", new DeleteCommand(DeleteCommand.DeleteType.CONTACT,
+                INDEX_SECOND_ITINERARY));
+
+    }
+
+    @Test
+    public void parse_itineraryFlag_returnsDeleteCommandWithItineraryFlag() {
+
+        assertParseSuccess(parser, "/itinerary 1", new DeleteCommand(DeleteCommand.DeleteType.ITINERARY,
+                INDEX_FIRST_ITINERARY));
+
+    }
+
+
 }
