@@ -26,6 +26,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniquePersonList persons;
     private final UniqueItineraryList itineraries;
 
+    private final Set<UUID> clientIds = new HashSet<>();
+    private final Set<UUID> vendorIds = new HashSet<>();
+
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -56,6 +59,11 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setPersons(List<Person> persons) {
         this.persons.setPersons(persons);
+        clientIds.clear();
+        vendorIds.clear();
+        for (Person person : persons) {
+            addPersonId(person);
+        }
     }
 
     /**
@@ -97,6 +105,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addPerson(Person p) {
         persons.add(p);
+        addPersonId(p);
     }
 
     /**
@@ -108,6 +117,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedPerson);
 
         persons.setPerson(target, editedPerson);
+        removePersonId(target);
+        addPersonId(editedPerson);
     }
 
     /**
@@ -118,6 +129,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         UUID id = key.getId();
         persons.remove(key);
         itineraries.removePerson(id);
+        removePersonId(key);
     }
 
     /// itinerary-level operations
@@ -165,17 +177,23 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     //// util methods
-    private boolean hasPersonsWithIds(Itinerary itinerary) {
-        Set<UUID> clientIds = new HashSet<>();
-        Set<UUID> vendorIds = new HashSet<>();
-        for (Person person : persons) {
-            switch (person.getRole().value) {
-            case CLIENT -> clientIds.add(person.getId());
-            case VENDOR -> vendorIds.add(person.getId());
-            default -> throw new IllegalArgumentException(Role.MESSAGE_CONSTRAINTS);
-            }
+    private void addPersonId(Person person) {
+        switch (person.getRole().value) {
+        case CLIENT -> clientIds.add(person.getId());
+        case VENDOR -> vendorIds.add(person.getId());
+        default -> throw new IllegalArgumentException(Role.MESSAGE_CONSTRAINTS);
         }
+    }
 
+    private void removePersonId(Person person) {
+        switch (person.getRole().value) {
+        case CLIENT -> clientIds.remove(person.getId());
+        case VENDOR -> vendorIds.remove(person.getId());
+        default -> throw new IllegalArgumentException(Role.MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    private boolean hasPersonsWithIds(Itinerary itinerary) {
         for (UUID clientId : itinerary.getClientIds()) {
             if (!clientIds.contains(clientId)) {
                 return false;
