@@ -4,10 +4,10 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.id.Id;
 import seedu.address.model.itinerary.Itinerary;
 import seedu.address.model.itinerary.UniqueItineraryList;
 import seedu.address.model.person.Person;
@@ -106,7 +106,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code key} must exist in the address book.
      */
     public void removePerson(Person key) {
-        UUID id = key.getId();
+        Id id = key.getId();
         persons.remove(key);
         itineraries.removePerson(id);
     }

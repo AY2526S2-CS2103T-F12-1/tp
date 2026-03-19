@@ -1,15 +1,13 @@
 package seedu.address.storage;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.id.Id;
 import seedu.address.model.itinerary.DateRange;
 import seedu.address.model.itinerary.Destination;
 import seedu.address.model.itinerary.Itinerary;
@@ -18,7 +16,7 @@ import seedu.address.model.itinerary.ItineraryName;
 /**
  * Jackson-friendly version of {@link Itinerary}.
  */
-public class JsonAdaptedItinerary {
+class JsonAdaptedItinerary {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Itinerary's %s field is missing!";
     public static final String MISSING_START_DATE_MESSAGE = "Itinerary's start date is missing!";
@@ -28,8 +26,8 @@ public class JsonAdaptedItinerary {
     private final String destination;
     private final String startDate;
     private final String endDate;
-    private final List<String> clientIds = new ArrayList<>();
-    private final List<String> vendorIds = new ArrayList<>();
+    private final List<JsonAdaptedId> clientIds = new ArrayList<>();
+    private final List<JsonAdaptedId> vendorIds = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedItinerary} with the given itinerary details.
@@ -37,8 +35,8 @@ public class JsonAdaptedItinerary {
     @JsonCreator
     public JsonAdaptedItinerary(@JsonProperty("name") String name,
             @JsonProperty("destination") String destination, @JsonProperty("start date") String startDate,
-            @JsonProperty("end date") String endDate, @JsonProperty("client ids") List<String> clientIds,
-            @JsonProperty("vendor ids") List<String> vendorIds) {
+            @JsonProperty("end date") String endDate, @JsonProperty("client ids") List<JsonAdaptedId> clientIds,
+            @JsonProperty("vendor ids") List<JsonAdaptedId> vendorIds) {
         this.name = name;
         this.destination = destination;
         this.startDate = startDate;
@@ -59,8 +57,8 @@ public class JsonAdaptedItinerary {
         destination = source.getDestination().destination;
         startDate = source.getDateRange().startDate.toString();
         endDate = source.getDateRange().endDate.toString();
-        clientIds.addAll(source.getClientIds().stream().map(UUID::toString).collect(Collectors.toList()));
-        vendorIds.addAll(source.getVendorIds().stream().map(UUID::toString).collect(Collectors.toList()));
+        clientIds.addAll(source.getClientIds().stream().map(JsonAdaptedId::new).collect(Collectors.toList()));
+        vendorIds.addAll(source.getVendorIds().stream().map(JsonAdaptedId::new).collect(Collectors.toList()));
     }
 
     /**
@@ -98,8 +96,16 @@ public class JsonAdaptedItinerary {
         }
         final DateRange dateRange = new DateRange(startDate, endDate);
 
-        Set<UUID> modelClientIds = clientIds.stream().map(UUID::fromString).collect(Collectors.toSet());
-        Set<UUID> modelVendorIds = vendorIds.stream().map(UUID::fromString).collect(Collectors.toSet());
+        final Set<Id> modelClientIds = new HashSet<>();
+        for (JsonAdaptedId clientId : clientIds) {
+            modelClientIds.add(clientId.toModelType());
+        }
+
+        final Set<Id> modelVendorIds = new HashSet<>();
+        for (JsonAdaptedId vendorId : vendorIds) {
+            modelVendorIds.add(vendorId.toModelType());
+        }
+
         return new Itinerary(modelName, modelDestination, dateRange, modelClientIds, modelVendorIds);
     }
 
