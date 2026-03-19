@@ -13,6 +13,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.itinerary.Itinerary;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * Adds an itinerary to TripScribe.
@@ -39,6 +40,7 @@ public class AddiCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New itinerary added: %1$s";
     public static final String MESSAGE_DUPLICATE_ITINERARY = "This itinerary already exists in TripScribe";
+    public static final String MESSAGE_PERSON_ID_MISSING = "Id does not exist in TripScribe";
 
     private final Itinerary toAdd;
 
@@ -58,7 +60,11 @@ public class AddiCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_ITINERARY);
         }
 
-        model.addItinerary(toAdd);
+        try {
+            model.addItinerary(toAdd);
+        } catch (PersonNotFoundException e) {
+            throw new CommandException(MESSAGE_PERSON_ID_MISSING);
+        }
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
     }
 
