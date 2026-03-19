@@ -3,9 +3,8 @@ package seedu.address.logic.parser;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ITINERARY;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ITINERARY;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 
 import org.junit.jupiter.api.Test;
 
@@ -74,10 +73,10 @@ public class DeleteCommandParserTest {
     public void parse_contactFlag_returnsDeleteCommandWithContactFlag() {
 
         assertParseSuccess(parser, "/contact 1", new DeleteCommand(DeleteCommand.DeleteType.CONTACT,
-                INDEX_FIRST_PERSON));
+                INDEX_FIRST));
 
         assertParseSuccess(parser, "/contact 2", new DeleteCommand(DeleteCommand.DeleteType.CONTACT,
-                INDEX_SECOND_ITINERARY));
+                INDEX_SECOND));
 
     }
 
@@ -85,10 +84,10 @@ public class DeleteCommandParserTest {
     public void parse_itineraryFlag_returnsDeleteCommandWithItineraryFlag() {
 
         assertParseSuccess(parser, "/itinerary 1", new DeleteCommand(DeleteCommand.DeleteType.ITINERARY,
-                INDEX_FIRST_ITINERARY));
+                INDEX_FIRST));
 
         assertParseSuccess(parser, "/itinerary 2", new DeleteCommand(DeleteCommand.DeleteType.CONTACT,
-                INDEX_SECOND_ITINERARY));
+                INDEX_SECOND));
 
     }
 

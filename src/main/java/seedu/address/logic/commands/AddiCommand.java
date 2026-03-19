@@ -1,10 +1,12 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ITINERARY_CLIENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ITINERARY_DESTINATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ITINERARY_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ITINERARY_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ITINERARY_START;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ITINERARY_VENDOR;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -25,11 +27,15 @@ public class AddiCommand extends Command {
             + PREFIX_ITINERARY_DESTINATION + "DESTINATION "
             + PREFIX_ITINERARY_START + "START DATE "
             + PREFIX_ITINERARY_END + "END DATE "
+            + PREFIX_ITINERARY_CLIENT + "CLIENT UUIDS "
+            + PREFIX_ITINERARY_VENDOR + "VENDOR UUIDS \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_ITINERARY_NAME + "5D4N France Getaway "
             + PREFIX_ITINERARY_DESTINATION + "France "
             + PREFIX_ITINERARY_START + "2026-10-12 "
-            + PREFIX_ITINERARY_END + "2026-10-17 ";
+            + PREFIX_ITINERARY_END + "2026-10-17 "
+            + PREFIX_ITINERARY_CLIENT + "11111111-1111-1111-1111-111111111111 "
+            + PREFIX_ITINERARY_VENDOR + "22222222-2222-2222-2222-222222222222 ";
 
     public static final String MESSAGE_SUCCESS = "New itinerary added: %1$s";
     public static final String MESSAGE_DUPLICATE_ITINERARY = "This itinerary already exists in TripScribe";
@@ -48,13 +54,11 @@ public class AddiCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        // TODO duplicate checking & adding to Model
+        if (model.hasItinerary(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_ITINERARY);
+        }
 
-        //  if (model.hasItinerary(toAdd)) {
-        //      throw new CommandException(MESSAGE_DUPLICATE_ITINERARY);
-        //  }
-
-        //  model.addItinerary(toAdd);
+        model.addItinerary(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
     }
 

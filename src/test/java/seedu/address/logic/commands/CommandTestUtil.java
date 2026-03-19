@@ -4,6 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ITINERARY_CLIENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ITINERARY_DESTINATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ITINERARY_END;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ITINERARY_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ITINERARY_START;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ITINERARY_VENDOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -17,6 +23,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.itinerary.Itinerary;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -55,10 +62,42 @@ public class CommandTestUtil {
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String VALID_ITINERARY_NAME_FRANCE = "5D4N Trip to France";
+    public static final String VALID_ITINERARY_DEST_FRANCE = "France";
+    public static final String VALID_ITINERARY_START_DATE_FRANCE = "2024-12-01";
+    public static final String VALID_ITINERARY_END_DATE_FRANCE = "2024-12-05";
+
     public static final String VALID_ITINERARY_NAME_BALI = "Island Time: Bali";
     public static final String VALID_ITINERARY_DEST_BALI = "Bali";
     public static final String VALID_ITINERARY_START_DATE_BALI = "2026-03-10";
     public static final String VALID_ITINERARY_END_DATE_BALI = "2026-03-15";
+    public static final String VALID_UUID_1 = "11111111-1111-1111-1111-111111111111";
+    public static final String VALID_UUID_2 = "22222222-2222-2222-2222-222222222222";
+    public static final String VALID_UUID_3 = "33333333-3333-3333-3333-333333333333";
+
+    public static final String ITINERARY_NAME_DESC_BALI = " " + PREFIX_ITINERARY_NAME + VALID_ITINERARY_NAME_BALI;
+    public static final String ITINERARY_NAME_DESC_FRANCE = " " + PREFIX_ITINERARY_NAME + VALID_ITINERARY_NAME_FRANCE;
+    public static final String ITINERARY_DEST_DESC_BALI = " " + PREFIX_ITINERARY_DESTINATION
+                                                          + VALID_ITINERARY_DEST_BALI;
+    public static final String ITINERARY_DEST_DESC_FRANCE = " " + PREFIX_ITINERARY_DESTINATION
+                                                            + VALID_ITINERARY_DEST_FRANCE;
+    public static final String ITINERARY_START_DATE_DESC_BALI = " " + PREFIX_ITINERARY_START
+                                                                + VALID_ITINERARY_START_DATE_BALI;
+    public static final String ITINERARY_START_DATE_DESC_FRANCE = " " + PREFIX_ITINERARY_START
+                                                                  + VALID_ITINERARY_START_DATE_FRANCE;
+    public static final String ITINERARY_END_DATE_DESC_BALI = " " + PREFIX_ITINERARY_END
+                                                              + VALID_ITINERARY_END_DATE_BALI;
+    public static final String ITINERARY_END_DATE_DESC_FRANCE = " " + PREFIX_ITINERARY_END
+                                                                + VALID_ITINERARY_END_DATE_FRANCE;
+
+    public static final String ITINERARY_CLIENT_IDS_DESC = " " + PREFIX_ITINERARY_CLIENT + VALID_UUID_1 + " "
+                                                           + PREFIX_ITINERARY_CLIENT + VALID_UUID_2;
+    public static final String ITINERARY_VENDOR_IDS_DESC = " " + PREFIX_ITINERARY_VENDOR + VALID_UUID_3;
+
+    public static final String INVALID_ITINERARY_NAME_DESC = " " + PREFIX_ITINERARY_NAME + "_bali_";
+    public static final String INVALID_ITINERARY_DEST_DESC = " " + PREFIX_ITINERARY_DESTINATION + " ";
+    public static final String INVALID_ITINERARY_START_DATE_DESC = " " + PREFIX_ITINERARY_START + "december 11 2026";
+    public static final String INVALID_ITINERARY_END_DATE_DESC = " " + PREFIX_ITINERARY_END + "2026-31-02";
+    public static final String INVALID_ID_DESC = " " + PREFIX_TAG + "abc";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -117,6 +156,7 @@ public class CommandTestUtil {
         assertEquals(expectedAddressBook, actualModel.getAddressBook());
         assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
     }
+
     /**
      * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
      * {@code model}'s address book.
@@ -129,6 +169,20 @@ public class CommandTestUtil {
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the itinerary at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showItineraryAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredItineraryList().size());
+
+        Itinerary itinerary = model.getFilteredItineraryList().get(targetIndex.getZeroBased());
+        final String[] splitName = itinerary.getName().fullName.split("\\s+");
+        model.updateFilteredItineraryList(i -> i.getName().equals(itinerary.getName()));
+
+        assertEquals(1, model.getFilteredItineraryList().size());
     }
 
 }

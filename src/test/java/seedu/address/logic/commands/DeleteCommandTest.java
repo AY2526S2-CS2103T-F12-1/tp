@@ -7,10 +7,8 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.AddressBookBuilder.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ITINERARY;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ITINERARY;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 
 import org.junit.jupiter.api.Test;
 
@@ -34,8 +32,8 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredContactList_success() {
-        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(DeleteCommand.DeleteType.CONTACT, INDEX_FIRST_PERSON);
+        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(DeleteCommand.DeleteType.CONTACT, INDEX_FIRST);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS,
                 Messages.format(personToDelete));
@@ -56,10 +54,10 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexFilteredContactList_success() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showPersonAtIndex(model, INDEX_FIRST);
 
-        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(DeleteCommand.DeleteType.CONTACT, INDEX_FIRST_PERSON);
+        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(DeleteCommand.DeleteType.CONTACT, INDEX_FIRST);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS,
                 Messages.format(personToDelete));
@@ -73,9 +71,9 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_invalidIndexFilteredContactList_throwsCommandException() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showPersonAtIndex(model, INDEX_FIRST);
 
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
+        Index outOfBoundIndex = INDEX_SECOND;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
 
@@ -88,8 +86,8 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredItineraryList_success() {
-        Itinerary itineraryToDelete = model.getFilteredItineraryList().get(INDEX_FIRST_ITINERARY.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(DeleteCommand.DeleteType.ITINERARY, INDEX_FIRST_ITINERARY);
+        Itinerary itineraryToDelete = model.getFilteredItineraryList().get(INDEX_FIRST.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(DeleteCommand.DeleteType.ITINERARY, INDEX_FIRST);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_ITINERARY_SUCCESS,
                 Messages.format(itineraryToDelete));
@@ -111,15 +109,15 @@ public class DeleteCommandTest {
     @Test
     public void equals() {
         DeleteCommand deleteFirstContactCommand = new DeleteCommand(DeleteCommand.DeleteType.CONTACT,
-                                                                    INDEX_FIRST_PERSON);
+                                                                    INDEX_FIRST);
         DeleteCommand deleteSecondContactCommand = new DeleteCommand(DeleteCommand.DeleteType.CONTACT,
-                                                                     INDEX_SECOND_PERSON);
+                                                                     INDEX_SECOND);
 
         // same object -> returns true
         assertTrue(deleteFirstContactCommand.equals(deleteFirstContactCommand));
 
         // same values -> returns true
-        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(DeleteCommand.DeleteType.CONTACT, INDEX_FIRST_PERSON);
+        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(DeleteCommand.DeleteType.CONTACT, INDEX_FIRST);
         assertTrue(deleteFirstContactCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false
@@ -133,16 +131,16 @@ public class DeleteCommandTest {
 
 
         DeleteCommand deleteFirstItineraryCommand = new DeleteCommand(DeleteCommand.DeleteType.ITINERARY,
-                                                                      INDEX_FIRST_ITINERARY);
+                                                                      INDEX_FIRST);
         DeleteCommand deleteSecondItineraryCommand = new DeleteCommand(DeleteCommand.DeleteType.ITINERARY,
-                                                                       INDEX_SECOND_ITINERARY);
+                                                                       INDEX_SECOND);
 
         // same object -> returns true
         assertTrue(deleteFirstItineraryCommand.equals(deleteFirstItineraryCommand));
 
         // same values -> returns true
         DeleteCommand deleteFirstItineraryCommandCopy = new DeleteCommand(DeleteCommand.DeleteType.ITINERARY,
-                                                                          INDEX_FIRST_ITINERARY);
+                                                                          INDEX_FIRST);
         assertTrue(deleteFirstItineraryCommand.equals(deleteFirstItineraryCommandCopy));
 
         // different types -> returns false
