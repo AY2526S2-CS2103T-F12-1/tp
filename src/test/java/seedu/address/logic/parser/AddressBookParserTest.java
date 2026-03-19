@@ -51,9 +51,16 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_delete() throws Exception {
+        // contact flag
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST), command);
+                DeleteCommand.COMMAND_WORD + " " + DeleteCommand.CONTACT_FLAG + " " + INDEX_FIRST.getOneBased());
+        assertEquals(new DeleteCommand(DeleteCommand.DeleteType.CONTACT, INDEX_FIRST), command);
+
+        // itinerary flag
+        DeleteCommand command2 = (DeleteCommand) parser.parseCommand(DeleteCommand.COMMAND_WORD + " "
+                                                                     + DeleteCommand.ITINERARY_FLAG + " "
+                                                                     + INDEX_FIRST.getOneBased());
+        assertEquals(new DeleteCommand(DeleteCommand.DeleteType.ITINERARY, INDEX_FIRST), command2);
     }
 
     @Test
