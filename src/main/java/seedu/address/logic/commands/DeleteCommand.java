@@ -38,6 +38,9 @@ public class DeleteCommand extends Command {
     private final Index targetIndex;
     private final DeleteType flag;
 
+    /**
+     * Deletes a person or itinerary identified using it's displayed index from the address book.
+     */
     public DeleteCommand(DeleteType flag, Index targetIndex) {
         this.flag = flag;
         this.targetIndex = targetIndex;
