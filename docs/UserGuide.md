@@ -91,6 +91,32 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
+### Adding an itinerary: `addi`
+
+Adds an itinerary to the address book.
+
+Format: `addi n/ITINERARY_NAME dest/DESTINATION from/START_DATE to/END_DATE [c/CLIENT_ID]…​ [v/VENDOR_ID]…​`
+
+* `ITINERARY_NAME` and `DESTINATION` can be any non-empty string of characters. For example, ` ` is not allowed
+while `Island Time: Bali` and `Bali, Indonesia` are allowed.
+* Adding of duplicate itinerary is not allowed. An itinerary is considered a duplicate if the name (case-insensitive)
+matches an existing entry. For example, itineraries with names `ISLAND TIME: Bali` and `Island Time: Bali` are
+considered duplicates.
+* `START_DATE` and `END_DATE` must be in the format `yyyy-mm-dd`. For example, `20th March 2026` will be written as
+`2026-03-20`. `END_DATE` must be **equal to or after** `START_DATE`. For example, `from/2026-03-20 to/2026-03-19` is 
+not allowed.
+* `CLIENT_ID` and `VENDOR_ID` are the unique identity numbers given to the contacts after adding them into 
+TripScribe.
+
+**Tip:** An itinerary can have any number of client and vendor ids (including 0)
+
+Examples:
+* `addi n/Island Time: Bali dest/Bali from/2026-12-01 to/2026-12-05`
+* `addi n/5D4N France Getaway dest/France from/2026-10-12 to/2026-10-17 c/236075fd-4619-4b41-8d9f-9d98eadedd89 v/5b8511e5-12d0-49fa-b1da-d84fa7df756a`
+
+| ![add itinerary command typed in TripScribe](images/AddItineraryBefore.png)<br>Input | ![Add itinerary executed in TripScribe](images/AddItineraryAfter.png)<br>Expected Output |
+|:------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------:|
+
 ### Listing all persons : `list`
 
 Shows a list of all persons in the address book.
@@ -99,7 +125,7 @@ Format: `list`
 
 ### Editing a person : `edit`
 
-Edits an existing person in the address book.
+Edits an existAding person in the address book.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
@@ -198,6 +224,7 @@ _Details coming soon ..._
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Addi**   | `addi n/ITINERARY_NAME dest/DESTINATION from/START_DATE to/END_DATE [c/CLIENT_ID]…​ [v/VENDOR_ID]…​` <br> e.g., `addi n/5D4N France Getaway dest/France from/2026-10-12 to/2026-10-17 c/236075fd-4619-4b41-8d9f-9d98eadedd89 v/5b8511e5-12d0-49fa-b1da-d84fa7df756a`
 **Clear**  | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
