@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD;
 import static seedu.address.testutil.TypicalItineraries.FRANCE_TRIP;
 
 import java.nio.file.Path;
@@ -17,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -25,8 +29,12 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.itinerary.Itinerary;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.ItineraryBuilder;
+import seedu.address.testutil.PersonBuilder;
 
 public class AddiCommandTest {
+
+    private Person client = new PersonBuilder().build();
+    private Person vendor = new PersonBuilder().withRole("vendor").build();
 
 
     @Test
@@ -63,6 +71,49 @@ public class AddiCommandTest {
 
         assertThrows(CommandException.class,
                 AddiCommand.MESSAGE_DUPLICATE_ITINERARY, () -> addiCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_argumentClientMismatch_throwsCommandException() {
+        Itinerary validItinerary = new ItineraryBuilder().build();
+        HashSet<Index> vendorIndexes = new HashSet<>();
+        vendorIndexes.add(INDEX_FIRST);
+        AddiCommand addiCommand = new AddiCommand(validItinerary, new HashSet<>(), vendorIndexes);
+        ModelStub modelStub = new ModelStubWithClient();
+        String expectedMessage = String.format(AddiCommand.MESSAGE_NOT_VENDOR, client.getName());
+
+        assertThrows(CommandException.class, expectedMessage, () -> addiCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_argumentVendorMismatch_throwsCommandException() {
+        Itinerary validItinerary = new ItineraryBuilder().build();
+        HashSet<Index> clientIndexes = new HashSet<>();
+        clientIndexes.add(INDEX_FIRST);
+        AddiCommand addiCommand = new AddiCommand(validItinerary, clientIndexes, new HashSet<>());
+        ModelStub modelStub = new ModelStubWithVendor();
+        String expectedMessage = String.format(AddiCommand.MESSAGE_NOT_CLIENT, vendor.getName());
+
+        assertThrows(CommandException.class, expectedMessage, () -> addiCommand.execute(modelStub));
+    }
+    @Test
+    public void execute_indexNotFound_throwsCommandException() {
+        Itinerary validItinerary = new ItineraryBuilder().build();
+        HashSet<Index> clientIndexes = new HashSet<>();
+        clientIndexes.add(INDEX_SECOND);
+        AddiCommand addiCommandClient = new AddiCommand(validItinerary, clientIndexes, new HashSet<>());
+        ModelStub modelStubClient = new ModelStubWithClient();
+
+        assertThrows(CommandException.class, AddiCommand.MESSAGE_PERSON_INDEX_MISSING, ()
+                     -> addiCommandClient.execute(modelStubClient));
+
+        HashSet<Index> vendorIndexes = new HashSet<>();
+        vendorIndexes.add(INDEX_THIRD);
+        AddiCommand addiCommandVendor = new AddiCommand(validItinerary, new HashSet<>(), vendorIndexes);
+        ModelStub modelStubVendor = new ModelStubWithVendor();
+
+        assertThrows(CommandException.class, AddiCommand.MESSAGE_PERSON_INDEX_MISSING, ()
+                     -> addiCommandVendor.execute(modelStubVendor));
     }
 
 
@@ -248,5 +299,61 @@ public class AddiCommandTest {
         }
 
     }
+
+    /**
+     * A Model stub with 1 client
+     */
+    private class ModelStubWithClient extends ModelStub {
+        final ArrayList<Itinerary> itineraries = new ArrayList<>();
+        final ArrayList<Person> persons = new ArrayList<>();
+
+
+        ModelStubWithClient() {
+            persons.add(client);
+        }
+
+        public ObservableList<Person> getFilteredPersonList() {
+            return FXCollections.observableList(persons);
+        }
+
+        public boolean hasItinerary(Itinerary itinerary) {
+            requireNonNull(itinerary);
+            return false;
+        }
+
+        public void addItinerary(Itinerary itinerary) {
+            requireNonNull(itinerary);
+            itineraries.add(itinerary);
+        }
+
+    }
+
+    /**
+     * A Model stub with 1 Vendor
+     */
+    private class ModelStubWithVendor extends ModelStub {
+        final ArrayList<Itinerary> itineraries = new ArrayList<>();
+        final ArrayList<Person> persons = new ArrayList<>();
+
+        ModelStubWithVendor() {
+            persons.add(vendor);
+        }
+
+        public ObservableList<Person> getFilteredPersonList() {
+            return FXCollections.observableList(persons);
+        }
+
+        public boolean hasItinerary(Itinerary itinerary) {
+            requireNonNull(itinerary);
+            return false;
+        }
+
+        public void addItinerary(Itinerary itinerary) {
+            requireNonNull(itinerary);
+            itineraries.add(itinerary);
+        }
+
+    }
+
 
 }
