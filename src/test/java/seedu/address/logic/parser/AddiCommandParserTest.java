@@ -32,7 +32,6 @@ import static seedu.address.testutil.TypicalItineraries.BALI_TRIP;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
@@ -68,7 +67,7 @@ public class AddiCommandParserTest {
         assertParseSuccess(parser, ITINERARY_NAME_DESC_FRANCE + ITINERARY_DEST_DESC_FRANCE
                         + ITINERARY_START_DATE_DESC_FRANCE + ITINERARY_END_DATE_DESC_FRANCE
                         + ITINERARY_CLIENT_IDS_DESC + ITINERARY_VENDOR_IDS_DESC,
-                new AddiCommand(expectedItinerary,  expectedClientIndices, expectedVendorIndices));
+                new AddiCommand(expectedItinerary, expectedClientIndices, expectedVendorIndices));
 
 
     }
@@ -91,7 +90,7 @@ public class AddiCommandParserTest {
         // client ids only - accepted
         assertParseSuccess(parser, ITINERARY_NAME_DESC_FRANCE + ITINERARY_DEST_DESC_FRANCE
                         + ITINERARY_START_DATE_DESC_FRANCE + ITINERARY_END_DATE_DESC_FRANCE + ITINERARY_CLIENT_IDS_DESC,
-                new AddiCommand(clientOnlyItinerary, expectedClientIndices,  new HashSet<>()));
+                new AddiCommand(clientOnlyItinerary, expectedClientIndices, new HashSet<>()));
 
         // vendor ids only - accepted
         Set<Index> expectedVendorIndices = new HashSet<>();
@@ -159,8 +158,8 @@ public class AddiCommandParserTest {
 
         // invalid index
         assertParseFailure(parser, ITINERARY_NAME_DESC_BALI + ITINERARY_DEST_DESC_BALI
-                         + ITINERARY_START_DATE_DESC_BALI + ITINERARY_END_DATE_DESC_BALI
-                 + INVALID_INDEX_CLIENT_DESC, ParserUtil.MESSAGE_INVALID_INDEX);
+                + ITINERARY_START_DATE_DESC_BALI + ITINERARY_END_DATE_DESC_BALI
+                + INVALID_INDEX_CLIENT_DESC, ParserUtil.MESSAGE_INVALID_INDEX);
         assertParseFailure(parser, ITINERARY_NAME_DESC_BALI + ITINERARY_DEST_DESC_BALI
                 + ITINERARY_START_DATE_DESC_BALI + ITINERARY_END_DATE_DESC_BALI
                 + INVALID_INDEX_VENDOR_DESC, ParserUtil.MESSAGE_INVALID_INDEX);

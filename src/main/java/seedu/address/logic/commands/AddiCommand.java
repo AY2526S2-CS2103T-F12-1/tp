@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ITINERARY_CLIENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ITINERARY_DESTINATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ITINERARY_END;
@@ -8,19 +9,18 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ITINERARY_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ITINERARY_START;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ITINERARY_VENDOR;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
+
 import seedu.address.commons.core.index.Index;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.itinerary.Itinerary;
 import seedu.address.model.person.Person;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
 
 /**
  * Adds an itinerary to TripScribe.
@@ -75,8 +75,8 @@ public class AddiCommand extends Command {
         }
 
         List<Person> lastShownContactList = model.getFilteredPersonList();
-        Set<UUID> clientUUIDs = new HashSet<>();
-        Set<UUID> vendorUUIDs = new HashSet<>();
+        Set<UUID> clientUuids = new HashSet<>();
+        Set<UUID> vendorUuids = new HashSet<>();
 
         for (Index index : clientIndices) {
             if (index.getZeroBased() >= lastShownContactList.size()) {
@@ -86,7 +86,7 @@ public class AddiCommand extends Command {
             if (!person.isClient()) {
                 throw new CommandException(String.format(MESSAGE_NOT_CLIENT, person.getName()));
             }
-            clientUUIDs.add(person.getId());
+            clientUuids.add(person.getId());
         }
 
         for (Index index : vendorIndices) {
@@ -97,11 +97,11 @@ public class AddiCommand extends Command {
             if (!person.isVendor()) {
                 throw new CommandException(String.format(MESSAGE_NOT_VENDOR, person.getName()));
             }
-            vendorUUIDs.add(person.getId());
+            vendorUuids.add(person.getId());
         }
 
-        toAdd.setClients(clientUUIDs);
-        toAdd.setVendors(vendorUUIDs);
+        toAdd.setClients(clientUuids);
+        toAdd.setVendors(vendorUuids);
 
         model.addItinerary(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));

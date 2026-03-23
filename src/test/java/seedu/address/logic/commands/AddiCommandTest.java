@@ -12,10 +12,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.function.Predicate;
 
-import javafx.collections.FXCollections;
-import javafx.collections.transformation.FilteredList;
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.Messages;
@@ -96,7 +95,8 @@ public class AddiCommandTest {
     @Test
     public void toStringMethod() {
         AddiCommand addiCommand = new AddiCommand(FRANCE_TRIP, new HashSet<>(), new HashSet<>());
-        String expected = AddiCommand.class.getCanonicalName() + "{toAdd=" + FRANCE_TRIP + ", clientIndices=[], vendorIndices=[]" + "}";
+        String expected = AddiCommand.class.getCanonicalName() + "{toAdd=" + FRANCE_TRIP
+                                                               + ", clientIndices=[], vendorIndices=[]" + "}";
         assertEquals(expected, addiCommand.toString());
     }
 
