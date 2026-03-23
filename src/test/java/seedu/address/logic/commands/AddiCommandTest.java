@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalItineraries.FRANCE_TRIP;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.Messages;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -42,6 +44,17 @@ public class AddiCommandTest {
     }
 
     @Test
+    public void execute_duplicateItinerary_throwsCommandException() {
+        Itinerary validItinerary = new ItineraryBuilder().build();
+        AddiCommand addiCommand = new AddiCommand(validItinerary);
+        ModelStub modelStub = new ModelStubWithItinerary(validItinerary);
+
+        assertThrows(CommandException.class,
+                AddiCommand.MESSAGE_DUPLICATE_ITINERARY, () -> addiCommand.execute(modelStub));
+    }
+
+
+    @Test
     public void equals() {
         Itinerary france = new ItineraryBuilder().build();
         Itinerary bali = new ItineraryBuilder().withName("3D2N Bali").withDestination("Bali")
@@ -67,7 +80,16 @@ public class AddiCommandTest {
 
     }
 
+    @Test
+    public void toStringMethod() {
+        AddiCommand addiCommand = new AddiCommand(FRANCE_TRIP);
+        String expected = AddiCommand.class.getCanonicalName() + "{toAdd=" + FRANCE_TRIP + '}';
+        assertEquals(expected, addiCommand.toString());
+    }
 
+    /**
+     * A default model stub that have all of the methods failing.
+     */
     private class ModelStub implements Model {
 
         @Override
@@ -101,11 +123,6 @@ public class AddiCommandTest {
         }
 
         @Override
-        public void addPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -126,6 +143,11 @@ public class AddiCommandTest {
         }
 
         @Override
+        public void addPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setPerson(Person target, Person editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
@@ -140,6 +162,54 @@ public class AddiCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public boolean hasItinerary(Itinerary itinerary) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteItinerary(Itinerary target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addItinerary(Itinerary itinerary) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setItinerary(Itinerary target, Itinerary editedItinerary) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Itinerary> getFilteredItineraryList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredItineraryList(Predicate<Itinerary> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+    }
+
+    /**
+     * A Model stub that contains a single itinerary.
+     */
+    private class ModelStubWithItinerary extends ModelStub {
+        private final Itinerary itinerary;
+
+        ModelStubWithItinerary(Itinerary itinerary) {
+            requireNonNull(itinerary);
+            this.itinerary = itinerary;
+        }
+
+        @Override
+        public boolean hasItinerary(Itinerary itinerary) {
+            requireNonNull(itinerary);
+            return this.itinerary.isSameItinerary(itinerary);
+        }
     }
 
     /**
@@ -160,6 +230,5 @@ public class AddiCommandTest {
         }
 
     }
-
 
 }

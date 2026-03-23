@@ -3,11 +3,13 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CLIENTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ITINERARIES;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_VENDORS;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.ui.PanelType;
 
 /**
  * Lists all persons in the address book to the user.
@@ -23,6 +25,7 @@ public class ListCommand extends Command {
     public static final String MESSAGE_SUCCESS_CONTACTS = "Listed all contacts";
     public static final String MESSAGE_SUCCESS_CLIENTS = "Listed all clients";
     public static final String MESSAGE_SUCCESS_VENDORS = "Listed all vendors";
+    public static final String MESSAGE_SUCCESS_ITINERARIES = "Listed all itineraries";
 
     /**
      * Represents the possible flags that can be used to list entries.
@@ -42,13 +45,16 @@ public class ListCommand extends Command {
         switch (flag) {
         case CONTACT:
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_CONTACTS);
-            return new CommandResult(MESSAGE_SUCCESS_CONTACTS);
+            return new CommandResult(MESSAGE_SUCCESS_CONTACTS, PanelType.CONTACT);
         case CLIENT:
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_CLIENTS);
-            return new CommandResult(MESSAGE_SUCCESS_CLIENTS);
+            return new CommandResult(MESSAGE_SUCCESS_CLIENTS, PanelType.CONTACT);
         case VENDOR:
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_VENDORS);
-            return new CommandResult(MESSAGE_SUCCESS_VENDORS);
+            return new CommandResult(MESSAGE_SUCCESS_VENDORS, PanelType.CONTACT);
+        case ITINERARY:
+            model.updateFilteredItineraryList(PREDICATE_SHOW_ALL_ITINERARIES);
+            return new CommandResult(MESSAGE_SUCCESS_ITINERARIES, PanelType.ITINERARY);
         default:
             throw new CommandException("Unknown flag: " + flag);
         }

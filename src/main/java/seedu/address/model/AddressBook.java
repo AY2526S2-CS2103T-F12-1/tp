@@ -2,20 +2,32 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.UUID;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.itinerary.Itinerary;
+import seedu.address.model.itinerary.UniqueItineraryList;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Role;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSamePerson comparison and by .isSameItinerary comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueItineraryList itineraries;
+
+    private final Set<UUID> clientIds = new HashSet<>();
+    private final Set<UUID> vendorIds = new HashSet<>();
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -26,14 +38,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
-    }
-
-    /*  Temporary, to review again after adding Itinerary class
-    private final UniqueItineraryList itineraries;
-    {
         itineraries = new UniqueItineraryList();
     }
-    */
 
     public AddressBook() {}
 
@@ -53,6 +59,24 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setPersons(List<Person> persons) {
         this.persons.setPersons(persons);
+        clientIds.clear();
+        vendorIds.clear();
+        for (Person person : persons) {
+            addPersonId(person);
+        }
+    }
+
+    /**
+     * Replaces the contents of the itinerary list with {@code itineraries}.
+     * {@code itineraries} must not contain duplicate itineraries.
+     */
+    public void setItineraries(List<Itinerary> itineraries) {
+        for (Itinerary itinerary : itineraries) {
+            if (!hasPersonsWithIds(itinerary)) {
+                throw new PersonNotFoundException();
+            }
+        }
+        this.itineraries.setItineraries(itineraries);
     }
 
     /**
@@ -62,6 +86,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setItineraries(newData.getItineraryList());
     }
 
     //// person-level operations
@@ -80,6 +105,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addPerson(Person p) {
         persons.add(p);
+        addPersonId(p);
     }
 
     /**
@@ -91,6 +117,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedPerson);
 
         persons.setPerson(target, editedPerson);
+        removePersonId(target);
+        addPersonId(editedPerson);
     }
 
     /**
@@ -98,21 +126,105 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code key} must exist in the address book.
      */
     public void removePerson(Person key) {
+        UUID id = key.getId();
         persons.remove(key);
+        itineraries.removePerson(id);
+        removePersonId(key);
+    }
+
+    /// itinerary-level operations
+
+    /**
+     * Returns true if an itinerary with the same identity as {@code itinerary} exists in the address book.
+     */
+    public boolean hasItinerary(Itinerary itinerary) {
+        requireNonNull(itinerary);
+        return itineraries.contains(itinerary);
+    }
+
+    /**
+     * Adds an itinerary to the address book.
+     * The itinerary must not already exist in the address book.
+     * Client and vendor ids of itinerary must already exist in the address book.
+     */
+    public void addItinerary(Itinerary i) {
+        if (!hasPersonsWithIds(i)) {
+            throw new PersonNotFoundException();
+        }
+        itineraries.add(i);
+    }
+
+    /**
+     * Replaces the given itinerary {@code target} in the list with {@code editedItinerary}.
+     * {@code target} must exist in the address book.
+     * The itinerary identity of {@code editedItinerary} must not be the same as another existing itinerary in the
+     * address book.
+     */
+    public void setItinerary(Itinerary target, Itinerary editedItinerary) {
+        requireNonNull(editedItinerary);
+        if (!hasPersonsWithIds(editedItinerary)) {
+            throw new PersonNotFoundException();
+        }
+        itineraries.setItinerary(target, editedItinerary);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeItinerary(Itinerary key) {
+        itineraries.remove(key);
     }
 
     //// util methods
+    private void addPersonId(Person person) {
+        switch (person.getRole().value) {
+        case CLIENT -> clientIds.add(person.getId());
+        case VENDOR -> vendorIds.add(person.getId());
+        default -> throw new IllegalArgumentException(Role.MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    private void removePersonId(Person person) {
+        switch (person.getRole().value) {
+        case CLIENT -> clientIds.remove(person.getId());
+        case VENDOR -> vendorIds.remove(person.getId());
+        default -> throw new IllegalArgumentException(Role.MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    private boolean hasPersonsWithIds(Itinerary itinerary) {
+        for (UUID clientId : itinerary.getClientIds()) {
+            if (!clientIds.contains(clientId)) {
+                return false;
+            }
+        }
+
+        for (UUID vendorId : itinerary.getVendorIds()) {
+            if (!vendorIds.contains(vendorId)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("persons", persons)
+                .add("itineraries", itineraries)
                 .toString();
     }
 
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Itinerary> getItineraryList() {
+        return itineraries.asUnmodifiableObservableList();
     }
 
     @Override
@@ -127,11 +239,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
         AddressBook otherAddressBook = (AddressBook) other;
-        return persons.equals(otherAddressBook.persons);
+        return persons.equals(otherAddressBook.persons)
+                && itineraries.equals(otherAddressBook.itineraries);
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return Objects.hash(persons, itineraries);
+
     }
 }

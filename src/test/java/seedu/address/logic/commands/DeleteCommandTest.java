@@ -6,9 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.AddressBookBuilder.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,6 +17,7 @@ import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.itinerary.Itinerary;
 import seedu.address.model.person.Person;
 
 /**
@@ -27,10 +28,12 @@ public class DeleteCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
+    // Contacts
+
     @Test
-    public void execute_validIndexUnfilteredList_success() {
-        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+    public void execute_validIndexUnfilteredContactList_success() {
+        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(DeleteCommand.DeleteType.CONTACT, INDEX_FIRST);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS,
                 Messages.format(personToDelete));
@@ -42,19 +45,19 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexUnfilteredList_throwsCommandException() {
+    public void execute_invalidIndexUnfilteredContactList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+        DeleteCommand deleteCommand = new DeleteCommand(DeleteCommand.DeleteType.CONTACT, outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
-    public void execute_validIndexFilteredList_success() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+    public void execute_validIndexFilteredContactList_success() {
+        showPersonAtIndex(model, INDEX_FIRST);
 
-        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(DeleteCommand.DeleteType.CONTACT, INDEX_FIRST);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS,
                 Messages.format(personToDelete));
@@ -67,46 +70,103 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+    public void execute_invalidIndexFilteredContactList_throwsCommandException() {
+        showPersonAtIndex(model, INDEX_FIRST);
 
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
+        Index outOfBoundIndex = INDEX_SECOND;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
 
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+        DeleteCommand deleteCommand = new DeleteCommand(DeleteCommand.DeleteType.CONTACT, outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
+    // Itinerary
+
+    @Test
+    public void execute_validIndexUnfilteredItineraryList_success() {
+        Itinerary itineraryToDelete = model.getFilteredItineraryList().get(INDEX_FIRST.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(DeleteCommand.DeleteType.ITINERARY, INDEX_FIRST);
+
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_ITINERARY_SUCCESS,
+                Messages.format(itineraryToDelete));
+
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.deleteItinerary(itineraryToDelete);
+
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_invalidIndexUnfilteredItineraryList_throwsCommandException() {
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredItineraryList().size() + 1);
+        DeleteCommand deleteCommand = new DeleteCommand(DeleteCommand.DeleteType.ITINERARY, outOfBoundIndex);
+
+        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_ITINERARY_DISPLAYED_INDEX);
+    }
+
     @Test
     public void equals() {
-        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_PERSON);
-        DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_PERSON);
+        DeleteCommand deleteFirstContactCommand = new DeleteCommand(DeleteCommand.DeleteType.CONTACT,
+                                                                    INDEX_FIRST);
+        DeleteCommand deleteSecondContactCommand = new DeleteCommand(DeleteCommand.DeleteType.CONTACT,
+                                                                     INDEX_SECOND);
 
         // same object -> returns true
-        assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
+        assertTrue(deleteFirstContactCommand.equals(deleteFirstContactCommand));
 
         // same values -> returns true
-        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_PERSON);
-        assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
+        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(DeleteCommand.DeleteType.CONTACT, INDEX_FIRST);
+        assertTrue(deleteFirstContactCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false
-        assertFalse(deleteFirstCommand.equals(1));
+        assertFalse(deleteFirstContactCommand.equals(1));
 
         // null -> returns false
-        assertFalse(deleteFirstCommand.equals(null));
+        assertFalse(deleteFirstContactCommand.equals(null));
 
         // different person -> returns false
-        assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
+        assertFalse(deleteFirstContactCommand.equals(deleteSecondContactCommand));
+
+
+        DeleteCommand deleteFirstItineraryCommand = new DeleteCommand(DeleteCommand.DeleteType.ITINERARY,
+                                                                      INDEX_FIRST);
+        DeleteCommand deleteSecondItineraryCommand = new DeleteCommand(DeleteCommand.DeleteType.ITINERARY,
+                                                                       INDEX_SECOND);
+
+        // same object -> returns true
+        assertTrue(deleteFirstItineraryCommand.equals(deleteFirstItineraryCommand));
+
+        // same values -> returns true
+        DeleteCommand deleteFirstItineraryCommandCopy = new DeleteCommand(DeleteCommand.DeleteType.ITINERARY,
+                                                                          INDEX_FIRST);
+        assertTrue(deleteFirstItineraryCommand.equals(deleteFirstItineraryCommandCopy));
+
+        // different types -> returns false
+        assertFalse(deleteFirstItineraryCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(deleteFirstItineraryCommand.equals(null));
+
+        // different person -> returns false
+        assertFalse(deleteFirstItineraryCommand.equals(deleteSecondItineraryCommand));
+
+
     }
 
     @Test
     public void toStringMethod() {
         Index targetIndex = Index.fromOneBased(1);
-        DeleteCommand deleteCommand = new DeleteCommand(targetIndex);
+        DeleteCommand deleteCommand = new DeleteCommand(DeleteCommand.DeleteType.CONTACT, targetIndex);
         String expected = DeleteCommand.class.getCanonicalName() + "{targetIndex=" + targetIndex + "}";
         assertEquals(expected, deleteCommand.toString());
+
+        Index targetIndex2 = Index.fromOneBased(2);
+        DeleteCommand deleteCommand2 = new DeleteCommand(DeleteCommand.DeleteType.ITINERARY, targetIndex2);
+        String expected2 = DeleteCommand.class.getCanonicalName() + "{targetIndex=" + targetIndex2 + "}";
+        assertEquals(expected2, deleteCommand2.toString());
+
     }
 
     /**
@@ -117,4 +177,5 @@ public class DeleteCommandTest {
 
         assertTrue(model.getFilteredPersonList().isEmpty());
     }
+
 }
