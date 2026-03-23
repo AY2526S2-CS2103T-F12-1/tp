@@ -22,13 +22,13 @@ import seedu.address.model.person.Role;
 import seedu.address.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new AddcCommand object
  */
 public class AddcCommandParser implements Parser<AddcCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddcCommand
+     * and returns an AddcCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddcCommand parse(String args) throws ParseException {
