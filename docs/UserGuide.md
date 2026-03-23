@@ -31,7 +31,7 @@ TripScribe allows you to manage contacts and itineraries on your desktop using k
 6. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * `list` : Lists all contacts.
+   * `list /contact` : Lists all contacts.
 
    * `addc n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to TripScribe.
    
@@ -73,7 +73,7 @@ You can refer to the [Features](#features) below for details of each command.
 
 ### Viewing help : `help`
 
-Shows a message explaining how to access the help page.
+Opens a help window showing a summary of all available commands and a link to the full User Guide.
 
 ![help message](images/helpMessage.png)
 
@@ -121,11 +121,25 @@ Examples:
 | ![add itinerary command typed in TripScribe](images/AddItineraryBefore.png)<br>Input | ![Add itinerary executed in TripScribe](images/AddItineraryAfter.png)<br>Expected Output |
 |:------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------:|
 
-### Listing all persons : `list`
+### Listing contacts and itineraries : `list`
 
-Shows a list of all persons in the address book.
+Shows a list of contacts or itineraries based on the specified flag.
 
-Format: `list`
+Format: `list FLAG`
+
+* `FLAG` must be one of: `/contact`, `/client`, `/vendor`, `/itinerary`
+  * `/contact` displays all contacts regardless of role.
+  * `/client` displays only contacts with the role `client`.
+  * `/vendor` displays only contacts with the role `vendor`.
+  * `/itinerary` displays all itineraries.
+* When viewing contacts (`/contact`, `/client`, `/vendor`), the itinerary panel is hidden.
+* When viewing itineraries (`/itinerary`), the contact panel is hidden.
+
+Examples:
+* `list /contact` lists all contacts.
+* `list /client` lists all clients.
+* `list /vendor` lists all vendors.
+* `list /itinerary` lists all itineraries.
 
 ### Editing a person : `edit`
 
@@ -241,5 +255,5 @@ Action     | Format, Examples
 **Delete** | `delete /FLAG INDEX`<br> e.g., `delete /contact 3`
 **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**List**   | `list`
+**List**   | `list FLAG` <br> e.g., `list \contact`
 **Help**   | `help`
