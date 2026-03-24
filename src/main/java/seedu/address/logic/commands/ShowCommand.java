@@ -23,7 +23,10 @@ public class ShowCommand extends Command {
 
     public static final String COMMAND_WORD = "show";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD;
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows the details and associated contacts "
+            + "of a specific itinerary.\n"
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 1 ";
 
     public static final String MESSAGE_SUCCESS = "Itinerary %1$s shown";
 
