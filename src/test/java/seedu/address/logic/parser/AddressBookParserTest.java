@@ -14,16 +14,8 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.AddcCommand;
-import seedu.address.logic.commands.AddiCommand;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.*;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.itinerary.Itinerary;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
@@ -105,6 +97,12 @@ public class AddressBookParserTest {
         AddiCommand command = (AddiCommand) parser.parseCommand("addi n/5D4N Trip to France dest/France "
                                                                 + "from/2024-12-01 to/2024-12-05");
         assertEquals(new AddiCommand(itinerary), command);
+    }
+
+    @Test
+    public void parseCommand_show() throws Exception {
+        ShowCommand command = (ShowCommand) parser.parseCommand(ShowCommand.COMMAND_WORD + " 1");
+        assertEquals(new ShowCommand(INDEX_FIRST), command);
     }
 
     @Test
