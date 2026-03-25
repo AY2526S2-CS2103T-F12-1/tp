@@ -49,7 +49,8 @@ public class EditCommand extends Command {
     public static final String CONTACT_FLAG = "/contact";
     public static final String ITINERARY_FLAG = "/itinerary";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the contact or itinerary identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Edits the details of the contact or itinerary identified "
             + "by the index number used in the displayed list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters:\n"
@@ -77,7 +78,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
     public static final String MESSAGE_EDIT_ITINERARY_SUCCESS = "Edited Itinerary: %1$s";
-    public static final String MESSAGE_DUPLICATE_ITINERARY= "This itinerary already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_ITINERARY = "This itinerary already exists in the address book.";
 
     /**
      * Represents the possible flags that can be used to delete entries.
@@ -93,7 +94,8 @@ public class EditCommand extends Command {
      * @param index of the person in the filtered person list to edit
      * @param flag type of entity to edit
      */
-    public EditCommand(Index index, EditType flag, EditPersonDescriptor editPersonDescriptor, EditItineraryDescriptor editItineraryDescriptor) {
+    public EditCommand(Index index, EditType flag,
+                       EditPersonDescriptor editPersonDescriptor, EditItineraryDescriptor editItineraryDescriptor) {
         requireNonNull(index);
         requireNonNull(flag);
 
@@ -167,13 +169,18 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Itinerary} with the details of {@code itineraryToEdit}
      * edited with {@code editItineraryDescriptor}.
      */
-    private static Itinerary createEditedItinerary(Itinerary itineraryToEdit, EditItineraryDescriptor editItineraryDescriptor) {
+    private static Itinerary createEditedItinerary(Itinerary itineraryToEdit,
+                                                   EditItineraryDescriptor editItineraryDescriptor) {
         assert itineraryToEdit != null;
 
-        ItineraryName updatedItineraryName = editItineraryDescriptor.getItineraryName().orElse(itineraryToEdit.getName());
-        Destination updatedDestination = editItineraryDescriptor.getDestination().orElse(itineraryToEdit.getDestination());
-        LocalDate updatedStartDate = editItineraryDescriptor.getStartDate().orElse(itineraryToEdit.getDateRange().getStartDate());
-        LocalDate updatedEndDate = editItineraryDescriptor.getEndDate().orElse(itineraryToEdit.getDateRange().getEndDate());
+        ItineraryName updatedItineraryName = editItineraryDescriptor.getItineraryName()
+                .orElse(itineraryToEdit.getName());
+        Destination updatedDestination = editItineraryDescriptor.getDestination()
+                .orElse(itineraryToEdit.getDestination());
+        LocalDate updatedStartDate = editItineraryDescriptor.getStartDate()
+                .orElse(itineraryToEdit.getDateRange().getStartDate());
+        LocalDate updatedEndDate = editItineraryDescriptor.getEndDate()
+                .orElse(itineraryToEdit.getDateRange().getEndDate());
         DateRange updatedDateRange = new DateRange(updatedStartDate.toString(), updatedEndDate.toString());
 
         return new Itinerary(updatedItineraryName, updatedDestination, updatedDateRange,

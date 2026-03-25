@@ -17,7 +17,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.itinerary.DateRange.DATE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
 
-import java.time.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -131,7 +131,6 @@ public class CommandTestUtil {
                 .withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
                 .build();
-        
         DESC_FRANCE = new EditItineraryDescriptorBuilder()
                 .withName(VALID_ITINERARY_NAME_FRANCE)
                 .withDestination(VALID_ITINERARY_DEST_FRANCE)

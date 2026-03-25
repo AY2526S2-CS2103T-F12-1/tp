@@ -68,7 +68,8 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         if (flag == EditCommand.EditType.CONTACT) {
             ArgumentMultimap argMultimap =
-                    ArgumentTokenizer.tokenize(otherArgs, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                    ArgumentTokenizer.tokenize(otherArgs, PREFIX_NAME, PREFIX_PHONE,
+                            PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
             Index index;
 
@@ -120,10 +121,12 @@ public class EditCommandParser implements Parser<EditCommand> {
             EditCommand.EditItineraryDescriptor editItineraryDescriptor = new EditCommand.EditItineraryDescriptor();
 
             if (argMultimap.getValue(PREFIX_ITINERARY_NAME).isPresent()) {
-                editItineraryDescriptor.setItineraryName(ParserUtil.parseItineraryName(argMultimap.getValue(PREFIX_ITINERARY_NAME).get()));
+                editItineraryDescriptor.setItineraryName(
+                        ParserUtil.parseItineraryName(argMultimap.getValue(PREFIX_ITINERARY_NAME).get()));
             }
             if (argMultimap.getValue(PREFIX_ITINERARY_DESTINATION).isPresent()) {
-                editItineraryDescriptor.setDestination(ParserUtil.parseDestination(argMultimap.getValue(PREFIX_ITINERARY_DESTINATION).get()));
+                editItineraryDescriptor.setDestination(
+                        ParserUtil.parseDestination(argMultimap.getValue(PREFIX_ITINERARY_DESTINATION).get()));
             }
             if (argMultimap.getValue(PREFIX_ITINERARY_START).isPresent()) {
                 try {

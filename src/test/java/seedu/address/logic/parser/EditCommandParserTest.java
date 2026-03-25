@@ -79,7 +79,7 @@ public class EditCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
 
-    private EditCommandParser parser = new EditCommandParser();
+    private final EditCommandParser parser = new EditCommandParser();
 
     // person tests
 
@@ -89,7 +89,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, CONTACT_FLAG + " " + VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
 
         // no flag specified
-        assertParseFailure(parser,  "1" + VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "1" + VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
 
         // no field specified
         assertParseFailure(parser, CONTACT_FLAG + " 1", EditCommand.MESSAGE_NOT_EDITED);
@@ -115,23 +115,33 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_personInvalidValue_failure() {
-        assertParseFailure(parser, CONTACT_FLAG + " 1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, CONTACT_FLAG + " 1" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS); // invalid phone
-        assertParseFailure(parser, CONTACT_FLAG + " 1" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
-        assertParseFailure(parser, CONTACT_FLAG + " 1" + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS); // invalid address
-        assertParseFailure(parser, CONTACT_FLAG + " 1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
+        // invalid name
+        assertParseFailure(parser, CONTACT_FLAG + " 1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS);
+        // invalid phone
+        assertParseFailure(parser, CONTACT_FLAG + " 1" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS);
+        // invalid email
+        assertParseFailure(parser, CONTACT_FLAG + " 1" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS);
+        // invalid address
+        assertParseFailure(parser, CONTACT_FLAG + " 1" + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS);
+        // invalid tag
+        assertParseFailure(parser, CONTACT_FLAG + " 1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS);
 
         // invalid phone followed by valid email
-        assertParseFailure(parser, CONTACT_FLAG + " 1" + INVALID_PHONE_DESC + EMAIL_DESC_AMY, Phone.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, CONTACT_FLAG + " 1"
+                + INVALID_PHONE_DESC + EMAIL_DESC_AMY, Phone.MESSAGE_CONSTRAINTS);
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Person} being edited,
         // parsing it together with a valid tag results in error
-        assertParseFailure(parser, CONTACT_FLAG + " 1" + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, CONTACT_FLAG + " 1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, CONTACT_FLAG + " 1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, CONTACT_FLAG + " 1"
+                + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, CONTACT_FLAG + " 1"
+                + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, CONTACT_FLAG + " 1"
+                + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, CONTACT_FLAG + " 1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_AMY + VALID_PHONE_AMY,
+        assertParseFailure(parser, CONTACT_FLAG + " 1"
+                        + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_AMY + VALID_PHONE_AMY,
                 Name.MESSAGE_CONSTRAINTS);
     }
 
@@ -220,7 +230,8 @@ public class EditCommandParserTest {
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS));
 
         // multiple invalid values
-        userInput = CONTACT_FLAG + " " + targetIndex.getOneBased() + INVALID_PHONE_DESC + INVALID_ADDRESS_DESC + INVALID_EMAIL_DESC
+        userInput = CONTACT_FLAG + " " + targetIndex.getOneBased()
+                + INVALID_PHONE_DESC + INVALID_ADDRESS_DESC + INVALID_EMAIL_DESC
                 + INVALID_PHONE_DESC + INVALID_ADDRESS_DESC + INVALID_EMAIL_DESC;
 
         assertParseFailure(parser, userInput,
@@ -271,16 +282,30 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_itineraryInvalidValue_failure() {
-        assertParseFailure(parser, ITINERARY_FLAG + " 1" + INVALID_ITINERARY_NAME_DESC, ItineraryName.MESSAGE_CONSTRAINTS); // invalid itinerary name
-        assertParseFailure(parser, ITINERARY_FLAG + " 1" + INVALID_ITINERARY_DEST_DESC, Destination.MESSAGE_CONSTRAINTS); // invalid destination
-        assertParseFailure(parser, ITINERARY_FLAG + " 1" + INVALID_ITINERARY_START_DATE_DESC, DateRange.MESSAGE_CONSTRAINTS); // invalid start date
-        assertParseFailure(parser, ITINERARY_FLAG + " 1" + INVALID_ITINERARY_END_DATE_DESC, DateRange.MESSAGE_CONSTRAINTS); // invalid end date
+        // invalid itinerary name
+        assertParseFailure(parser, ITINERARY_FLAG + " 1"
+                + INVALID_ITINERARY_NAME_DESC, ItineraryName.MESSAGE_CONSTRAINTS);
+
+        // invalid destination
+        assertParseFailure(parser, ITINERARY_FLAG + " 1"
+                + INVALID_ITINERARY_DEST_DESC, Destination.MESSAGE_CONSTRAINTS);
+
+        // invalid start date
+        assertParseFailure(parser, ITINERARY_FLAG + " 1"
+                + INVALID_ITINERARY_START_DATE_DESC, DateRange.MESSAGE_CONSTRAINTS);
+
+        // invalid end date
+        assertParseFailure(parser, ITINERARY_FLAG + " 1"
+                + INVALID_ITINERARY_END_DATE_DESC, DateRange.MESSAGE_CONSTRAINTS);
 
         // invalid destination followed by valid start date
-        assertParseFailure(parser, ITINERARY_FLAG + " 1" + INVALID_ITINERARY_DEST_DESC + ITINERARY_START_DATE_DESC_BALI, Destination.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, ITINERARY_FLAG + " 1"
+                + INVALID_ITINERARY_DEST_DESC + ITINERARY_START_DATE_DESC_BALI, Destination.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, ITINERARY_FLAG + " 1" + INVALID_ITINERARY_NAME_DESC + INVALID_ITINERARY_DEST_DESC + ITINERARY_START_DATE_DESC_BALI + ITINERARY_END_DATE_DESC_BALI,
+        assertParseFailure(parser, ITINERARY_FLAG + " 1"
+                        + INVALID_ITINERARY_NAME_DESC + INVALID_ITINERARY_DEST_DESC
+                        + ITINERARY_START_DATE_DESC_BALI + ITINERARY_END_DATE_DESC_BALI,
                 ItineraryName.MESSAGE_CONSTRAINTS);
     }
 
@@ -304,7 +329,8 @@ public class EditCommandParserTest {
     @Test
     public void parse_itinerarySomeFieldsSpecified_success() {
         Index targetIndex = INDEX_FIRST;
-        String userInput = ITINERARY_FLAG + " " + targetIndex.getOneBased() + ITINERARY_NAME_DESC_FRANCE + ITINERARY_DEST_DESC_FRANCE;
+        String userInput = ITINERARY_FLAG + " " + targetIndex.getOneBased()
+                + ITINERARY_NAME_DESC_FRANCE + ITINERARY_DEST_DESC_FRANCE;
 
         EditItineraryDescriptor descriptor = new EditItineraryDescriptorBuilder()
                 .withName(VALID_ITINERARY_NAME_FRANCE)
@@ -370,7 +396,8 @@ public class EditCommandParserTest {
                 + ITINERARY_DEST_DESC_FRANCE + ITINERARY_START_DATE_DESC_FRANCE + ITINERARY_END_DATE_DESC_FRANCE;
 
         assertParseFailure(parser, userInput,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_ITINERARY_DESTINATION, PREFIX_ITINERARY_START, PREFIX_ITINERARY_END));
+                Messages.getErrorMessageForDuplicatePrefixes(
+                        PREFIX_ITINERARY_DESTINATION, PREFIX_ITINERARY_START, PREFIX_ITINERARY_END));
 
         // multiple invalid values
         userInput = ITINERARY_FLAG + " " + targetIndex.getOneBased()
@@ -378,7 +405,8 @@ public class EditCommandParserTest {
                 + INVALID_ITINERARY_DEST_DESC + INVALID_ITINERARY_START_DATE_DESC + INVALID_ITINERARY_END_DATE_DESC;
 
         assertParseFailure(parser, userInput,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_ITINERARY_DESTINATION, PREFIX_ITINERARY_START, PREFIX_ITINERARY_END));
+                Messages.getErrorMessageForDuplicatePrefixes(
+                        PREFIX_ITINERARY_DESTINATION, PREFIX_ITINERARY_START, PREFIX_ITINERARY_END));
     }
 
 

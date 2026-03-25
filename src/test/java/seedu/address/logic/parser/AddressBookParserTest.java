@@ -32,8 +32,8 @@ import seedu.address.model.person.Person;
 import seedu.address.testutil.EditItineraryDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.ItineraryBuilder;
-import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.ItineraryUtil;
+import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
 public class AddressBookParserTest {
@@ -60,9 +60,8 @@ public class AddressBookParserTest {
                 DeleteCommand.COMMAND_WORD + " " + DeleteCommand.CONTACT_FLAG + " " + INDEX_FIRST.getOneBased());
         assertEquals(new DeleteCommand(DeleteCommand.DeleteType.CONTACT, INDEX_FIRST), personCommand);
         
-        DeleteCommand itineraryCommand = (DeleteCommand) parser.parseCommand(DeleteCommand.COMMAND_WORD + " "
-                                                                     + DeleteCommand.ITINERARY_FLAG + " "
-                                                                     + INDEX_FIRST.getOneBased());
+        DeleteCommand itineraryCommand = (DeleteCommand) parser.parseCommand(
+                DeleteCommand.COMMAND_WORD + " " + DeleteCommand.ITINERARY_FLAG + " " + INDEX_FIRST.getOneBased());
         assertEquals(new DeleteCommand(DeleteCommand.DeleteType.ITINERARY, INDEX_FIRST), itineraryCommand);
     }
 
@@ -82,7 +81,8 @@ public class AddressBookParserTest {
                 + EditCommand.ITINERARY_FLAG + " "
                 + INDEX_FIRST.getOneBased() + " "
                 + ItineraryUtil.getEditItineraryDescriptorDetails(itineraryDescriptor));
-        assertEquals(new EditCommand(INDEX_FIRST, EditCommand.EditType.ITINERARY, null, itineraryDescriptor), itineraryCommand);
+        assertEquals(new EditCommand(INDEX_FIRST, EditCommand.EditType.ITINERARY,
+                null, itineraryDescriptor), itineraryCommand);
     }
 
     @Test
