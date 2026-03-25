@@ -267,20 +267,25 @@ show INDEX
 
 ### Finding Contacts by Name: `find`
 
-Find contacts by name. TripScribe shows all contacts whose names contain at least one of your keywords.
+Find contacts by a specified keyword. TripScribe shows all contacts whose data contain at least one of your keywords.
 
-**Format:**
+**Formats:**
 ```
 find KEYWORD [MORE_KEYWORDS]
 ```
+```
+find [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]… ​
+```
+
 <box type="tip" seamless>
 
 **Things to note:**
+* Use one of the formats only. You cannot mix both.
+  * Example: `find Hans p\9876` does not work
 * The search is case-insensitive.
   * Example: `hans` will match `Hans`
 * The order of the keywords does not matter.
   * Example: `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
 * Only full words will be matched.
   * Example: `Han` will not match `Hans`
 * Contacts matching at least one keyword will be returned (i.e. `OR` search).
@@ -290,6 +295,7 @@ find KEYWORD [MORE_KEYWORDS]
 
 **Examples:**
 * `find John` returns `john` and `John Doe`
+* `find e/example.com` returns contacts with `example.com` in their saved email.
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
