@@ -19,6 +19,7 @@ import seedu.address.logic.commands.AddiCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditCommand.EditItineraryDescriptor;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -28,9 +29,11 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.itinerary.Itinerary;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.EditItineraryDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.ItineraryBuilder;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ItineraryUtil;
 import seedu.address.testutil.PersonUtil;
 
 public class AddressBookParserTest {
@@ -53,25 +56,29 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_delete() throws Exception {
-        // contact flag
-        DeleteCommand command = (DeleteCommand) parser.parseCommand(
+        DeleteCommand personCommand = (DeleteCommand) parser.parseCommand(
                 DeleteCommand.COMMAND_WORD + " " + DeleteCommand.CONTACT_FLAG + " " + INDEX_FIRST.getOneBased());
-        assertEquals(new DeleteCommand(DeleteCommand.DeleteType.CONTACT, INDEX_FIRST), command);
-
-        // itinerary flag
-        DeleteCommand command2 = (DeleteCommand) parser.parseCommand(DeleteCommand.COMMAND_WORD + " "
+        assertEquals(new DeleteCommand(DeleteCommand.DeleteType.CONTACT, INDEX_FIRST), personCommand);
+        
+        DeleteCommand itineraryCommand = (DeleteCommand) parser.parseCommand(DeleteCommand.COMMAND_WORD + " "
                                                                      + DeleteCommand.ITINERARY_FLAG + " "
                                                                      + INDEX_FIRST.getOneBased());
-        assertEquals(new DeleteCommand(DeleteCommand.DeleteType.ITINERARY, INDEX_FIRST), command2);
+        assertEquals(new DeleteCommand(DeleteCommand.DeleteType.ITINERARY, INDEX_FIRST), itineraryCommand);
     }
 
     @Test
     public void parseCommand_edit() throws Exception {
         Person person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST, descriptor), command);
+        EditPersonDescriptor personDescriptor = new EditPersonDescriptorBuilder(person).build();
+        EditCommand personCommand = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
+                + INDEX_FIRST.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(personDescriptor));
+        assertEquals(new EditCommand(INDEX_FIRST, EditCommand.EditType.CONTACT, personDescriptor, null), personCommand);
+
+        Itinerary itinerary = new ItineraryBuilder().build();
+        EditItineraryDescriptor itineraryDescriptor = new EditItineraryDescriptorBuilder(itinerary).build();
+        EditCommand itineraryCommand = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
+                + INDEX_FIRST.getOneBased() + " " + ItineraryUtil.getEditItineraryDescriptorDetails(itineraryDescriptor));
+        assertEquals(new EditCommand(INDEX_FIRST, EditCommand.EditType.CONTACT, null, itineraryDescriptor), itineraryCommand);
     }
 
     @Test
@@ -96,7 +103,11 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_list() throws Exception {
+        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " /all") instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " /contact") instanceof ListCommand);
+        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " /client") instanceof ListCommand);
+        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " /vendor") instanceof ListCommand);
+        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " /itinerary") instanceof ListCommand);
     }
 
     @Test
