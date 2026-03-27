@@ -6,74 +6,76 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
 
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-         title="Address App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+         title="TripScribe" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
     <icons>
-        <Image url="@/images/address_book_32.png"/>
+        <Image url="@/images/address_book_32.png" />
     </icons>
     <scene>
         <Scene>
             <stylesheets>
-                <URL value="@DarkTheme.css"/>
-                <URL value="@Extensions.css"/>
+                <URL value="@DarkTheme.css" />
+                <URL value="@Extensions.css" />
             </stylesheets>
 
-            <VBox spacing="10" styleClass="root">
-                <padding>
-                    <Insets top="10" right="10" bottom="10" left="10"/>
-                </padding>
+            <VBox styleClass="app-root">
 
-                <Label text="TripScribe" styleClass="logo-label"/>
-
-                <MenuBar fx:id="menuBar">
-                    <Menu text="File">
-                        <MenuItem onAction="#handleExit" text="Exit"/>
-                    </Menu>
-                    <Menu text="Help">
-                        <MenuItem fx:id="helpMenuItem" onAction="#handleHelp" text="Help"/>
-                    </Menu>
-                </MenuBar>
-
-                <VBox spacing="5">
-                    <Label text="COMMAND" styleClass="section-label"/>
-                    <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border"/>
+                <VBox styleClass="top-bar">
+                    <Label text="TripScribe" styleClass="logo-label" />
+                    <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+                        <Menu mnemonicParsing="false" text="File">
+                            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Help">
+                            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+                        </Menu>
+                    </MenuBar>
                 </VBox>
 
-                <VBox spacing="5">
-                    <Label text="STATUS" styleClass="section-label"/>
-                    <StackPane fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                               minHeight="100" prefHeight="100" maxHeight="100"/>
+                <VBox styleClass="command-section" VBox.vgrow="NEVER">
+                    <StackPane fx:id="commandBoxPlaceholder">
+                        <padding>
+                            <Insets top="8" right="12" bottom="8" left="12" />
+                        </padding>
+                    </StackPane>
                 </VBox>
 
-                <VBox spacing="10" VBox.vgrow="ALWAYS">
+                <VBox styleClass="result-section" VBox.vgrow="NEVER">
+                    <StackPane fx:id="resultDisplayPlaceholder"
+                               minHeight="70" prefHeight="70" maxHeight="70" />
+                </VBox>
 
-                    <VBox fx:id="personList" styleClass="panel-container" VBox.vgrow="ALWAYS">
-                        <Label text="CONTACTS" styleClass="panel-header-label"/>
-                        <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="panel-scroll">
-                            <content>
-                                <StackPane fx:id="personListPanelPlaceholder"/>
-                            </content>
-                        </ScrollPane>
+                <VBox VBox.vgrow="ALWAYS" styleClass="panels-area">
+
+                    <VBox fx:id="personList" styleClass="panel-container" VBox.vgrow="ALWAYS" minHeight="0">
+                        <Label text="Contacts" styleClass="panel-header-label" />
+                        <VBox.margin>
+                            <Insets top="6" right="10" bottom="6" left="10"/>
+                        </VBox.margin>
+                        <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" minHeight="0" />
+                    </VBox>
+                    <padding>
+                        <Insets top="10" right="10" bottom="10" left="10" />
+                    </padding>
+                    <VBox fx:id="itineraryList" styleClass="panel-container"  VBox.vgrow="ALWAYS"  minHeight="0">
+                        <Label text="Itineraries" styleClass="panel-header-label" />
+                        <VBox.margin>
+                            <Insets top="6" right="10" bottom="6" left="10"/>
+                        </VBox.margin>
+                        <StackPane fx:id="itineraryListPanelPlaceholder"
+                                   VBox.vgrow="ALWAYS"
+                                   minHeight="0" />
                     </VBox>
 
-                    <VBox fx:id="itineraryList" styleClass="panel-container" VBox.vgrow="ALWAYS">
-                        <Label text="ITINERARIES" styleClass="panel-header-label"/>
-                        <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="panel-scroll">
-                            <content>
-                                <StackPane fx:id="itineraryListPanelPlaceholder"/>
-                            </content>
-                        </ScrollPane>
-                    </VBox>
-
                 </VBox>
 
-                <StackPane fx:id="statusbarPlaceholder"/>
+                <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+
             </VBox>
         </Scene>
     </scene>
