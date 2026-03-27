@@ -28,8 +28,8 @@
                 <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
             </HBox>
             <FlowPane fx:id="tags" />
-            <Label fx:id="destination" styleClass="cell_small_label" text="\$destination" />
-            <Label fx:id="dateRange" styleClass="cell_small_label" text="\$dateRange" />
+            <Label fx:id="destination" styleClass="card-details" text="\$destination" />
+            <Label fx:id="dateRange" styleClass="card-details" text="\$dateRange" />
         </VBox>
     </GridPane>
 </HBox>
