@@ -58,7 +58,7 @@ UniqueItineraryList --> "~* all" Itinerary
 Itinerary *--> ItineraryName
 Itinerary *--> Destination
 Itinerary *--> DateRange
-Itinerary -left-> "*" Person
+Itinerary --> "*" Id
 
 Person -[hidden]up--> I
 UniquePersonList -[hidden]right-> I
