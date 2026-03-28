@@ -23,7 +23,8 @@ import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditItineraryCommand;
+import seedu.address.logic.commands.EditPersonCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.itinerary.DateRange;
 import seedu.address.model.tag.Tag;
@@ -48,7 +49,6 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         String[] splitArgs = trimmedArgs.split("\\s+", 2);
         String flagStr = splitArgs[0].toLowerCase(); // case-insensitive
-        EditCommand.EditType flag;
 
         if (splitArgs.length < 2) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
@@ -58,15 +58,9 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
 
-        if (flagStr.equals(CONTACT_FLAG)) {
-            flag = EditCommand.EditType.CONTACT;
-        } else {
-            flag = EditCommand.EditType.ITINERARY;
-        }
-
         String otherArgs = splitArgs[1];
 
-        if (flag == EditCommand.EditType.CONTACT) {
+        if (flagStr.equals(CONTACT_FLAG)) {
             ArgumentMultimap argMultimap =
                     ArgumentTokenizer.tokenize(otherArgs, PREFIX_NAME, PREFIX_PHONE,
                             PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
@@ -81,7 +75,8 @@ public class EditCommandParser implements Parser<EditCommand> {
 
             argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS);
 
-            EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
+            EditPersonCommand.EditPersonDescriptor editPersonDescriptor =
+                    new EditPersonCommand.EditPersonDescriptor();
 
             if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
                 editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
@@ -101,7 +96,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                 throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
             }
 
-            return new EditCommand(index, flag, editPersonDescriptor, null);
+            return new EditPersonCommand(index, editPersonDescriptor);
         } else { // itinerary flag
             ArgumentMultimap argMultimap =
                     ArgumentTokenizer.tokenize(otherArgs, PREFIX_ITINERARY_NAME, PREFIX_ITINERARY_DESTINATION,
@@ -118,7 +113,8 @@ public class EditCommandParser implements Parser<EditCommand> {
             argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_ITINERARY_NAME, PREFIX_ITINERARY_DESTINATION,
                     PREFIX_ITINERARY_START, PREFIX_ITINERARY_END);
 
-            EditCommand.EditItineraryDescriptor editItineraryDescriptor = new EditCommand.EditItineraryDescriptor();
+            EditItineraryCommand.EditItineraryDescriptor editItineraryDescriptor =
+                    new EditItineraryCommand.EditItineraryDescriptor();
 
             if (argMultimap.getValue(PREFIX_ITINERARY_NAME).isPresent()) {
                 editItineraryDescriptor.setItineraryName(
@@ -148,7 +144,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                 throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
             }
 
-            return new EditCommand(index, flag, null, editItineraryDescriptor);
+            return new EditItineraryCommand(index, editItineraryDescriptor);
         }
     }
 
