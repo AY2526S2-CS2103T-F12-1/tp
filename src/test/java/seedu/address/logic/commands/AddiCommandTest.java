@@ -28,8 +28,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.id.Id;
 import seedu.address.model.itinerary.Itinerary;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Role;
 import seedu.address.testutil.ItineraryBuilder;
 import seedu.address.testutil.PersonBuilder;
 
@@ -254,6 +256,11 @@ public class AddiCommandTest {
 
         @Override
         public void setPerson(Person target, Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updatePersonRole(Id personId, Role newRole) {
             throw new AssertionError("This method should not be called.");
         }
 

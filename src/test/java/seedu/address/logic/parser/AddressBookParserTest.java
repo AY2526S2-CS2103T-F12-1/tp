@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
@@ -21,8 +20,10 @@ import seedu.address.logic.commands.AddiCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditItineraryDescriptor;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditItineraryCommand;
+import seedu.address.logic.commands.EditItineraryCommand.EditItineraryDescriptor;
+import seedu.address.logic.commands.EditPersonCommand;
+import seedu.address.logic.commands.EditPersonCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -48,7 +49,7 @@ public class AddressBookParserTest {
     public void parseCommand_addc() throws Exception {
         Person person = new PersonBuilder().build();
         AddcCommand command = (AddcCommand) parser.parseCommand(AddcCommand.COMMAND_WORD + " "
-                + PREFIX_ROLE + person.getRole().value + " " + PersonUtil.getPersonDetails(person));
+                + PersonUtil.getPersonDetails(person));
         assertEquals(new AddcCommand(person), command);
     }
 
@@ -77,8 +78,7 @@ public class AddressBookParserTest {
                 + EditCommand.CONTACT_FLAG + " "
                 + INDEX_FIRST.getOneBased() + " "
                 + PersonUtil.getEditPersonDescriptorDetails(personDescriptor));
-        assertEquals(new EditCommand(INDEX_FIRST, EditCommand.EditType.CONTACT,
-                personDescriptor, null), editPersonCommand);
+        assertEquals(new EditPersonCommand(INDEX_FIRST, personDescriptor), editPersonCommand);
 
         Itinerary itinerary = new ItineraryBuilder().build();
         EditItineraryDescriptor itineraryDescriptor = new EditItineraryDescriptorBuilder(itinerary).build();
@@ -86,8 +86,7 @@ public class AddressBookParserTest {
                 + EditCommand.ITINERARY_FLAG + " "
                 + INDEX_FIRST.getOneBased() + " "
                 + ItineraryUtil.getEditItineraryDescriptorDetails(itineraryDescriptor));
-        assertEquals(new EditCommand(INDEX_FIRST, EditCommand.EditType.ITINERARY,
-                null, itineraryDescriptor), editItineraryCommand);
+        assertEquals(new EditItineraryCommand(INDEX_FIRST, itineraryDescriptor), editItineraryCommand);
     }
 
     @Test
