@@ -164,6 +164,7 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+        filteredItineraries.setPredicate(i -> false);
     }
 
     //=========== Filtered Itinerary List Accessors =============================================================
@@ -181,6 +182,13 @@ public class ModelManager implements Model {
     public void updateFilteredItineraryList(Predicate<Itinerary> predicate) {
         requireNonNull(predicate);
         filteredItineraries.setPredicate(predicate);
+        filteredPersons.setPredicate(i -> false);
+    }
+
+    @Override
+    public void updateBothLists(Predicate<Person> personPredicate, Predicate<Itinerary> itineraryPredicate) {
+        filteredPersons.setPredicate(personPredicate);
+        filteredItineraries.setPredicate(itineraryPredicate);
     }
 
     @Override

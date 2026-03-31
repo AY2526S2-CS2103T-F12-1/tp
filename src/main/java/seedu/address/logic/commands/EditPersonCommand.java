@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ITINERARIES;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -66,7 +67,7 @@ public class EditPersonCommand extends EditCommand {
             model.updatePersonRole(editedPerson.getId(), editedPerson.getRole());
         }
 
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_CONTACTS);
+        model.updateBothLists(PREDICATE_SHOW_ALL_CONTACTS, PREDICATE_SHOW_ALL_ITINERARIES);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
     }
 

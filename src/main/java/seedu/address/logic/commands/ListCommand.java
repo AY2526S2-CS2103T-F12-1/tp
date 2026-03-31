@@ -45,8 +45,7 @@ public class ListCommand extends Command {
 
         switch (flag) {
         case ALL:
-            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_CONTACTS);
-            model.updateFilteredItineraryList(PREDICATE_SHOW_ALL_ITINERARIES);
+            model.updateBothLists(PREDICATE_SHOW_ALL_CONTACTS, PREDICATE_SHOW_ALL_ITINERARIES);
             return new CommandResult(MESSAGE_SUCCESS_ALL, PanelType.BOTH);
         case CONTACT:
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_CONTACTS);

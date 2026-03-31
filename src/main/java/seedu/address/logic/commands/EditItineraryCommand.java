@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ITINERARIES;
 
 import java.time.LocalDate;
@@ -55,7 +56,7 @@ public class EditItineraryCommand extends EditCommand {
         }
 
         model.setItinerary(itineraryToEdit, editedItinerary);
-        model.updateFilteredItineraryList(PREDICATE_SHOW_ALL_ITINERARIES);
+        model.updateBothLists(PREDICATE_SHOW_ALL_CONTACTS, PREDICATE_SHOW_ALL_ITINERARIES);
         return new CommandResult(String.format(MESSAGE_EDIT_ITINERARY_SUCCESS, Messages.format(editedItinerary)));
     }
 
