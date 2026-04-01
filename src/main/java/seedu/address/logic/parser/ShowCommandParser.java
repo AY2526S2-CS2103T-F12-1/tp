@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_NOT_INTEGER;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ShowCommand;
@@ -24,7 +25,11 @@ public class ShowCommandParser implements Parser<ShowCommand> {
         try {
             index = ParserUtil.parseIndex(args);
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE), pe);
+            if (pe.getMessage().equals(MESSAGE_NOT_INTEGER)) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
+            } else {
+                throw new ParseException(MESSAGE_NOT_INTEGER);
+            }
         }
         return new ShowCommand(index);
     }
