@@ -73,20 +73,20 @@ public class JsonAddressBookStorageTest {
         assertEquals(Optional.of(expectedAddressBook), readAddressBook("invalidAndValidPersonAddressBook.json"));
     }
 
-     @Test
-     public void readAddressBook_invalidItineraryAddressBook_emptyResult() throws Exception {
-         assertFalse(readAddressBook("invalidItineraryAddressBook").isPresent());
-     }
+    @Test
+    public void readAddressBook_invalidItineraryAddressBook_emptyResult() throws Exception {
+        assertFalse(readAddressBook("invalidItineraryAddressBook").isPresent());
+    }
 
-     @Test
-     public void readAddressBook_invalidAndValidItineraryAddressBook_hasOnlyValiditineraries() throws Exception {
-         AddressBook expectedAddressBook = new AddressBook();
-         Itinerary expectedItinerary = new ItineraryBuilder().withName("Island Time: Bali").withDestination("Bali")
-                 .withDateRange("2026-03-10", "2026-03-15").build();
+    @Test
+    public void readAddressBook_invalidAndValidItineraryAddressBook_hasOnlyValiditineraries() throws Exception {
+        AddressBook expectedAddressBook = new AddressBook();
+        Itinerary expectedItinerary = new ItineraryBuilder().withName("Island Time: Bali").withDestination("Bali")
+                .withDateRange("2026-03-10", "2026-03-15").build();
 
-         expectedAddressBook.addItinerary(expectedItinerary);
-         assertEquals(Optional.of(expectedAddressBook), readAddressBook("invalidAndValidItineraryAddressBook.json"));
-     }
+        expectedAddressBook.addItinerary(expectedItinerary);
+        assertEquals(Optional.of(expectedAddressBook), readAddressBook("invalidAndValidItineraryAddressBook.json"));
+    }
 
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
