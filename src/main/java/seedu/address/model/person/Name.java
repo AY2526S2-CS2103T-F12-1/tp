@@ -3,6 +3,10 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.Arrays;
+import java.util.Locale;
+import java.util.stream.Collectors;
+
 /**
  * Represents a Person's name in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
@@ -28,7 +32,7 @@ public class Name {
     public Name(String name) {
         requireNonNull(name);
         checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
-        fullName = name;
+        fullName = normalizeName(name);
     }
 
     /**
@@ -38,6 +42,23 @@ public class Name {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Normalizes the input into title case with single spaces between name parts.
+     */
+    private static String normalizeName(String name) {
+        return Arrays.stream(name.trim().split("\\s+"))
+                .map(Name::toTitleCase)
+                .collect(Collectors.joining(" "));
+    }
+
+    private static String toTitleCase(String value) {
+        if (value.isEmpty()) {
+            return value;
+        }
+
+        return value.substring(0, 1).toUpperCase(Locale.ROOT)
+                + value.substring(1).toLowerCase(Locale.ROOT);
+    }
 
     @Override
     public String toString() {
@@ -56,12 +77,12 @@ public class Name {
         }
 
         Name otherName = (Name) other;
-        return fullName.equals(otherName.fullName);
+        return fullName.equalsIgnoreCase(otherName.fullName);
     }
 
     @Override
     public int hashCode() {
-        return fullName.hashCode();
+        return fullName.toLowerCase(Locale.ROOT).hashCode();
     }
 
 }

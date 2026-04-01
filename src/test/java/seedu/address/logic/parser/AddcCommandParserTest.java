@@ -146,6 +146,14 @@ public class AddcCommandParserTest {
     }
 
     @Test
+    public void parse_nameIsNormalized_success() {
+        Person expectedPerson = new PersonBuilder(BOB).withName("David Li").withTags().build();
+        assertParseSuccess(parser,
+                ROLE_DESC_BOB + " n/david li" + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB,
+                new AddcCommand(expectedPerson));
+    }
+
+    @Test
     public void parse_compulsoryFieldMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddcCommand.MESSAGE_USAGE);
 

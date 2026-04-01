@@ -59,6 +59,15 @@ public class UniquePersonListTest {
     }
 
     @Test
+    public void add_personWithSameNameIgnoringCase_throwsDuplicatePersonException() {
+        uniquePersonList.add(BOB);
+        Person duplicateBob = new PersonBuilder(BOB)
+                .withName("bob choo")
+                .build();
+        assertThrows(DuplicatePersonException.class, () -> uniquePersonList.add(duplicateBob));
+    }
+
+    @Test
     public void setPerson_nullTargetPerson_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniquePersonList.setPerson(null, ALICE));
     }

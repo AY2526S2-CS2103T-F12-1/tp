@@ -45,4 +45,16 @@ public class AddcCommandIntegrationTest {
                 AddcCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
+    @Test
+    public void execute_duplicatePersonNameIgnoringCase_throwsCommandException() {
+        Person personInList = model.getAddressBook().getPersonList().get(0);
+        Person duplicateByName = new PersonBuilder(personInList)
+                .withName(personInList.getName().fullName.toLowerCase())
+                .withEmail("other@example.com")
+                .build();
+
+        assertCommandFailure(new AddcCommand(duplicateByName), model,
+                AddcCommand.MESSAGE_DUPLICATE_PERSON);
+    }
+
 }
