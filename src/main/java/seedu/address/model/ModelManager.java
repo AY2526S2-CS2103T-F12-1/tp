@@ -106,7 +106,7 @@ public class ModelManager implements Model {
     @Override
     public void addPerson(Person person) {
         addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_CONTACTS);
+        updateBothLists(PREDICATE_SHOW_ALL_CONTACTS, PREDICATE_SHOW_ALL_ITINERARIES);
     }
 
     @Override
@@ -139,7 +139,7 @@ public class ModelManager implements Model {
     @Override
     public void addItinerary(Itinerary itinerary) {
         addressBook.addItinerary(itinerary);
-        updateFilteredItineraryList(PREDICATE_SHOW_ALL_ITINERARIES);
+        updateBothLists(PREDICATE_SHOW_ALL_CONTACTS, PREDICATE_SHOW_ALL_ITINERARIES);
     }
 
     @Override
