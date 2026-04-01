@@ -48,6 +48,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_NOT_INTEGER;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD;
@@ -270,10 +272,10 @@ public class EditCommandParserTest {
     @Test
     public void parse_itineraryInvalidPreamble_failure() {
         // negative index
-        assertParseFailure(parser, ITINERARY_FLAG + " -5" + ITINERARY_NAME_DESC_FRANCE, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, ITINERARY_FLAG + " -5" + ITINERARY_NAME_DESC_FRANCE, MESSAGE_INVALID_INDEX);
 
         // zero index
-        assertParseFailure(parser, ITINERARY_FLAG + " 0" + ITINERARY_NAME_DESC_FRANCE, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, ITINERARY_FLAG + " 0" + ITINERARY_NAME_DESC_FRANCE, MESSAGE_INVALID_INDEX);
 
         // invalid arguments being parsed as preamble
         assertParseFailure(parser, ITINERARY_FLAG + " 1 some random string", MESSAGE_INVALID_FORMAT);
