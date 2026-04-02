@@ -233,8 +233,8 @@ public class CommandTestUtil {
         Itinerary itinerary = model.getFilteredItineraryList().get(targetItineraryIndex.getZeroBased());
         final String[] splitPersonName = person.getName().fullName.split("\\s+");
         final String[] splitItineraryName = itinerary.getName().fullName.split("\\s+");
-        model.updateBothLists(new PersonContainsKeywordsPredicate(Arrays.asList(splitPersonName[0])),
-                i -> i.getName().equals(itinerary.getName()));
+        model.updateFilteredPersonList(new PersonContainsKeywordsPredicate(Arrays.asList(splitPersonName[0])));
+        model.updateFilteredItineraryList(i -> i.getName().equals(itinerary.getName()));
 
 
         assertEquals(1, model.getFilteredItineraryList().size());
