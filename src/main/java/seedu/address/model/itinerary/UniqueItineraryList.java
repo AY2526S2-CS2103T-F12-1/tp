@@ -1,16 +1,11 @@
 package seedu.address.model.itinerary;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
-import java.util.Iterator;
 import java.util.List;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import seedu.address.model.id.Id;
 import seedu.address.model.itinerary.exceptions.DuplicateItineraryException;
 import seedu.address.model.itinerary.exceptions.ItineraryNotFoundException;
+import seedu.address.model.list.UniqueList;
 
 /**
  * A list of itineraries that enforces uniqueness between its elements and does not allow nulls.
@@ -24,99 +19,37 @@ import seedu.address.model.itinerary.exceptions.ItineraryNotFoundException;
  *
  * @see Itinerary#isSameItinerary(Itinerary)
  */
-public class UniqueItineraryList implements Iterable<Itinerary> {
+public class UniqueItineraryList extends UniqueList<Itinerary> {
 
-    private final ObservableList<Itinerary> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Itinerary> internalUnmodifiableList =
-            FXCollections.unmodifiableObservableList(internalList);
-
-    /**
-     * Returns true if the list contains an equivalent itinerary as the given argument.
-     */
-    public boolean contains(Itinerary toCheck) {
-        requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameItinerary);
+    @Override
+    protected boolean isSame(Itinerary i1, Itinerary i2) {
+        return i1.isSameItinerary(i2);
     }
 
-    /**
-     * Adds an itinerary to the list.
-     * The itinerary must not already exist in the list.
-     */
-    public void add(Itinerary toAdd) {
-        requireNonNull(toAdd);
-        if (contains(toAdd)) {
-            throw new DuplicateItineraryException();
-        }
-        internalList.add(toAdd);
+    @Override
+    protected RuntimeException duplicateException() {
+        return new DuplicateItineraryException();
     }
 
-    /**
-     * Replaces the itinerary {@code target} in the list with {@code editedItinerary}.
-     * {@code target} must exist in the list.
-     * The itinerary identity of {@code editedItinerary} must not be the same as another existing itinerary in the list.
-     */
-    public void setItinerary(Itinerary target, Itinerary editedItinerary) {
-        requireAllNonNull(target, editedItinerary);
-
-        int index = internalList.indexOf(target);
-        if (index == -1) {
-            throw new ItineraryNotFoundException();
-        }
-
-        if (!target.isSameItinerary(editedItinerary) && contains(editedItinerary)) {
-            throw new DuplicateItineraryException();
-        }
-
-        internalList.set(index, editedItinerary);
+    @Override
+    protected RuntimeException notFoundException() {
+        return new ItineraryNotFoundException();
     }
 
-    /**
-     * Removes the equivalent itinerary from the list.
-     * The itinerary must exist in the list.
-     */
-    public void remove(Itinerary toRemove) {
-        requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
-            throw new ItineraryNotFoundException();
-        }
-    }
-
-    public void setItineraries(UniqueItineraryList replacement) {
-        requireNonNull(replacement);
-        internalList.setAll(replacement.internalList);
-    }
-
-    /**
-     * Replaces the contents of this list with {@code itineraries}.
-     * {@code itieraries} must not contain duplicate itineraries.
-     */
-    public void setItineraries(List<Itinerary> itineraries) {
-        requireAllNonNull(itineraries);
-        if (!itinerariesAreUnique(itineraries)) {
-            throw new DuplicateItineraryException();
-        }
-
-        internalList.setAll(itineraries);
-    }
-
-    /**
-     * Removes a person from all its related itineraries.
-     * @param id The id of the removed person.
-     */
     public void removePerson(Id id) {
         internalList.forEach(itinerary -> itinerary.removePersonId(id));
     }
 
-    /**
-     * Returns the backing list as an unmodifiable {@code ObservableList}.
-     */
-    public ObservableList<Itinerary> asUnmodifiableObservableList() {
-        return internalUnmodifiableList;
+    public void setItinerary(Itinerary target, Itinerary editedItinerary) {
+        set(target, editedItinerary);
     }
 
-    @Override
-    public Iterator<Itinerary> iterator() {
-        return internalList.iterator();
+    public void setItineraries(UniqueItineraryList replacement) {
+        setAll(replacement);
+    }
+
+    public void setItineraries(List<Itinerary> itineraries) {
+        setAll(itineraries);
     }
 
     @Override
@@ -125,36 +58,11 @@ public class UniqueItineraryList implements Iterable<Itinerary> {
             return true;
         }
 
-        // instanceof handles nulls
+        // instanceof handles nulls and other subclasses of UniqueList
         if (!(other instanceof UniqueItineraryList)) {
             return false;
         }
 
-        UniqueItineraryList otherUniqueItineraryList = (UniqueItineraryList) other;
-        return internalList.equals(otherUniqueItineraryList.internalList);
-    }
-
-    @Override
-    public int hashCode() {
-        return internalList.hashCode();
-    }
-
-    @Override
-    public String toString() {
-        return internalList.toString();
-    }
-
-    /**
-     * Returns true if {@code itineraries} contains only unique itineraries.
-     */
-    private boolean itinerariesAreUnique(List<Itinerary> itineraries) {
-        for (int i = 0; i < itineraries.size() - 1; i++) {
-            for (int j = i + 1; j < itineraries.size(); j++) {
-                if (itineraries.get(i).isSameItinerary(itineraries.get(j))) {
-                    return false;
-                }
-            }
-        }
-        return true;
+        return super.equals(other);
     }
 }
