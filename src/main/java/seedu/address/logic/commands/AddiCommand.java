@@ -46,7 +46,8 @@ public class AddiCommand extends Command {
             + PREFIX_ITINERARY_VENDOR + "2 ";
 
     public static final String MESSAGE_SUCCESS = "New itinerary added: %1$s";
-    public static final String MESSAGE_DUPLICATE_ITINERARY = "This itinerary already exists in TripScribe";
+    public static final String MESSAGE_DUPLICATE_ITINERARY = "Duplicate itinerary: TripScribe considers "
+            + "itineraries with the same name (case-insensitive) as duplicates.";
     public static final String MESSAGE_PERSON_INDEX_MISSING = "Index not found in current TripScribe window!";
     public static final String MESSAGE_NOT_CLIENT = "%1s is not a client";
     public static final String MESSAGE_NOT_VENDOR = "%1s is not a vendor";
@@ -135,7 +136,6 @@ public class AddiCommand extends Command {
                 .toString();
     }
 }
-
 
 
 

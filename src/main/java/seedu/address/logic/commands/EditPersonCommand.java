@@ -29,7 +29,8 @@ import seedu.address.model.tag.Tag;
  */
 public class EditPersonCommand extends EditCommand {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "Duplicate contact: TripScribe considers contacts with "
+            + "the same name (case-insensitive) and phone number as duplicates.";
 
     private final EditPersonDescriptor editPersonDescriptor;
 
