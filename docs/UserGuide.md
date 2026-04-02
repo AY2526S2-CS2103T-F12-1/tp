@@ -14,6 +14,7 @@ TripScribe is a desktop app built for **operations executives at tour agencies**
 
 <!-- * Table of Contents -->
 <page-nav-print />
+<div style="page-break-after: always;"></div>
 
 --------------------------------------------------------------------------------------------------------------------
 ## Table of Contents
@@ -37,6 +38,7 @@ TripScribe is a desktop app built for **operations executives at tour agencies**
 5. [Known Issues](#known-issues)
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## Quick Start
 
@@ -75,6 +77,8 @@ TripScribe needs Java `17` or above to run. Here is how to check if you already 
 * Run TripScribe by typing the command `java -jar tripscribe.jar` into the terminal.<br>
  A pop-up window similar to the below should appear in a few seconds. On first start, the app will load sample data so you can explore its features right away.<br>
  ![Ui](images/Ui.png)
+<div style="page-break-after: always;"></div>
+
 
 #### 4. Try Your First Commands
 * Type a command in the **command box** and press Enter to execute it. 
@@ -94,6 +98,8 @@ TripScribe needs Java `17` or above to run. Here is how to check if you already 
 You can refer to the [Features](#features) below to learn more details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
+
 
 ## Features
 
@@ -118,6 +124,8 @@ You can refer to the [Features](#features) below to learn more details of each c
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines, as there may be formatting issues which affect the copied text.
 </box>
+<div style="page-break-after: always;"></div>
+
 
 ### Viewing help : `help`
 
@@ -129,6 +137,8 @@ help
 ```
 
 ![help message](images/helpMessage.png)
+<div style="page-break-after: always;"></div>
+
 
 ### Adding a Contact: `addc`
 
@@ -155,6 +165,8 @@ addc r/ROLE n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​
 * `addc r/vendor n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/(+44) 1234567 t/hotel`
 
 ![Result of adding a contact](images/AddcSuccess.png)
+<div style="page-break-after: always;"></div>
+
 
 ### Adding an Itinerary: `addi`
 
@@ -190,6 +202,8 @@ addi n/ITINERARY_NAME dest/DESTINATION from/START_DATE to/END_DATE [c/CLIENT_IND
 
 | ![add itinerary command typed in TripScribe](images/AddItineraryBefore.png)<br>Input | ![Add itinerary executed in TripScribe](images/AddItineraryAfter.png)<br>Expected Output |
 |:------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------:|
+<div style="page-break-after: always;"></div>
+
 
 ### Listing Contacts and Itineraries : `list`
 
@@ -220,9 +234,9 @@ list /FLAG
 **Examples:**
 * `list /contact`
 * `list /client`
-* `list /vendor`
 * `list /itinerary`
 * `list /all`
+* <div style="page-break-after: always;"></div>
 
 ### Editing Contacts and Itineraries : `edit`
 
@@ -262,6 +276,8 @@ When editing contacts, editing tags replaces all existing tags of the contact, i
   * Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 * `edit /itinerary 1 n/Bali 4D3N`
   * Edits the name of the first itinerary to be `Bali 4D3N`
+<div style="page-break-after: always;"></div>
+
 
 ### Showing contacts by itinerary: `show`
 
@@ -285,6 +301,7 @@ show INDEX
 * `show 2`
   * Shows details of the 2nd itinerary, and the contacts associated with it.
 
+<div style="page-break-after: always;"></div>
 
 
 ### Finding Contacts by Keywords: `find`
@@ -338,6 +355,8 @@ Multi-Field Search:
 * `find n/alex p/996` returns contacts whose names contain `alex` and whose phone numbers contain `996`.
 * `find n/alex david p/992 281` returns contacts whose names contain `alex` or `david` and phone numbers contain `992` or `281`. <br>
 
+<div style="page-break-after: always;"></div>
+
 ### Deleting a Contact or Itinerary : `delete`
 
 Delete a specified contact or itinerary from TripScribe.
@@ -367,6 +386,8 @@ delete /FLAG INDEX
  | ![delete itinerary command typed in TripScribe](images/DeleteItineraryBefore.png)<br>Input | ![delete itinerary executed in TripScribe](images/DeleteItineraryAfter.png)<br>Expected Output |
  |:------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------:|
 
+<div style="page-break-after: always;"></div>
+
 
 ### Clearing All Entries : `clear`
 
@@ -376,6 +397,8 @@ Clear all contacts and itineraries from TripScribe.
 ```
 clear
 ```
+<div style="page-break-after: always;"></div>
+
 
 ### Exiting TripScribe : `exit`
 
@@ -385,6 +408,8 @@ Exit TripScribe.
 ```
 exit
 ```
+<div style="page-break-after: always;"></div>
+
 
 ### Command Summary
 
@@ -402,6 +427,8 @@ exit
 | [**exit**](#exiting-tripscribe--exit)                  | `exit`                                                                                                                                                               | -                                                                                                                  |
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
+
 
 ## Data Management
 
@@ -420,6 +447,8 @@ If you save the file in an invalid format, TripScribe will discard all invalid d
 Furthermore, certain edits can cause TripScribe to remove entries (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you know what you are doing.
 
 </box>
+<div style="page-break-after: always;"></div>
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -429,6 +458,8 @@ Furthermore, certain edits can cause TripScribe to remove entries (e.g., if a va
 **A**: Install TripScribe on the other computer and replace the empty data file it creates with your file that contains the data of your previous TripScribe application folder.
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
+
 
 ## Known Issues
 
