@@ -503,8 +503,18 @@ testers are expected to do more *exploratory* testing.
 
 ### Saving data
 
-1. Dealing with missing/corrupted data files
+1. Dealing with missing data file
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+   1. Prerequisites: Data file is not in the `data` folder
+   2. Test case: TripScribe.json is missing from `data` folder on launch. <br> 
+   Expected: TripScribe should still launch and function like normal, but with default set of data in view.
 
-1. _{ more test cases …​ }_
+1. Dealing with incorrect fields in data file
+   1. Prerequisites: Data file is in data folder, at least 1 field in an object is not in the correct format. 
+   2. Test case: 1 field in a `Person` is in the wrong format. <br> 
+      Expected: Contact should not be in TripScribe when app is launched. Any itineraries holding the `Id` of the person lose that `Id` <br>
+      "Illegal value found in field of a contact entry, skipping." is logged into terminal.
+   3. Test case: 1 field in an `Itinerary` is in the wrong format. <br>
+      Expected: Itinerary should not be in TripScribe when app is launched. <br>
+      "Illegal value found in field of an itinerary entry, skipping." is logged into terminal.
+
