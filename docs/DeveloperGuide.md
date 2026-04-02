@@ -10,6 +10,36 @@
 <page-nav-print />
 
 --------------------------------------------------------------------------------------------------------------------
+## Table of Contents
+
+- [TripScribe Developer Guide](#tripscribe-developer-guide)
+- [Acknowledgements](#acknowledgements)
+- [Setting up, getting started](#setting-up-getting-started)
+- [Design](#design)
+    - [Architecture](#architecture)
+    - [UI component](#ui-component)
+    - [Logic component](#logic-component)
+    - [Model component](#model-component)
+    - [Storage component](#storage-component)
+    - [Common classes](#common-classes)
+- [Implementation](#implementation)
+    - [[Proposed] Undo/redo feature](#proposed-undoredo-feature)
+        - [Proposed Implementation](#proposed-implementation)
+        - [Design considerations](#design-considerations)
+    - [[Proposed] Data archiving](#proposed-data-archiving)
+- [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
+- [Appendix: Requirements](#appendix-requirements)
+    - [Product scope](#product-scope)
+    - [User stories](#user-stories)
+    - [Use cases](#use-cases)
+    - [Non-Functional Requirements](#non-functional-requirements)
+    - [Glossary](#glossary)
+- [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
+    - [Launch and shutdown](#launch-and-shutdown)
+    - [Deleting a person](#deleting-a-person)
+    - [Deleting an itinerary](#deleting-an-itinerary)
+
+--------------------------------------------------------------------------------------------------------------------
 
 ## **Acknowledgements**
 
@@ -468,15 +498,46 @@ testers are expected to do more *exploratory* testing.
 ### Deleting a person
 
 1. Deleting a person while all persons are being shown
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list. 
-   2. Test case: `delete 1`<br>
+   1. Prerequisites: List all persons using the `list /all` command. Ensure there are multiple persons in the list. 
+   2. Test case: `delete \contact 1`<br>
       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-   3. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-   4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+   
+   Other incorrect delete commands to try:
+    1. Test case: `delete` (missing flag and index)<br>
+       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+    2. Test case: `delete \contact` (missing index)<br>
+       Expected: Similar to previous.
+    3. Test case: `delete \contact 0` (invalid index)<br>
+       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+    4. Test case: `delete \contact x` where x is larger than the list size (invalid index)<br>
+       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
-2. _{ more test cases …​ }_
+2. Deleting a person associated with an itinerary
+   1. Prerequisites: Ensure a person is associated with an itinerary (e.g. person 1 linked to itinerary 2). Ensure the person is displayed in the person list (e.g. Using the `list /all` command).
+   2. Test case: `delete \contact x` (where x is the person's index in the displayed list)<br>
+      Expected: Contact is deleted.
+   
+   Follow-up: 
+   1. Ensure the itinerary is displayed in the itinerary list (e.g. Using the `list /all` command).
+   2. Test case: `show y` (where y is the associated itinerary's index in the displayed list)<br>
+      Expected: Deleted contact no longer appears in the itinerary’s associated contact list.
+
+3. Deleting a person when only some persons are being shown
+    1. Prerequisites: Use a filtering command (e.g. `list /vendor`, `list /client`) to display a subset of the full contact list. Ensure there is at least one person in the list.
+     2. Test case: `delete \contact 1`<br>
+       Expected: First contact is deleted from the filtered list, not the full list.
+
+4. Deleting a person when no persons are being shown
+    1. Prerequisites: Hide all persons and list all itineraries using the `list /itinerary` command.
+    2. Test case: `delete \contact 1`<br>
+       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+
+### Deleting an itinerary
+
+These test cases follow the same steps as manual testing for [Deleting a person](#deleting-a-person), with the following differences:
+- The command format is `delete /itinerary x`, where x is the index of the itinerary in the displayed list.
+- All expected outcomes remain the same, with references to “person” replaced by “itinerary”.
+- The scenario _Deleting a person associated with an itinerary_ does not apply.
 
 ### Saving data
 
