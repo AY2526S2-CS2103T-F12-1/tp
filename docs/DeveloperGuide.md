@@ -473,16 +473,23 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   2. Run the jar file as per [quick start](UserGuide.md/#3-run-tripscribe). <br>
+      Expected: GUI is shown with sample contacts
 
-1. Saving window preferences
+2. Saving window preferences
 
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
+   2. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+3. Exiting TripScribe using `exit`
+   1. Type `exit` into the command bar of TripScribe <br>
+      Expected: TripScribe application window is closed
+   
+4. Exiting TripScribe using the exit button
+   1. Click `File` in TripScribe and click the `Exit` button <br>
+      Expected: TripScribe application window is closed
 
 ### Deleting a person
 
@@ -509,7 +516,7 @@ testers are expected to do more *exploratory* testing.
    2. Test case: TripScribe.json is missing from `data` folder on launch. <br> 
    Expected: TripScribe should still launch and function like normal, but with default set of data in view.
 
-1. Dealing with incorrect fields in data file
+2. Dealing with incorrect fields in data file
    1. Prerequisites: Data file is in data folder, at least 1 field in an object is not in the correct format. 
    2. Test case: 1 field in a `Person` is in the wrong format. <br> 
       Expected: Contact should not be in TripScribe when app is launched. Any itineraries holding the `Id` of the person lose that `Id` <br>
