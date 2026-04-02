@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -43,6 +44,18 @@ public class FindCommandParserTest {
                 Collections.singletonList("friends")));
 
         assertParseSuccess(parser, " n/Alice e/example.com t/friends", expectedFindCommand);
+    }
+
+    @Test
+    public void parse_fieldSearchWithMultipleKeywordsInSamePrefix_returnsFindCommand() {
+        FindCommand expectedFindCommand = new FindCommand(new PersonMatchesFieldsPredicate(
+                List.of("Alex", "David"),
+                Collections.emptyList(),
+                Collections.emptyList(),
+                Collections.emptyList(),
+                Collections.emptyList()));
+
+        assertParseSuccess(parser, " n/Alex David", expectedFindCommand);
     }
 
     @Test

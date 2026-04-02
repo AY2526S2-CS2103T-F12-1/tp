@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -65,6 +66,12 @@ public class FindCommandParser implements Parser<FindCommand> {
         List<String> addressKeywords = argMultimap.getAllValues(PREFIX_ADDRESS);
         List<String> tagKeywords = argMultimap.getAllValues(PREFIX_TAG);
 
+        nameKeywords = splitValuesIntoKeywords(nameKeywords);
+        phoneKeywords = splitValuesIntoKeywords(phoneKeywords);
+        emailKeywords = splitValuesIntoKeywords(emailKeywords);
+        addressKeywords = splitValuesIntoKeywords(addressKeywords);
+        tagKeywords = splitValuesIntoKeywords(tagKeywords);
+
         if (nameKeywords.isEmpty() && phoneKeywords.isEmpty() && emailKeywords.isEmpty()
                 && addressKeywords.isEmpty() && tagKeywords.isEmpty()) {
             throw new ParseException(
@@ -73,6 +80,16 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         return new FindCommand(new PersonMatchesFieldsPredicate(
                 nameKeywords, phoneKeywords, emailKeywords, addressKeywords, tagKeywords));
+    }
+
+    /**
+     * Splits each prefixed value into whitespace-delimited keywords and discards blank tokens.
+     */
+    private List<String> splitValuesIntoKeywords(List<String> values) {
+        return values.stream()
+                .flatMap(value -> Arrays.stream(value.trim().split("\\s+")))
+                .filter(token -> !token.isEmpty())
+                .collect(Collectors.toList());
     }
 
     /**
