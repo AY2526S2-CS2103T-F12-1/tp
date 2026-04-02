@@ -159,10 +159,10 @@ public class AddiCommandParserTest {
         // invalid index
         assertParseFailure(parser, ITINERARY_NAME_DESC_BALI + ITINERARY_DEST_DESC_BALI
                 + ITINERARY_START_DATE_DESC_BALI + ITINERARY_END_DATE_DESC_BALI
-                + INVALID_INDEX_CLIENT_DESC, ParserUtil.MESSAGE_INVALID_INDEX);
+                + INVALID_INDEX_CLIENT_DESC, ParserUtil.MESSAGE_NOT_INTEGER);
         assertParseFailure(parser, ITINERARY_NAME_DESC_BALI + ITINERARY_DEST_DESC_BALI
                 + ITINERARY_START_DATE_DESC_BALI + ITINERARY_END_DATE_DESC_BALI
-                + INVALID_INDEX_VENDOR_DESC, ParserUtil.MESSAGE_INVALID_INDEX);
+                + INVALID_INDEX_VENDOR_DESC, ParserUtil.MESSAGE_NOT_INTEGER);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_ITINERARY_NAME_DESC + INVALID_ITINERARY_DEST_DESC

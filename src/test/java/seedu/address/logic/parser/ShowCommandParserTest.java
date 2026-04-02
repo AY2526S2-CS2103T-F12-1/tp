@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.Test;
@@ -22,12 +23,13 @@ public class ShowCommandParserTest {
     @Test
     public void parse_invalidIndex_failure() {
         // negative index
-        assertParseFailure(parser, "-1", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "-1", MESSAGE_INVALID_INDEX);
 
         // zero index
-        assertParseFailure(parser, "0", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "0", MESSAGE_INVALID_INDEX);
 
-        assertParseFailure(parser, "a", MESSAGE_INVALID_FORMAT);
+        // non-number
+        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
     }
 
     @Test

@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.CONTACT_FLAG;
 import static seedu.address.logic.parser.CliSyntax.ITINERARY_FLAG;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_NOT_INTEGER;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCommand;
@@ -46,8 +47,11 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             Index index = ParserUtil.parseIndex(splitArgs[1]);
             return new DeleteCommand(flag, index);
         } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
+            if (pe.getMessage().equals(MESSAGE_NOT_INTEGER)) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+            } else {
+                throw pe;
+            }
         }
     }
 
