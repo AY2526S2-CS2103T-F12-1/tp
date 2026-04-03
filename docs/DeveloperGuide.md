@@ -240,13 +240,13 @@ The following activity diagram summarizes what happens when a user executes a ne
 **Aspect: How undo & redo executes:**
 
 * **Alternative 1 (current choice):** Saves the entire address book.
-    * Pros: Easy to implement.
-    * Cons: May have performance issues in terms of memory usage.
+  * Pros: Easy to implement.
+  * Cons: May have performance issues in terms of memory usage.
 
 * **Alternative 2:** Individual command knows how to undo/redo by
   itself.
-    * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-    * Cons: We must ensure that the implementation of each individual command are correct.
+  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+  * Cons: We must ensure that the implementation of each individual command are correct.
 
 _{more aspects and alternatives to be added}_
 
@@ -338,40 +338,40 @@ For example, alex will match Alex, and lex will also match Alex.
 **Aspect: How `find` supports two search formats**
 
 * **Alternative 1 (current choice):** Support both a general search format and a multi-field search format.
-    * Pros: More flexible for users. General search is fast for broad lookup, while multi-field search gives users more control.
-    * Cons: Parser logic is more complex, since it must distinguish between the two formats and reject mixed usage.
+  * Pros: More flexible for users. General search is fast for broad lookup, while multi-field search gives users more control.
+  * Cons: Parser logic is more complex, since it must distinguish between the two formats and reject mixed usage.
   
 * **Alternative 2:** Support only general search.
-    * Pros: Simpler parser and predicate logic.
-    * Cons: Users cannot restrict the search to specific fields, may return too much matching contacts.
+  * Pros: Simpler parser and predicate logic.
+  * Cons: Users cannot restrict the search to specific fields, may return too much matching contacts.
   
 * **Alternative 3:** Support only multi-field search.
-    * Pros: Clearer and more structured command format.
-    * Cons: Less convenient for users who want to perform a quick broad search.
+  * Pros: Clearer and more structured command format.
+  * Cons: Less convenient for users who want to perform a quick broad search.
 
 **Aspect: How matching is performed**
 
 * **Alternative 1 (current choice):** Use substring matching with case-insensitive comparison.
-    * Pros: More user-friendly, since users do not need to type exact full-field values.
-    * Cons: May return broader results than expected.
+  * Pros: More user-friendly, since users do not need to type exact full-field values.
+  * Cons: May return broader results than expected.
 
 * **Alternative 2:** Match only full words or exact field values.
-    * Pros: More precise results.
-    * Less flexible and less convenient for users.
+  * Pros: More precise results.
+  * Less flexible and less convenient for users.
 
 **Aspect: How multi-field search combines conditions**
 
 * **Alternative 1 (current choice):** Use `OR` within the same field and `AND` across different fields.
-    * Pros: Natural balance between flexibility and precision. Users can provide multiple possible matches for one field while still constraining other fields.
-    * Cons: Slightly harder to explain in the User Guide and Developer Guide.
+  * Pros: Natural balance between flexibility and precision. Users can provide multiple possible matches for one field while still constraining other fields.
+  * Cons: Slightly harder to explain in the User Guide and Developer Guide.
 
 * **Alternative 2:** Use `OR` for all fields and all keywords.
-    * Pros: Simpler mental model.
-    * Cons: Results may be too broad for structured searches.
+  * Pros: Simpler mental model.
+  * Cons: Results may be too broad for structured searches.
 
 * **Alternative 3:** Use `AND` for all fields and all keywords.
-    * Pros: Very strict filtering.
-    * Cons: Often too restrictive for practical use.
+  * Pros: Very strict filtering.
+  * Cons: Often too restrictive for practical use.
 
 --------------------------------------------------------------------------------------------------------------------
 
