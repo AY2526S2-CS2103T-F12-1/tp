@@ -187,10 +187,10 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 
 ### Edit command
-The edit feature modifies contact and itinerary details. The implementation uses an abstract `EditCommand` class with specialized subclasses to handle the editing of `Person` and `Itinerary` objects respectively.
+The `edit` command modifies contact and itinerary details. The implementation uses an abstract `EditCommand` class with specialized subclasses to handle the editing of `Person` and `Itinerary` objects respectively.
 
 #### Architecture
-The class diagram below shows the overall structure of the edit command implementation:
+The class diagram below shows the overall structure of the `edit` command implementation:
 
 <puml src="diagrams/EditCommandClassDiagram.puml" width="600"/>
 
@@ -199,11 +199,11 @@ Each subclass contains a descriptor class, `EditPersonDescriptor` and `EditItine
 
 #### Command Execution
 
-The sequence diagram below illustrates how an edit command is executed in general:
+The sequence diagram below illustrates how an `edit` command is executed in general:
 
 <puml src="diagrams/EditCommandSequenceDiagram.puml" width="600"/>
 
-The edit command is executed in four main steps:
+The `edit` command is executed in four main steps:
 1. **Parsing:** `EditCommandParser` parses user input to create the appropriate `EditXYZDescriptor` and `EditXYZCommand` subclass (where `XYZ` is a placeholder for the type of entry being edited, either `Person` or `Itinerary`).
     * For example, the command `edit /contact 1 n/Alice` will create an `EditPersonDescriptor` and `EditPersonCommand`.
 2. **Validation:** `EditCommandParser` also validates the index given and ensures at least one field is being edited.
