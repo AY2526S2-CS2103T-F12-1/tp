@@ -178,7 +178,7 @@ The class diagram for `Itinerary` is shown below:
 
 #### Design considerations:
 
-**Aspect: Valid ItineraryName and Destination values:**
+**Aspect: Valid ItineraryName and Destination values**
 
 * **Alternative 1 (current choice):** Allow any non-empty value.
     * Pros: Easy to implement. Allows for inputs in the form of `Japan Tour: Tokyo, Osaka, Kyoto` as users likely will use certain symbols like `:` and `,`
