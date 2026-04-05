@@ -16,6 +16,8 @@ TripScribe is a desktop app built for **operations executives at tour agencies**
 <page-nav-print />
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
+
 ## Table of Contents
 
 1. [Quick Start](#quick-start)
@@ -37,6 +39,7 @@ TripScribe is a desktop app built for **operations executives at tour agencies**
 5. [Known Issues](#known-issues)
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## Quick Start
 
@@ -75,6 +78,8 @@ TripScribe needs Java `17` or above to run. Here is how to check if you already 
 * Run TripScribe by typing the command `java -jar tripscribe.jar` into the terminal.<br>
  A pop-up window similar to the below should appear in a few seconds. On first start, the app will load sample data so you can explore its features right away.<br>
  ![Ui](images/Ui.png)
+<div style="page-break-after: always;"></div>
+
 
 #### 4. Try Your First Commands
 * Type a command in the **command box** and press Enter to execute it. 
@@ -94,6 +99,8 @@ TripScribe needs Java `17` or above to run. Here is how to check if you already 
 You can refer to the [Features](#features) below to learn more details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
+
 
 ## Features
 
@@ -118,6 +125,8 @@ You can refer to the [Features](#features) below to learn more details of each c
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines, as there may be formatting issues which affect the copied text.
 </box>
+<div style="page-break-after: always;"></div>
+
 
 ### Viewing help : `help`
 
@@ -129,6 +138,8 @@ help
 ```
 
 ![help message](images/helpMessage.png)
+<div style="page-break-after: always;"></div>
+
 
 ### Adding a Contact: `addc`
 
@@ -155,6 +166,8 @@ addc r/ROLE n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​
 * `addc r/vendor n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/(+44) 1234567 t/hotel`
 
 ![Result of adding a contact](images/AddcSuccess.png)
+<div style="page-break-after: always;"></div>
+
 
 ### Adding an Itinerary: `addi`
 
@@ -185,11 +198,13 @@ addi n/ITINERARY_NAME dest/DESTINATION from/START_DATE to/END_DATE [c/CLIENT_IND
 
 **Examples:**
 * `addi n/Island Time: Bali dest/Bali from/2026-12-01 to/2026-12-05`
-* `addi n/5D4N France Getaway dest/France from/2026-10-12 to/2026-10-17 c/2 v/4`
+* `addi n/5D4N France Getaway dest/France from/2026-10-12 to/2026-10-17 c/2 v/3`
 * `addi n/3D2N Trip of China dest/China from/2026-05-02 to/2026-05-07 c/2 c/3 c/5 v/1 v/4`
 
 | ![add itinerary command typed in TripScribe](images/AddItineraryBefore.png)<br>Input | ![Add itinerary executed in TripScribe](images/AddItineraryAfter.png)<br>Expected Output |
 |:------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------:|
+<div style="page-break-after: always;"></div>
+
 
 ### Listing Contacts and Itineraries : `list`
 
@@ -219,10 +234,10 @@ list /FLAG
 
 **Examples:**
 * `list /contact`
-* `list /client`
-* `list /vendor`
 * `list /itinerary`
 * `list /all`
+
+<div style="page-break-after: always;"></div>
 
 ### Editing Contacts and Itineraries : `edit`
 
@@ -262,6 +277,8 @@ When editing contacts, editing tags replaces all existing tags of the contact, i
   * Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 * `edit /itinerary 1 n/Bali 4D3N`
   * Edits the name of the first itinerary to be `Bali 4D3N`
+<div style="page-break-after: always;"></div>
+
 
 ### Showing contacts by itinerary: `show`
 
@@ -285,6 +302,7 @@ show INDEX
 * `show 2`
   * Shows details of the 2nd itinerary, and the contacts associated with it.
 
+<div style="page-break-after: always;"></div>
 
 
 ### Finding Contacts by Keywords: `find`
@@ -338,6 +356,8 @@ Multi-Field Search:
 * `find n/alex p/996` returns contacts whose names contain `alex` and whose phone numbers contain `996`.
 * `find n/alex david p/992 281` returns contacts whose names contain `alex` or `david` and phone numbers contain `992` or `281`. <br>
 
+<div style="page-break-after: always;"></div>
+
 ### Deleting a Contact or Itinerary : `delete`
 
 Delete a specified contact or itinerary from TripScribe.
@@ -367,6 +387,8 @@ delete /FLAG INDEX
  | ![delete itinerary command typed in TripScribe](images/DeleteItineraryBefore.png)<br>Input | ![delete itinerary executed in TripScribe](images/DeleteItineraryAfter.png)<br>Expected Output |
  |:------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------:|
 
+<div style="page-break-after: always;"></div>
+
 
 ### Clearing All Entries : `clear`
 
@@ -385,6 +407,8 @@ Exit TripScribe.
 ```
 exit
 ```
+<div style="page-break-after: always;"></div>
+
 
 ### Command Summary
 
@@ -402,6 +426,8 @@ exit
 | [**exit**](#exiting-tripscribe--exit)                  | `exit`                                                                                                                                                               | -                                                                                                                  |
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
+
 
 ## Data Management
 
@@ -421,19 +447,39 @@ Furthermore, certain edits can cause TripScribe to remove entries (e.g., if a va
 
 </box>
 
+
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## FAQ
 
 **Q**: How do I transfer my data to another computer?<br>
 **A**: Install TripScribe on the other computer and replace the empty data file it creates with your file that contains the data of your previous TripScribe application folder.
 
+
+**Q**: How do I resize the application window?<br>
+**A**: You can resize the window in the same manner as other desktop applications, and the modified window size will be updated in the `preferences.json` file. The next time you start TripScribe, it will start with the same window size you had when you last exited TripScribe.
+
+
+**Q**: Can itineraries have the same date as the start date and end date?<br>
+**A**: Yes. You can add 1-day itineraries to TripScribe.
+
+
+**Q**: Can TripScribe handle multiple data files?<br>
+**A**: No, TriScribe can only use 1 data file while the application is running. One way you can use multiple data file would be to name the data files differently, and update the in the `addressBookFilePath` field in the `preferences.json` file before each time you start up the application.
+
+
+
+
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
+
 
 ## Known Issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. 
    * To fix this, delete the `preferences.json` file created by TripScribe before running the application again.
-<br><br>
+<br>
+
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. 
    * To fix this, close the minimized Help Window and type the command again.
