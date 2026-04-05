@@ -200,7 +200,7 @@ On execution, the command creates and passes 2 predicates to update the filtered
 
 The sequence diagram below shows the interactions within the logic component.
 
-<puml src="diagrams/ShowCommandDiagram-Logic.puml" alt="ShowCommandDiagram-Logic" />
+<puml src="diagrams/ShowSequenceDiagram-Logic.puml" alt="ShowSequenceDiagram-Logic" />
 
 <box type="info" seamless>
 **Note:** The lifeline for `ShowCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
