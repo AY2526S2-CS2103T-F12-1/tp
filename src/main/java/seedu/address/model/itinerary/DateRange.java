@@ -14,8 +14,8 @@ import java.util.Objects;
  */
 public class DateRange {
 
-    public static final String MESSAGE_CONSTRAINTS = "Dates should be in the format YYYY-MM-DD, "
-            + "and the end date should not be before the start date";
+    public static final String MESSAGE_CONSTRAINTS = "Invalid date range: Please use the format YYYY-MM-DD,  "
+            + "and ensure the end date is not before the start date.";
 
     public static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ISO_LOCAL_DATE;
 

@@ -24,8 +24,8 @@ import seedu.address.model.tag.Tag;
  */
 public class ParserUtil {
 
-    public static final String MESSAGE_INVALID_INDEX = "Index is not a positive, non-zero number.";
-    public static final String MESSAGE_NOT_INTEGER = "The given index is not an integer.";
+    public static final String MESSAGE_INVALID_INDEX = "Invalid index: Index is not a positive, non-zero number.";
+    public static final String MESSAGE_NOT_INTEGER = "Invalid index: The given index is not an integer.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be

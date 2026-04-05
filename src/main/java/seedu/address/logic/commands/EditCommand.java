@@ -26,7 +26,7 @@ public abstract class EditCommand extends Command {
     public static final String CONTACT_FLAG = "/contact";
     public static final String ITINERARY_FLAG = "/itinerary";
 
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_NOT_EDITED = "Invalid edit: At least one field to edit must be provided.";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the details of the contact or itinerary identified "
             + "by the index number used in the displayed list. "
