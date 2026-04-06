@@ -137,7 +137,7 @@ If you are using a PDF version of this document, be careful when copying and pas
 
 ### Viewing help : `help`
 
-Open a help window that summarizes all commands and links to this guide.
+You can open a help window that summarizes all commands and links to this guide.
 
 **Format:**
 ```
@@ -150,7 +150,8 @@ help
 
 ### Adding a Contact: `addc`
 
-Add a contact to TripScribe.
+You can use this to add a contact to TripScribe — either a client or a vendor — and store any of their important details.<br>
+A role, name, phone number, email, and address are all required to add a contact. Tags are optional and can be modified later.
 
 **Format:**
 ```
@@ -178,7 +179,8 @@ addc r/ROLE n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​
 
 ### Adding an Itinerary: `addi`
 
-Add an itinerary to TripScribe.
+You can use this to add an upcoming itinerary to TripScribe, and add relevant people involved with the itinerary. <br>
+An itinerary name, destination, start and end date are all required to add an itinerary.
 
 **Format:** 
 ```
@@ -215,7 +217,7 @@ addi n/ITINERARY_NAME dest/DESTINATION from/START_DATE to/END_DATE [c/CLIENT_IND
 
 ### Listing Contacts and Itineraries : `list`
 
-See a list of contacts or itineraries based on the specified flag.
+Use this if you want to see a list of contacts or itineraries. The window will be updated based on the specified flag you supply.
 
 **Format:**
 ```
@@ -248,7 +250,7 @@ list /FLAG
 
 ### Editing Contacts and Itineraries : `edit`
 
-Edit an existing contact or itinerary in TripScribe.
+You can edit an existing contact or itinerary in TripScribe whenever you need to update their information
 
 **Formats:**
 ```
@@ -261,7 +263,8 @@ edit /itinerary INDEX [n/NAME] [dest/DESTINATION] [from/START_DATE] [to/END_DATE
 <box type="warning" seamless>
 
 **Warning:**
-When editing contacts, editing tags replaces all existing tags of the contact, it does not add on to them.
+When editing contacts, editing tags replaces all existing tags of the contact, it does not add on to them. 
+If you want to keep the contact's current tags, make sure to add the existing tags and any additional tags you are adding.
 
 </box>
 
@@ -289,7 +292,7 @@ When editing contacts, editing tags replaces all existing tags of the contact, i
 
 ### Showing contacts by itinerary: `show`
 
-Show details of an itinerary and the contacts associated with it in TripScribe.  
+You can show details of an itinerary and the contacts associated with it in TripScribe, helping you find relevant contacts for a trip easily.  
 
 **Format:**
 ```
@@ -367,7 +370,7 @@ Multi-Field Search:
 
 ### Deleting a Contact or Itinerary : `delete`
 
-Delete a specified contact or itinerary from TripScribe.
+You can delete a specified contact or itinerary from TripScribe to clean up contact and itinerary entries, ensuring your data is up-to-date. 
 
 **Format:**
 ```
@@ -399,7 +402,15 @@ delete /FLAG INDEX
 
 ### Clearing All Entries : `clear`
 
-Clear all contacts and itineraries from TripScribe.
+You can clear all contacts and itineraries from TripScribe to start fresh. This can be used whenever a new cycle of itineraries will happen, and you need a clean slate.
+
+<box type="warning" seamless>
+
+**Caution:**
+This command is **irreversible** and will remove **all existing data**. Only use this when you are sure you need to remove all your existing data as this operation cannot be undone. 
+
+</box>
+
 
 **Format:**
 ```
@@ -408,7 +419,7 @@ clear
 
 ### Exiting TripScribe : `exit`
 
-Exit TripScribe.
+You can use this command to exit TripScribe. Data will be saved automatically on exit. 
 
 **Format:**
 ```
@@ -475,11 +486,12 @@ Furthermore, certain edits can cause TripScribe to remove entries (e.g., if a va
 **Q**: Can TripScribe handle multiple data files?<br>
 **A**: No, TripScribe can only use 1 data file while the application is running. One way you can use multiple data file would be to name the data files differently, and update the `addressBookFilePath` field in the `preferences.json` file before each time you start up the application.
 
-
-
-
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
+
+
+## Troubleshooting
+
 
 
 ## Known Issues
