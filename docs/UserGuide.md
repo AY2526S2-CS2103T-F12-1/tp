@@ -165,6 +165,8 @@ addc r/ROLE n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​
 - A contact can have any number of tags (including zero)
 - Phone numbers should follow the format `(+<Country Code>) <Phone Number>`
   - Example: `(+65) 98765432`.
+- Tags only accept alphanumeric values (no symbols, punctuation, spaces, etc.)
+  - Example: `PeanutAllergy` is allowed, but `Peanut Allergy` is not allowed as it contains a space.
 - TripScribe treats two contacts as duplicates if they share the **same name and phone number**. Duplicate contacts cannot be added.
 
 </box>
@@ -349,8 +351,8 @@ Example: `find Hans p/9876` is invalid.
   * Example: `Han` will match `Hans`
 * In general search, a contact is returned if any keyword appears in any searchable field.
 * In multi-field search:
-  * keywords within the same field are matched using `OR`
-  * keywords across different fields are matched using `AND`
+  * If there are multiple keywords within the same field, entries that match any one of the keywords in that field will be shown. 
+  * If there are multiple keywords across different fields, entries that match the keywords in all fields will be shown. 
 
 </box>
 
