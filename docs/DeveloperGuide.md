@@ -250,11 +250,11 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
-### Find feature
+### Find command
 
-#### Proposed Implementation
+#### Implementation
 
-The find command allows users to search for contacts using either a **general search** format or a **multi-field search** format.
+The `find` command allows users to search for contacts using either a **general search** format or a **multi-field search** format.
 
 The general search format matches keywords against all searchable fields of a contact, while the multi-field search format matches keywords only against the user-specified fields.
 
@@ -273,37 +273,39 @@ The searchable fields supported by the `find` command are:
 - address
 - tags
 
-Given below is an example usage scenario and how the `find` command behaves at each step.
+Given below are two example usage scenarios and how the `find` command behaves at each step.
 
-Step 1. The user executes `find alex david`.
+**Scenario 1: General search**
 
-Step 2. `FindCommandParser` checks that the input does not contain any supported field prefixes (`n/`, `p/`, `e/`, `a/`, `t/`).
+1. The user executes `find alex david`.
 
-Step 3. Since no prefixes are found, the parser treats the input as a general search. It splits the input into individual keywords and constructs a `PersonContainsKeywordsPredicate`.
+2. `FindCommandParser` checks that the input does not contain any supported field prefixes (`n/`, `p/`, `e/`, `a/`, `t/`).
 
-Step 4. `FindCommand` is created with this predicate and executed.
+3. Since no prefixes are found, the parser treats the input as a general search. It splits the input into individual keywords and constructs a `PersonContainsKeywordsPredicate`.
 
-Step 5. During execution, `Model#updateFilteredPersonList(...)` is called with the predicate. A contact is included in the filtered list if **any** keyword appears in **any** searchable field.
+4. `FindCommand` is created with this predicate and executed.
+
+5. During execution, `Model#updateFilteredPersonList(...)` is called with the predicate. A contact is included in the filtered list if **any** keyword appears in **any** searchable field.
 
 For example, `find alex david` will return contacts whose name, phone, email, address, or tags contain `alex` or `david`.
 
-Consider another usage scenario.
+**Scenario 2: Multi-field search**
 
-Step 1. The user executes `find n/alex yu p/996`.
+1. The user executes `find n/alex yu p/996`.
 
-Step 2. `FindCommandParser` detects the presence of supported prefixes and treats the input as a multi-field search.
+2. `FindCommandParser` detects the presence of supported prefixes and treats the input as a multi-field search.
 
-Step 3. The parser extracts the keywords associated with each prefix:
+3. The parser extracts the keywords associated with each prefix:
 - `n/` → `alex, yu`
 - `p/` → `996`
 
-Step 4. A `PersonMatchesFieldsPredicate` is created using these field-specific keyword lists.
+4. A `PersonMatchesFieldsPredicate` is created using these field-specific keyword lists.
 
-Step 5. `FindCommand` is created with this predicate and executed.
+5. `FindCommand` is created with this predicate and executed.
 
-Step 6. During execution, `Model#updateFilteredPersonList(...)` is called with the predicate. A contact is included in the filtered list only if it satisfies all specified fields:
-- within the same field, keywords are matched using `OR`
-- across different fields, fields are matched using `AND`
+6. During execution, `Model#updateFilteredPersonList(...)` is called with the predicate. A contact is included in the filtered list only if it satisfies all specified fields:
+   - within the same field, keywords are matched using `OR`
+   - across different fields, fields are matched using `AND`
 
 For example, `find n/alex yu p/996` will return contacts whose names contain `alex` or `yu`, and whose phone numbers contain `996`.
 
