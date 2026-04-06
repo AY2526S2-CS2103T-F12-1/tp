@@ -250,9 +250,6 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
 
 ### Adding itineraries
 #### Implementation
@@ -305,6 +302,132 @@ When reading the JSON file to construct the corresponding objects, we have the f
 * **Alternative 2:** `Itinerary` stores direct references to `Person`s.
     * Pros: The `addi` command would be simpler to implement.
     * Cons: Reading and saving data becomes more complex.
+
+
+### Find command
+
+#### Implementation
+
+The `find` command allows users to search for contacts using either a **general search** format or a **multi-field search** format.
+
+The general search format matches keywords against all searchable fields of a contact, while the multi-field search format matches keywords only against the user-specified fields.
+
+The `find` command is facilitated by `FindCommandParser`, which parses the user input and constructs one of the following predicates:
+
+- `PersonContainsKeywordsPredicate`— Performs a general search across all searchable fields.
+- `PersonMatchesFieldsPredicate` — Performs a multi-field search on specific fields.
+
+These predicates are then passed into `FindCommand`, which updates the filtered contact list in the model.
+
+The searchable fields supported by the `find` command are:
+
+- name
+- phone
+- email
+- address
+- tags
+
+Given below are two example usage scenarios and how the `find` command behaves at each step.
+
+**Scenario 1: General search**
+
+1. The user executes `find alex david`.
+
+2. `FindCommandParser` checks that the input does not contain any supported field prefixes (`n/`, `p/`, `e/`, `a/`, `t/`).
+
+3. Since no prefixes are found, the parser treats the input as a general search. It splits the input into individual keywords and constructs a `PersonContainsKeywordsPredicate`.
+
+4. `FindCommand` is created with this predicate and executed.
+
+5. During execution, `Model#updateFilteredPersonList(...)` is called with the predicate. A contact is included in the filtered list if **any** keyword appears in **any** searchable field.
+
+For example, `find alex david` will return contacts whose name, phone, email, address, or tags contain `alex` or `david`.
+
+**Scenario 2: Multi-field search**
+
+1. The user executes `find n/alex yu p/996`.
+
+2. `FindCommandParser` detects the presence of supported prefixes and treats the input as a multi-field search.
+
+3. The parser extracts the keywords associated with each prefix:
+- `n/` → `alex, yu`
+- `p/` → `996`
+
+4. A `PersonMatchesFieldsPredicate` is created using these field-specific keyword lists.
+
+5. `FindCommand` is created with this predicate and executed.
+
+6. During execution, `Model#updateFilteredPersonList(...)` is called with the predicate. A contact is included in the filtered list only if it satisfies all specified fields:
+   - within the same field, keywords are matched using `OR`
+   - across different fields, fields are matched using `AND`
+
+For example, `find n/alex yu p/996` will return contacts whose names contain `alex` or `yu`, and whose phone numbers contain `996`.
+
+The following sequence diagram shows how an find operation goes through the `Logic` component:
+
+<puml src="diagrams/FindSequenceDiagram-Logic.puml" alt="FindSequenceDiagram-Logic" />
+
+<box type="info" seamless>
+
+**Note:** The lifeline for `FindCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</box>
+
+Similarly, how a find operation goes through the `Model` component is shown below:
+
+<puml src="diagrams/FindSequenceDiagram-Model.puml" alt="FindSequenceDiagram-Model" />
+
+<box type="info" seamless>
+
+**Note**: The two formats cannot be mixed.
+For example, `find alex p/996` is rejected as invalid input format.
+
+</box> <box type="info" seamless>
+
+**Note**: Matching is case-insensitive and based on substring matching.
+For example, alex will match Alex, and lex will also match Alex.
+
+</box>
+
+#### Design considerations
+
+**Aspect: How `find` supports two search formats**
+
+* **Alternative 1 (current choice):** Support both a general search format and a multi-field search format.
+  * Pros: More flexible for users. General search is fast for broad lookup, while multi-field search gives users more control.
+  * Cons: Parser logic is more complex, since it must distinguish between the two formats and reject mixed usage.
+  
+* **Alternative 2:** Support only general search.
+  * Pros: Simpler parser and predicate logic.
+  * Cons: Users cannot restrict the search to specific fields, may return too much matching contacts.
+  
+* **Alternative 3:** Support only multi-field search.
+  * Pros: Clearer and more structured command format.
+  * Cons: Less convenient for users who want to perform a quick broad search.
+
+**Aspect: How matching is performed**
+
+* **Alternative 1 (current choice):** Use substring matching with case-insensitive comparison.
+  * Pros: More user-friendly, since users do not need to type exact full-field values.
+  * Cons: May return broader results than expected.
+
+* **Alternative 2:** Match only full words or exact field values.
+  * Pros: More precise results.
+  * Less flexible and less convenient for users.
+
+**Aspect: How multi-field search combines conditions**
+
+* **Alternative 1 (current choice):** Use `OR` within the same field and `AND` across different fields.
+  * Pros: Natural balance between flexibility and precision. Users can provide multiple possible matches for one field while still constraining other fields.
+  * Cons: Slightly harder to explain in the User Guide and Developer Guide.
+
+* **Alternative 2:** Use `OR` for all fields and all keywords.
+  * Pros: Simpler mental model.
+  * Cons: Results may be too broad for structured searches.
+
+* **Alternative 3:** Use `AND` for all fields and all keywords.
+  * Pros: Very strict filtering.
+  * Cons: Often too restrictive for practical use.
 
 
 --------------------------------------------------------------------------------------------------------------------
