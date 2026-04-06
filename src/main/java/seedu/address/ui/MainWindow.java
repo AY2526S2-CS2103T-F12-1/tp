@@ -230,6 +230,9 @@ public class MainWindow extends UiPart<Stage> {
 
             switchPanels(commandResult.getPanelType());
 
+            personListPanel.refresh();
+            itineraryListPanel.refresh();
+
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }

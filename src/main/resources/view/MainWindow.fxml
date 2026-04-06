@@ -64,9 +64,7 @@
                         </VBox.margin>
                         <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" minHeight="0"/>
                     </VBox>
-                    <padding>
-                        <Insets top="10" right="10" bottom="10" left="10"/>
-                    </padding>
+
                     <VBox fx:id="itineraryList" styleClass="panel-container" VBox.vgrow="ALWAYS" minHeight="0">
                         <Label text="Itineraries" styleClass="panel-header-label"/>
                         <VBox.margin>

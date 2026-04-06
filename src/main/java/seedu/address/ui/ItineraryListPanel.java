@@ -46,4 +46,11 @@ public class ItineraryListPanel extends UiPart<Region> {
         }
     }
 
+    /**
+     * Forces the ListView to refresh its layout.
+     * Call this after operations that modify content.
+     */
+    public void refresh() {
+        itineraryListView.requestLayout();
+    }
 }
