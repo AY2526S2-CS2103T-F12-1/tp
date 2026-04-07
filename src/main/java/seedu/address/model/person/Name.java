@@ -14,8 +14,8 @@ import java.util.stream.Collectors;
 public class Name {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Invalid name: Invalid name: Please use only alphanumeric characters and spaces, "
-            + "and ensure the name is non-empty.";
+            "Invalid name: Please ensure the name starts with a letter or number "
+            + "and is not empty.";
 
     /*
      * The first character of the address must not be a whitespace,

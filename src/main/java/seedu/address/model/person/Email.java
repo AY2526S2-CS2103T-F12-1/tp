@@ -15,7 +15,7 @@ public class Email {
             + "1. LOCAL_PART contains only alphanumeric characters and these special characters: "
             + SPECIAL_CHARACTERS + "\n"
             + "   LOCAL_PART does not start or end with any special characters.\n"
-            + "2. The '@' symbol separates the local-part from the domain name.\n"
+            + "2. The '@' symbol separates LOCAL_PART from DOMAIN.\n"
             + "3. DOMAIN is made up of domain labels separated by periods, where:\n"
             + "    - The final domain label is at least 2 characters long.\n"
             + "    - Each domain label starts and ends with alphanumeric characters.\n"
