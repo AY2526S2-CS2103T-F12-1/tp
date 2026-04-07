@@ -482,13 +482,62 @@ Furthermore, certain edits can cause TripScribe to remove entries (e.g., if a va
 **A**: You can resize the window in the same manner as other desktop applications, and the modified window size will be updated in the `preferences.json` file. The next time you start TripScribe, it will start with the same window size you had when you last exited TripScribe.
 
 
+**Q**: Can TripScribe handle multiple data files?<br>
+**A**: No, TripScribe can only use 1 data file while the application is running. One way you can use multiple data file would be to name the data files differently, and update the `addressBookFilePath` field in the `preferences.json` file before each time you start up the application.
+
+
 **Q**: Can itineraries have the same date as the start date and end date?<br>
 **A**: Yes. You can add 1-day itineraries to TripScribe.
 
 
-**Q**: Can TripScribe handle multiple data files?<br>
-**A**: No, TripScribe can only use 1 data file while the application is running. One way you can use multiple data file would be to name the data files differently, and update the `addressBookFilePath` field in the `preferences.json` file before each time you start up the application.
+**Q**: How do I add new contacts to an existing itinerary in TripScribe?<br>
+**A**: Follow these steps below: <br>
 
+<details>
+
+<summary>Adding contacts to existing itinerary</summary> 
+
+1. Use the `show` command to find all the relevant contacts associated with the itinerary you are working on. **Note down the contacts and the itinerary details.** 
+2. Using the `delete` command, delete the itinerary you want to add the contact to.
+3. Using the `addi` command, enter the itinerary details (itinerary name, destination, start and end date) you saved in Step 1. Use the `c/` and `v/` prefixes to add the contacts you saved in Step 1, and any new clients you want to add.
+
+</details>
+
+**Q**: How do I manually edit the data file?<br>
+**A**: We recommend that you do not make any manual edits, as it may cause errors when loading the data when you start TripScribe again. However, if you are sure of what do to, take note of the file format below.
+
+<details>
+
+<summary>Manually editing the data file</summary> 
+
+The file is found in the `data` folder, in the same folder where the `TripScribe.jar` program file is in. The name of the data file is 'tripscribe.json'
+
+The format of the file is as follows:
+
+```
+{
+  "persons" : [ {
+    "id" : ID,
+    "role" : ROLE,
+    "name" : NAME,
+    "phone" : PHONE_NUMBER,
+    "email" : EMAIL,
+    "address" : ADDRESS,
+    "tags" : [ TAGS ]
+  } ],
+  "itineraries" : [ {
+    "name" : ITINERARY_NAME,
+    "destination" : ITINERARY_DESTINATION,
+    "startDate" : START_DATE,
+    "endDate" : END_DATE,
+    "clientIds" : [ CLIENT_IDS ],
+    "vendorIds" : [ VENDOR_IDS ]
+  } ]
+}
+
+```
+
+</details>
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
 
