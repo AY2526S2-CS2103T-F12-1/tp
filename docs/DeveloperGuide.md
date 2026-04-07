@@ -557,7 +557,7 @@ Use case ends.
 
 * 1a. TripScribe detects an error in the entered command format.
     * 1a1. TripScribe shows a format error message and displays the correct command usage.
-     
+
       Use case ends.
 
 * 1b. TripScribe detects invalid values in the entered contact details (e.g., invalid email/phone, empty name).
@@ -567,7 +567,7 @@ Use case ends.
       Use case ends.
 * 1c. TripScribe detects a duplicate contact.
     * 1c1. TripScribe shows a duplicate message and does not create the contact.
-   
+
       Use case ends.
 ---
 **UC02: Add an itinerary**
@@ -613,7 +613,7 @@ Use case ends.
       Use case ends.
 * 2a. TripScribe finds zero entries matching.
     * 2a1. TripScribe displays an empty result message.
- 
+
       Use case ends.
 
 ---
@@ -631,7 +631,7 @@ Use case ends.
 
 * 1a. TripScribe detects an error in the entered command format.
     * 1a1. TripScribe displays a format error message with the correct command usage.
-   
+
       Use case ends.
 
 * 1b. TripScribe detects an invalid index (e.g., not a positive integer or out of range).
@@ -699,7 +699,7 @@ testers are expected to do more *exploratory* testing.
 3. Exiting TripScribe using `exit`
    1. Type `exit` into the command bar of TripScribe <br>
       Expected: TripScribe application window is closed
-  
+
 4. Exiting TripScribe using the exit button
    1. Click `File` in TripScribe and click the `Exit` button <br>
       Expected: TripScribe application window is closed
@@ -790,4 +790,3 @@ These test cases follow the same steps as manual testing for [Deleting a person]
 Team size: 4
 
 1. Adding contacts to existing itineraries using the `edit` command.
-2. 
