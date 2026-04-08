@@ -30,7 +30,7 @@ TripScribe is a desktop app built for **operations executives at tour agencies**
     - [Setting Up Java for TripScribe](#setting-up-java-for-tripscribe)
     - [Downloading TripScribe](#downloading-tripscribe)
     - [Running TripScribe](#running-tripscribe)
-    - [Understanding TripScribe's Interface](#understanding-tripscribes-interface)
+    - [Understanding TripScribe's Interface](#understanding-tripscribe-s-interface)
     - [Introductory Tutorial](#introductory-tutorial)
 2. [Features](#features)
     - [Reading Command Format](#reading-command-formats)
