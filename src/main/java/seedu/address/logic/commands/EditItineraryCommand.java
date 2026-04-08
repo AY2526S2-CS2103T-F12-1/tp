@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_ITINERARY;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ITINERARIES;
 import static seedu.address.model.itinerary.DateRange.MESSAGE_INVALID_DATE_RANGE;
@@ -25,8 +26,6 @@ import seedu.address.model.itinerary.ItineraryName;
  */
 public class EditItineraryCommand extends EditCommand {
     public static final String MESSAGE_EDIT_ITINERARY_SUCCESS = "Edited Itinerary: %1$s";
-    public static final String MESSAGE_DUPLICATE_ITINERARY = "Duplicate itinerary: TripScribe considers "
-            + "itineraries with the same name (case-insensitive) as duplicates.";
 
     private final EditItineraryDescriptor editItineraryDescriptor;
 

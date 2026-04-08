@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_ITINERARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ITINERARY_CLIENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ITINERARY_DESTINATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ITINERARY_END;
@@ -46,8 +47,6 @@ public class AddiCommand extends Command {
             + PREFIX_ITINERARY_VENDOR + "2 ";
 
     public static final String MESSAGE_SUCCESS = "New itinerary added: %1$s";
-    public static final String MESSAGE_DUPLICATE_ITINERARY = "Duplicate itinerary: TripScribe considers "
-            + "itineraries with the same name (case-insensitive) as duplicates.";
     public static final String MESSAGE_NOT_CLIENT = "Invalid role: %1s is not a client.";
     public static final String MESSAGE_NOT_VENDOR = "Invalid role: %1s is not a vendor.";
 

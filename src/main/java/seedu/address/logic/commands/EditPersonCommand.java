@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_PERSON;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ITINERARIES;
 
@@ -30,8 +31,6 @@ import seedu.address.model.tag.Tag;
  */
 public class EditPersonCommand extends EditCommand {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "Duplicate contact: TripScribe considers contacts with "
-            + "the same name (case-insensitive) and phone number as duplicates.";
 
     private final EditPersonDescriptor editPersonDescriptor;
 

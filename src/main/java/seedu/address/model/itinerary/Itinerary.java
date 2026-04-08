@@ -83,7 +83,7 @@ public class Itinerary {
     }
 
     /**
-     * Returns true if both itineraries have the same name, destination and date range.
+     * Returns true if both itineraries have the same name, destination, and date range.
      * This defines a weaker notion of equality between two itineraries.
      */
     public boolean isSameItinerary(Itinerary otherItinerary) {

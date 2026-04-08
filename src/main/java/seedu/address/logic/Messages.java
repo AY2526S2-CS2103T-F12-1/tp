@@ -24,6 +24,10 @@ public class Messages {
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Duplicate fields: Multiple values specified for the following field(s): ";
+    public static final String MESSAGE_DUPLICATE_PERSON = "Duplicate contact: TripScribe considers contacts with "
+            + "the same name (case-insensitive) and phone number as duplicates.";
+    public static final String MESSAGE_DUPLICATE_ITINERARY = "Duplicate itinerary: TripScribe considers "
+            + "itineraries with the same name (case-insensitive), destination, and date range as duplicates.";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
