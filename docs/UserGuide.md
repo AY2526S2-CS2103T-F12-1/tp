@@ -87,6 +87,8 @@ TripScribe needs Java `17` or above to run. Here is how to check if you already 
 1. Download the latest `TripScribe.jar` file from [here](https://github.com/AY2526S2-CS2103T-F12-1/tp/releases). Look for the release with the `Latest` tag. You can ignore the other files.
 2. Move the file to a folder of your choice. For example, a folder called `TripScribe` on your desktop.
 
+<div style="page-break-after: always;"></div>
+
 #### Running TripScribe
 1. Open a command terminal, as described in [Set Up Java for TripScribe](#setting-up-java-for-tripscribe).
 2. Navigate into the folder containing the `TripScribe.jar` file using the `cd` command:
@@ -104,7 +106,7 @@ A pop-up window similar to the below should appear in a few seconds. <br>
 | <img src="images/TripScribeWindow.png" alt="TripScribe Window" width="500"/><br>TripScribe Window |
 |:-------------------------------------------------------------------------------------------------:|
 
-<div style="page-break-after: always;"></div> <br>
+<div style="page-break-after: always;"></div>
 
 #### Understanding TripScribe's Interface
 Before you get started, here is a quick guide on navigating TripScribe's interface. After opening TripScribe, you will see a window like this:
@@ -126,29 +128,29 @@ Here are the key elements of this interface:
 
 </box>
 
+<div style="page-break-after: always;"></div>
+
 #### Introductory Tutorial
 Explore TripScribe's basic features by trying out your first commands. For each command listed below, type the command in the command box, and press Enter to execute it.
 
-| Action                                           | Command                                                                                          |
-|--------------------------------------------------|--------------------------------------------------------------------------------------------------|
-| List all contacts                                | `list /contact`                                                                                  |
-| Add a contact named `John Doe`                   | `addc r/client n/John Doe p/(+65) 98765432 e/johnd@example.com a/John street, block 123, #01-01` |
-| Add an itinerary named `Bali Getaway`            | `addi n/Bali Getaway dest/Bali from/2026-07-01 to/2026-07-05`                                    |
-| Delete the 3rd contact shown in the current list | `delete /contact 3`                                                                              |
-| Clear all contacts and itineraries               | `clear`                                                                                          |
-| Open the help window                             | `help`                                                                                           |
-| Exit TripScribe                                  | `exit`                                                                                           |
+| Action                                           | Command                                                                                               |
+|--------------------------------------------------|-------------------------------------------------------------------------------------------------------|
+| List all contacts                                | `list /contact`                                                                                       |
+| Add a contact named `John Doe`                   | `addc r/client n/John Doe p/(+65) 98765432 e/johnd@example.com`<br>`a/John street, block 123, #01-01` |
+| Add an itinerary named `Bali Getaway`            | `addi n/Bali Getaway dest/Bali from/2026-07-01 to/2026-07-05`                                         |
+| Delete the 3rd contact shown in the current list | `delete /contact 3`                                                                                   |
+| Clear all contacts and itineraries               | `clear`                                                                                               |
+| Open the help window                             | `help`                                                                                                |
+| Exit TripScribe                                  | `exit`                                                                                                |
 
 To learn more details of each command, you can refer to [Features](#features) below.
 
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
 
-
 ## Features
 
-All commands follow a consistent format throughout this guide. In brief, words in **UPPER_CASE** are values you supply, and items in **[square brackets]** are optional. <br>
-For a full explanation, you can refer to [Reading Command Formats](#reading-command-formats) below.
+All commands follow a consistent format throughout this guide. In brief, words in **UPPER_CASE** are values you supply, and items in **[square brackets]** are optional. For a full explanation, you can refer to [Reading Command Formats](#reading-command-formats) below.
 
 <box type="warning" seamless>
 
@@ -182,7 +184,6 @@ See an unfamiliar term? Jump to our [Glossary](#glossary) for its definition.
 
 <div style="page-break-after: always;"></div>
 
-
 ### Viewing help : `help`
 
 You can open a help window that summarizes all commands, their formats and helpful examples using this command. For more detailed instructions, you can copy the User Guide URL from the help window, and paste it into your browser to access this guide.
@@ -197,8 +198,6 @@ help
 | <img src="images/HelpWindow.png" alt="Help Window" width="500"/><br>Help Window |
 |:-------------------------------------------------------------------------------:|
 
-<div style="page-break-after: always;"></div>
-
 
 <box type="tip" seamless>
 
@@ -206,6 +205,8 @@ help
 You can also open the help window by clicking **`Help`** in the menu bar.
 
 </box>
+
+<div style="page-break-after: always;"></div>
 
 ### Adding a Contact: `addc`
 
@@ -237,8 +238,8 @@ addc r/ROLE n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​
 * `addc r/vendor n/Holiday Inn t/FourStar e/holidayinn@gmail.com a/New York City p/(+44) 81234567 t/Hotel`
   * Adds a vendor named "Holiday Inn" with tags "Hotel" and "FourStar".
 
-| ![Add contact command typed in TripScribe](images/AddItineraryBefore.png)<br>Input | ![Add contact executed in TripScribe](images/AddcSuccess.png)<br>Expected Output |
-|:----------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------:|
+| <img src="images/AddItineraryBefore.png" alt="Add contact command typed in TripScribe" width="400"/><br>Input | <img src="images/AddcSuccess.png" alt="Add contact executed in TripScribe" width="400"/><br>Expected Output |
+|:-------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------:|
 
 <div style="page-break-after: always;"></div>
 
@@ -280,8 +281,8 @@ addi n/ITINERARY_NAME dest/DESTINATION from/START_DATE to/END_DATE [c/CLIENT_IND
 * `addi n/3D2N China Trip dest/China from/2026-05-02 to/2026-05-07 c/2 c/3 c/5 v/1 v/4`
   * Add an itinerary named "5D4N France Getaway" with three clients (contacts 2, 3, and 5) and two vendors (contacts 1 and 4).
 
-| ![add itinerary command typed in TripScribe](images/AddItineraryBefore.png)<br>Input | ![Add itinerary executed in TripScribe](images/AddItineraryAfter.png)<br>Expected Output |
-|:------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------:|
+| <img src="images/AddItineraryBefore.png" alt="Add itinerary typed in TripScribe" width="400"/><br>Input | <img src="images/AddItineraryAfter.png" alt="Add itinerary executed in TripScribe" width="400"/><br>Expected Output |
+|:-------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------:|
 
 <div style="page-break-after: always;"></div>
 
@@ -487,22 +488,16 @@ delete /FLAG INDEX
 **Examples:**
 * `list /contact` followed by `delete /contact 2` deletes the 2nd contact in TripScribe.
 
-| ![delete contact command typed in TripScribe](images/DeleteContactBefore.png)<br>Input | ![delete contact command executed in TripScribe](images/DeleteContactAfter.png)<br>Expected Output |
-|:--------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------:|
+
+| <img src="images/DeleteContactBefore.png" alt="Delete contact command typed in TripScribe" width="400"/><br>Input | * <img src="images/DeleteContactAfter.png" alt="Delete contact executed in TripScribe" width="400"/><br>Expected Output |
+|:-----------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------:|
 
 * `list /itinerary` followed by `delete /itinerary 1` deletes the 1st itinerary in TripScribe.
 
- | ![delete itinerary command typed in TripScribe](images/DeleteItineraryBefore.png)<br>Input | ![delete itinerary executed in TripScribe](images/DeleteItineraryAfter.png)<br>Expected Output |
- |:------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------:|
+| <img src="images/DeleteItineraryBefore.png" alt="Delete itinerary command typed in TripScribe" width="400"/><br>Input | * <img src="images/DeleteItineraryAfter.png" alt="Delete itinerary executed in TripScribe" width="400"/><br>Expected Output |
+|:---------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------:|
 
 <div style="page-break-after: always;"></div>
-
-<box type="tip" seamless>
-
-**Tip:**
-Looking to delete all your contacts and itineraries to start afresh? Use the [clear command](#clearing-all-entries-clear) below instead for a shortcut.
-
-</box>
 
 ### Clearing All Entries : `clear`
 
@@ -572,16 +567,14 @@ TripScribe automatically saves your data in the hard disk after any command that
 It is recommended that you back up your data regularly, especially if you plan to edit your data directly.
 
 **Backing up your data file:**
-1. Close TripScribe.
-2. Navigate to the folder containing `TripScribe.jar`.
-3. Copy the entire `data` folder to a safe location (e.g., an external drive, cloud storage, etc.). 
+1. Navigate to the folder containing `TripScribe.jar`.
+2. Copy the entire `data` folder to a safe location (e.g., an external drive, cloud storage, etc.). 
 
 **Restoring your data using a back-up:**
-1. Close TripScribe.
-2. Navigate to the folder containing `TripScribe.jar`.
-3. Delete the current `data` folder.
-4. Copy the entire backup folder into the folder.
-5. Rename the backup folder to `data`.
+1.  Navigate to the folder containing `TripScribe.jar`.
+2. Delete the current `data` folder.
+3. Copy the entire backup folder into the folder.
+4. Rename the backup folder to `data`.
 
 ### Editing Your Data File
 
@@ -723,6 +716,7 @@ This section helps you resolve common issues you might encounter while using Tri
 - Fix: Ensure every contact index has the correct prefix.
     - Example: `c/1 2 3 v/4 5`is invalid, correct it to `c/1 c/2 c/3 v/4 v/5`.
 
+<div style="page-break-after: always;"></div>
 
 ### Editing Contacts
 **Issue**: All tags for a contact have disappeared.
