@@ -681,18 +681,18 @@ This section helps you resolve common issues you might encounter while using Tri
 
 ### Adding Contacts
 
-**Issue**: "Duplicate contact: ..."
+**Issue**: "Duplicate contact: ..." error
 - Scenario: TripScribe detected a duplicate contact (same name and phone number).
 - Fix 1: If your intention is to update an existing contact, use the [edit command](#editing-contacts-and-itineraries-edit) instead.
 - Fix 2: If your intention is to add a different contact, change the name slightly or use a different phone number.
 
-**Issue**: "Invalid role: ..."
+**Issue**: "Invalid role: ..." error
 - Scenario**: TripScribe detected in invalid role (role can only be 'client' or 'vendor').
 - Fix 1: If your intention is to label the contact with something more specific, add that as a tag instead.
   - Example: `r/BusDriver` is invalid, correct it to `r/vendor t/BusDriver`
 - Fix 2: If you mistyped, correct the role to either 'client' or 'vendor' exactly.
 
-**Issue**: "Invalid email: ..."
+**Issue**: "Invalid email: ..." error
 - Scenario: TripScribe detected the wrong email format.
 - Fix: Correct the email to use the following format: `LOCAL_PART@DOMAIN`
   - `LOCAL_PART`: A part of an email consisting of only alphanumeric characters and the following symbols: `+`,`_`, `.`, `-`, It cannot start or end with special characters. (i.e. `alex_yeoh`)
@@ -701,16 +701,16 @@ This section helps you resolve common issues you might encounter while using Tri
 
 ### Adding Itineraries
 
-**Issue**: "Duplicate contact: ..."
+**Issue**: "Duplicate contact: ..." error
 - Scenario: TripScribe detected the wrong tag format.
 - Fix 1: If your intention is to update an existing itinerary, use the [edit command](#editing-contacts-and-itineraries-edit) instead.
 - Fix 2: If your intention is to add a different itinerary, change the name slightly.
 
-**Issue**: "Invalid date range: ..."
+**Issue**: "Invalid date range: ..." error
 - Scenario: Start date is **after** end date (i.e. `from/2026-01-05 to/2026-01-01`).
     - Fix: Make sure the start date you enter is before or on the same day as the end date.
 
-**Issue**: "Invalid role: ..." 
+**Issue**: "Invalid role: ..." error
 - Scenario: TripScribe detected a mismatch between the prefix given, and the contact's role format. (e.g., 3rd contact was added as a client `c/3`, but the 3rd contact in the list is a `vendor`).
       - Fix: Make sure you put the correct role prefix (either `c/` or `v/`) for each contact by referring to the currently displayed list.
 
@@ -727,7 +727,7 @@ This section helps you resolve common issues you might encounter while using Tri
     - Fix: Use the `edit` command again and specify the tags, each prefixed with `t/` (i.e. `t/Vegetarian t/ChineseSpeakingOnly`)
 
 ### Editing Itineraries
-**Issue**: "Invalid date range: ..."
+**Issue**: "Invalid date range: ..." error
 - Scenario: The intended edit results in start date being **after** end date (e.g., `from/2026-01-05 to/2026-01-01`).
     - Fix: Make sure the start date you enter is before or on the same day as the end date.
 
