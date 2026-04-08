@@ -648,8 +648,8 @@ Therefore, edit the data file only if you know what you are doing. If you wish t
 **A**: You can resize the window in the same manner as other desktop applications, and the modified window size will be updated in the `preferences.json` file. The next time you start TripScribe, it will start with the same window size you had when you last exited TripScribe.
 
 
-**Q: Can I undo or redo a command?**  
-**A:** No, TripScribe currently does not support undo or redo commands. Commands that modify data take effect immediately and cannot be reversed. Hence, we recommend that you:
+**Q**: Can I undo or redo a command?
+**A**: No, TripScribe currently does not support undo or redo commands. Commands that modify data take effect immediately and cannot be reversed. Hence, we recommend that you:
 * Double-check before using `delete` or `clear` commands
 * Keep regular backups of your data file
 
@@ -665,12 +665,12 @@ Therefore, edit the data file only if you know what you are doing. If you wish t
    3. Using the `addi` command, enter the itinerary details (itinerary name, destination, start and end date) you saved in Step 1. Use the `c/` and `v/` prefixes to add the contacts you saved in Step 1, and any new clients you want to add.
 
 
-**Q: What happens if I delete a contact associated to itineraries?**  
-**A:** When you delete a contact, TripScribe automatically removes them from **all** itineraries they are part of. The itineraries themselves will remain, but that contact will no longer be associated with them to ensure data consistency.
+**Q**: What happens if I delete a contact associated to itineraries?
+**A**: When you delete a contact, TripScribe automatically removes them from **all** itineraries they are part of. The itineraries themselves will remain, but that contact will no longer be associated with them to ensure data consistency.
 
 
-**Q: What happens if I delete an itinerary associated with contacts?**  
-**A:** Similar to when you delete a contact, TripScribe only deletes the itinerary itself. The associated contacts themselves will remain, but that contact will no longer be associated with that itinerary to ensure data consistency.
+**Q**: What happens if I delete an itinerary associated with contacts?
+**A**: Similar to when you delete a contact, TripScribe only deletes the itinerary itself. The associated contacts themselves will remain, but that contact will no longer be associated with that itinerary to ensure data consistency.
 
 
 --------------------------------------------------------------------------------------------------------------------
