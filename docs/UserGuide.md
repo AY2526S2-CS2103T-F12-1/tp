@@ -106,8 +106,8 @@ TripScribe needs Java `17` or above to run. Here is how to check if you already 
 A pop-up window similar to the below should appear in a few seconds. <br>
 
    
-| <img src="images/TripScribeWindow.png" alt="TripScribe Window" width="500"/><br>TripScribe Window |
-|:-------------------------------------------------------------------------------------------------:|
+| <img src="images/Ui.png" alt="TripScribe Window" width="500"/><br>TripScribe Window |
+|:-----------------------------------------------------------------------------------:|
 
 <div style="page-break-after: always;"></div>
 
