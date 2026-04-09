@@ -262,8 +262,8 @@ addi n/ITINERARY_NAME dest/DESTINATION from/START_DATE to/END_DATE [c/CLIENT_IND
 
 **Things to note:**
 - `ITINERARY_NAME` and `DESTINATION` cannot be blank.
-- TripScribe treats two itineraries as duplicates if they **share the same name** (case-insensitive). Duplicate itineraries cannot be added.
-  - Example: Itineraries with the names `ISLAND TIME: Bali` and `Island Time: Bali` are considered duplicates.
+- TripScribe treats two itineraries as duplicates if they **share the same name** (case-insensitive), **same destination**, and **same date range**. Duplicate itineraries cannot be added.
+  - Example: Itineraries with the names `ISLAND TIME: Bali` and `Island Time: Bali` are considered to have the same name.
 - `START_DATE` and `END_DATE` must be in the format `yyyy-mm-dd`.
   - Example: `20th March 2026` should be entered as `2026-03-20`.
 - `END_DATE` must be **equal to or after** `START_DATE`.
@@ -706,7 +706,7 @@ This section helps you resolve common issues you might encounter while using Tri
 ### Adding Itineraries
 
 **Issue**: "Duplicate itinerary: ..." error
-- Scenario: TripScribe detected a duplicate itinerary (same name).
+- Scenario: TripScribe detected a duplicate itinerary (same name, destination and duration).
 - Fix 1: If your intention is to update an existing itinerary, use the [edit command](#editing-contacts-and-itineraries-edit) instead.
 - Fix 2: If your intention is to add a different itinerary, change the name slightly.
 
