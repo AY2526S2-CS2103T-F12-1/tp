@@ -340,7 +340,7 @@ Editing an itinerary follows the same pattern as editing a person (shown above) 
 The `show` command shows the itinerary at the index specified by the user, and the contacts associated with it. Similar to how the `delete` command works [above](#logic-component), the show command is implemented in a similar way.
 
 On execution, the command creates and passes 2 predicates to update the filtered lists in `Model`:
-* `itineraryNameMatchesPredicate` — Return `true` if the itinerary is the same as the itinerary specified by the user.
+* `itineraryMatchesPredicate` — Return `true` if the itinerary is the same as the itinerary specified by the user.
 * `idMatchesPredicate` — Return `true` if the `Id` of the `Person` is found in either the `clientList` or `vendorList` of the itinerary specified.
 
 The sequence diagram below shows the interactions within the logic component.
