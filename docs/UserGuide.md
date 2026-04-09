@@ -665,7 +665,7 @@ Therefore, edit the data file only if you know what you are doing. If you wish t
    2. Using the `delete` command, delete the itinerary you want to add the contact to.
    3. Using the `addi` command, enter the itinerary details (itinerary name, destination, start and end date) you saved in Step 1. Use the `c/` and `v/` prefixes to add the contacts you saved in Step 1, and any new clients you want to add.
 
-**Q**: What if I want a contact to have different roles in different itineraries?
+**Q**: What if I want a contact to have different roles in different itineraries?<br>
 **A**: TripScribe expects a contact to have exactly one role across all itineraries. This means that a contact cannot be simultaneously a client and a vendor in different itineraries. Individuals with multiple roles should have dedicated phone numbers or aliases for each role.
 
 
