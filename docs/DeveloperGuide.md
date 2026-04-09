@@ -701,7 +701,7 @@ testers are expected to do more *exploratory* testing.
 
 3. Exiting TripScribe using `exit`
    1. Type `exit` into the command bar of TripScribe <br>
-       Expected: TripScribe application window is closed.
+      Expected: TripScribe application window is closed.
 
 4. Exiting TripScribe using the exit button
    1. Click `File` in TripScribe and click the `Exit` button <br>
