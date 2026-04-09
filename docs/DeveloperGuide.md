@@ -1,7 +1,7 @@
 ---
   layout: default.md
-  title: "Developer Guide"
-  pageNav: 3
+    title: "Developer Guide"
+    pageNav: 3
 ---
 
 # TripScribe Developer Guide
@@ -129,7 +129,9 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 <puml src="diagrams/DeleteSequenceDiagram.puml" alt="Interactions Inside the Logic Component for the `delete 1` Command" />
 
 <box type="info" seamless>
+
 **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
+
 </box>
 
 How the `Logic` component works:
@@ -146,7 +148,7 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 
 How the parsing works:
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
-* All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
+* All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible (e.g, during testing).
 
 ### Model Component
 **API** : [`Model.java`](https://github.com/AY2526S2-CS2103T-F12-1/tp/tree/master/src/main/java/seedu/address/model/Model.java)
@@ -324,11 +326,11 @@ Editing an itinerary follows the same pattern as editing a person (shown above) 
 #### Design considerations
 
 **Aspect: `EditCommand` class structure**
-* Alternative 1 (Current choice):Abstract `EditCommand` class with `EditPersonCommand` and `EditItineraryCommand` subclasses
+* **Alternative 1 (current choice):** Abstract `EditCommand` class with `EditPersonCommand` and `EditItineraryCommand` subclasses
     * Pros: Better type safety and follows the Open-Closed Principle.
     * Cons: More classes to maintain.
 
-* Alternative 2: Single `EditCommand` class to handle both `Person` and `Itinerary` editing.
+* **Alternative 2:** Single `EditCommand` class to handle both `Person` and `Itinerary` editing.
     * Pros: Fewer classes.
     * Cons: Less type-safety. Long `EditCommand` class.
 
@@ -347,7 +349,9 @@ The sequence diagram below shows the interactions within the logic component.
 <puml src="diagrams/ShowSequenceDiagram-Logic.puml" alt="ShowSequenceDiagram-Logic" />
 
 <box type="info" seamless>
+
 **Note:** The lifeline for `ShowCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
 </box>
 
 #### Design considerations:
@@ -408,16 +412,16 @@ For example, `find alex david` will return contacts whose name, phone, email, ad
 2. `FindCommandParser` detects the presence of supported prefixes and treats the input as a multi-field search.
 
 3. The parser extracts the keywords associated with each prefix:
-   - `n/` → `alex, yu`
-   - `p/` → `996`
+    - `n/` → `alex, yu`
+    - `p/` → `996`
 
 4. A `PersonMatchesFieldsPredicate` is created using these field-specific keyword lists.
 
 5. `FindCommand` is created with this predicate and executed.
 
 6. During execution, `Model#updateFilteredPersonList(...)` is called with the predicate. A contact is included in the filtered list only if it satisfies all specified fields:
-   - within the same field, keywords are matched using `OR`
-   - across different fields, fields are matched using `AND`
+    - within the same field, keywords are matched using `OR`
+    - across different fields, fields are matched using `AND`
 
 For example, `find n/alex yu p/996` will return contacts whose names contain `alex` or `yu`, and whose phone numbers contain `996`.
 
@@ -452,40 +456,40 @@ For example, alex will match Alex, and lex will also match Alex.
 **Aspect: How `find` supports two search formats**
 
 * **Alternative 1 (current choice):** Support both a general search format and a multi-field search format.
-  * Pros: More flexible for users. General search is fast for broad lookup, while multi-field search gives users more control.
-  * Cons: Parser logic is more complex, since it must distinguish between the two formats and reject mixed usage.
+    * Pros: More flexible for users. General search is fast for broad lookup, while multi-field search gives users more control.
+    * Cons: Parser logic is more complex, since it must distinguish between the two formats and reject mixed usage.
 
 * **Alternative 2:** Support only general search.
-  * Pros: Simpler parser and predicate logic.
-  * Cons: Users cannot restrict the search to specific fields, may return too much matching contacts.
+    * Pros: Simpler parser and predicate logic.
+    * Cons: Users cannot restrict the search to specific fields, may return too much matching contacts.
 
 * **Alternative 3:** Support only multi-field search.
-  * Pros: Clearer and more structured command format.
-  * Cons: Less convenient for users who want to perform a quick broad search.
+    * Pros: Clearer and more structured command format.
+    * Cons: Less convenient for users who want to perform a quick broad search.
 
 **Aspect: How matching is performed**
 
 * **Alternative 1 (current choice):** Use substring matching with case-insensitive comparison.
-  * Pros: More user-friendly, since users do not need to type exact full-field values.
-  * Cons: May return broader results than expected.
+    * Pros: More user-friendly, since users do not need to type exact full-field values.
+    * Cons: May return broader results than expected.
 
 * **Alternative 2:** Match only full words or exact field values.
-  * Pros: More precise results.
-  * Cons: Less flexible and less convenient for users.
+    * Pros: More precise results.
+    * Cons: Less flexible and less convenient for users.
 
 **Aspect: How multi-field search combines conditions**
 
 * **Alternative 1 (current choice):** Use `OR` within the same field and `AND` across different fields.
-  * Pros: Natural balance between flexibility and precision. Users can provide multiple possible matches for one field while still constraining other fields.
-  * Cons: Slightly harder to explain in the User Guide and Developer Guide.
+    * Pros: Natural balance between flexibility and precision. Users can provide multiple possible matches for one field while still constraining other fields.
+    * Cons: Slightly harder to explain in the User Guide and Developer Guide.
 
 * **Alternative 2:** Use `OR` for all fields and all keywords.
-  * Pros: Simpler mental model.
-  * Cons: Results may be too broad for structured searches.
+    * Pros: Simpler mental model.
+    * Cons: Results may be too broad for structured searches.
 
 * **Alternative 3:** Use `AND` for all fields and all keywords.
-  * Pros: Very strict filtering.
-  * Cons: Often too restrictive for practical use.
+    * Pros: Very strict filtering.
+    * Cons: Often too restrictive for practical use.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -684,32 +688,32 @@ testers are expected to do more *exploratory* testing.
 
 1. Initial launch
 
-   1. Download the jar file and copy into an empty folder
+    1. Download the jar file and copy into an empty folder
 
-   2. Run the jar file as per [quick start](UserGuide.md/#running-tripscribe). <br>
-      Expected: GUI is shown with sample contacts
+    2. Run the jar file as per [quick start](UserGuide.md/#running-tripscribe). <br>
+       Expected: GUI is shown with sample contacts
 
 2. Saving window preferences
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   2. Re-launch the app by double-clicking the jar file.<br>
+    2. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
 3. Exiting TripScribe using `exit`
-   1. Type `exit` into the command bar of TripScribe <br>
-      Expected: TripScribe application window is closed
+    1. Type `exit` into the command bar of TripScribe <br>
+       Expected: TripScribe application window is closed.
 
 4. Exiting TripScribe using the exit button
-   1. Click `File` in TripScribe and click the `Exit` button <br>
-      Expected: TripScribe application window is closed
+    1. Click `File` in TripScribe and click the `Exit` button <br>
+       Expected: TripScribe application window is closed.
 
 ### Deleting a Person
 
 1. Deleting a person while all persons are being shown
-   1. Prerequisites: List all persons using the `list /all` command. Ensure there are multiple persons in the list.
-   2. Test case: `delete /contact 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+    1. Prerequisites: List all persons using the `list /all` command. Ensure there are multiple persons in the list.
+    2. Test case: `delete /contact 1`<br>
+       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
    Other incorrect delete commands to try:
     1. Test case: `delete` (missing flag and index)<br>
@@ -722,18 +726,18 @@ testers are expected to do more *exploratory* testing.
        Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
 2. Deleting a person associated with an itinerary
-   1. Prerequisites: Ensure a person is associated with an itinerary (e.g. person 1 linked to itinerary 2). Ensure the person is displayed in the person list (e.g. Using the `list /all` command).
-   2. Test case: `delete /contact x` (where x is the person's index in the displayed list)<br>
-      Expected: Contact is deleted.
+    1. Prerequisites: Ensure a person is associated with an itinerary (e.g. person 1 linked to itinerary 2). Ensure the person is displayed in the person list (e.g. Using the `list /all` command).
+    2. Test case: `delete /contact x` (where x is the person's index in the displayed list)<br>
+       Expected: Contact is deleted.
 
    Follow-up:
-   1. Ensure the itinerary is displayed in the itinerary list (e.g. Using the `list /all` command).
-   2. Test case: `show y` (where y is the associated itinerary's index in the displayed list)<br>
-      Expected: Deleted contact no longer appears in the itinerary’s associated contact list.
+    1. Ensure the itinerary is displayed in the itinerary list (e.g. Using the `list /all` command).
+    2. Test case: `show y` (where y is the associated itinerary's index in the displayed list)<br>
+       Expected: Deleted contact no longer appears in the itinerary’s associated contact list.
 
 3. Deleting a person when only some persons are being shown
     1. Prerequisites: Use a filtering command (e.g. `list /vendor`, `list /client`) to display a subset of the full contact list. Ensure there is at least one person in the list.
-     2. Test case: `delete /contact 1`<br>
+    2. Test case: `delete /contact 1`<br>
        Expected: First contact is deleted from the filtered list, not the full list.
 
 4. Deleting a person when no persons are being shown
@@ -752,25 +756,25 @@ These test cases follow the same steps as manual testing for [Deleting a person]
 
 1. Dealing with missing data file
 
-   1. Prerequisites: Data file is not in the `data` folder
-   2. Test case: TripScribe.json is missing from `data` folder on launch. <br>
-   Expected: TripScribe should still launch and function like normal, but with default set of data in view.
+    1. Prerequisites: Data file is not in the `data` folder
+    2. Test case: TripScribe.json is missing from `data` folder on launch. <br>
+       Expected: TripScribe should still launch and function like normal, but with default set of data in view.
 
 2. Dealing with incorrect fields in data file
-   1. Prerequisites: Data file is in data folder
-   2. Test case 1: One field in a `Person` is in the wrong format. <br>
-      Example: `"role" : ""`
-      Expected: The person will not appear in the contacts panel when TripScribe is launched. <br>The data file is updated such that itineraries previously associated with the contact will no longer store the contact's `Id` under its client or vendor lists<br>
-      "Illegal value found in field of a contact entry, skipping." is logged into terminal.
-   3. Test case 2: One field in an `Itinerary` is in the wrong format. <br>
-      Example: `"startDate : "09-12-2026"`
-      Expected: The itinerary  will not appear in the itinerary panel when TripScribe is launched. <br>
-      "Illegal value found in field of an itinerary entry, skipping." is logged into terminal.
-   4. Test case 3: Multiple fields in a `Person` is in the wrong format. <br>
-       Example: `"role" : ""` ,`"phone" : "98765432"`
+    1. Prerequisites: Data file is in data folder
+    2. Test case 1: One field in a `Person` is in the wrong format. <br>
+       Example: `"role" : ""`<br>
+       Expected: The person will not appear in the contacts panel when TripScribe is launched. <br>The data file is updated such that itineraries previously associated with the contact will no longer store the contact's `Id` under its client or vendor lists.<br>
+       "Illegal value found in field of a contact entry, skipping." is logged into terminal.
+    3. Test case 2: One field in an `Itinerary` is in the wrong format. <br>
+       Example: `"startDate : "09-12-2026"`<br>
+       Expected: The itinerary  will not appear in the itinerary panel when TripScribe is launched. <br>
+       "Illegal value found in field of an itinerary entry, skipping." is logged into terminal.
+    4. Test case 3: Multiple fields in a `Person` is in the wrong format. <br>
+       Example: `"role" : ""` ,`"phone" : "98765432"`<br>
        Expected: Similar to test case 1.
-   5. Test case 4: Multiple fields in an `Itinerary` is in the wrong format. <br>
-       Example: `""startDate" : "09-12-2026"` , `"endDate" : "15 December 2026"`
+    5. Test case 4: Multiple fields in an `Itinerary` is in the wrong format. <br>
+       Example: `""startDate" : "09-12-2026"` , `"endDate" : "15 December 2026"`<br>
        Expected: Similar to test case 2.
 
 ## **Appendix: Effort**
