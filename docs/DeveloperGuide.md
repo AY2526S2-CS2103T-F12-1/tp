@@ -1,7 +1,7 @@
 ---
   layout: default.md
-    title: "Developer Guide"
-    pageNav: 3
+  title: "Developer Guide"
+  pageNav: 3
 ---
 
 # TripScribe Developer Guide
@@ -264,8 +264,7 @@ When reading the JSON file to construct the corresponding objects, we have the f
 #### Design considerations
 **Aspect: Managing the association between contacts and itineraries**
 * **Alternative 1 (current choice):** `Itinerary` stores the `Id`s of `Person`s.
-    * Pros: Reading and saving data to JSON file is simple to implement with minimal data duplication.
-    * Pros: Reduces coupling between `Itinerary` and `Person` classes.
+    * Pros: Reading and saving data to JSON file is simple to implement with minimal data duplication. Reduces coupling between `Itinerary` and `Person` classes.
     * Cons: Introduce slight overheads. When retrieving the clients and vendors of an itinerary, we need to resolve the `Id`s back to the `Person` objects.
 * **Alternative 2:** `Itinerary` stores direct references to `Person`s.
     * Pros: The `addi` command would be simpler to implement.
@@ -412,16 +411,16 @@ For example, `find alex david` will return contacts whose name, phone, email, ad
 2. `FindCommandParser` detects the presence of supported prefixes and treats the input as a multi-field search.
 
 3. The parser extracts the keywords associated with each prefix:
-    - `n/` → `alex, yu`
-    - `p/` → `996`
+   - `n/` → `alex, yu`
+   - `p/` → `996`
 
 4. A `PersonMatchesFieldsPredicate` is created using these field-specific keyword lists.
 
 5. `FindCommand` is created with this predicate and executed.
 
 6. During execution, `Model#updateFilteredPersonList(...)` is called with the predicate. A contact is included in the filtered list only if it satisfies all specified fields:
-    - within the same field, keywords are matched using `OR`
-    - across different fields, fields are matched using `AND`
+   - within the same field, keywords are matched using `OR`
+   - across different fields, fields are matched using `AND`
 
 For example, `find n/alex yu p/996` will return contacts whose names contain `alex` or `yu`, and whose phone numbers contain `996`.
 
@@ -456,40 +455,40 @@ For example, alex will match Alex, and lex will also match Alex.
 **Aspect: How `find` supports two search formats**
 
 * **Alternative 1 (current choice):** Support both a general search format and a multi-field search format.
-    * Pros: More flexible for users. General search is fast for broad lookup, while multi-field search gives users more control.
-    * Cons: Parser logic is more complex, since it must distinguish between the two formats and reject mixed usage.
+  * Pros: More flexible for users. General search is fast for broad lookup, while multi-field search gives users more control.
+  * Cons: Parser logic is more complex, since it must distinguish between the two formats and reject mixed usage.
 
 * **Alternative 2:** Support only general search.
-    * Pros: Simpler parser and predicate logic.
-    * Cons: Users cannot restrict the search to specific fields, may return too much matching contacts.
+  * Pros: Simpler parser and predicate logic.
+  * Cons: Users cannot restrict the search to specific fields, may return too much matching contacts.
 
 * **Alternative 3:** Support only multi-field search.
-    * Pros: Clearer and more structured command format.
-    * Cons: Less convenient for users who want to perform a quick broad search.
+  * Pros: Clearer and more structured command format.
+  * Cons: Less convenient for users who want to perform a quick broad search.
 
 **Aspect: How matching is performed**
 
 * **Alternative 1 (current choice):** Use substring matching with case-insensitive comparison.
-    * Pros: More user-friendly, since users do not need to type exact full-field values.
-    * Cons: May return broader results than expected.
+  * Pros: More user-friendly, since users do not need to type exact full-field values.
+  * Cons: May return broader results than expected.
 
 * **Alternative 2:** Match only full words or exact field values.
-    * Pros: More precise results.
-    * Cons: Less flexible and less convenient for users.
+  * Pros: More precise results.
+  * Cons: Less flexible and less convenient for users.
 
 **Aspect: How multi-field search combines conditions**
 
 * **Alternative 1 (current choice):** Use `OR` within the same field and `AND` across different fields.
-    * Pros: Natural balance between flexibility and precision. Users can provide multiple possible matches for one field while still constraining other fields.
-    * Cons: Slightly harder to explain in the User Guide and Developer Guide.
+  * Pros: Natural balance between flexibility and precision. Users can provide multiple possible matches for one field while still constraining other fields.
+  * Cons: Slightly harder to explain in the User Guide and Developer Guide.
 
 * **Alternative 2:** Use `OR` for all fields and all keywords.
-    * Pros: Simpler mental model.
-    * Cons: Results may be too broad for structured searches.
+  * Pros: Simpler mental model.
+  * Cons: Results may be too broad for structured searches.
 
 * **Alternative 3:** Use `AND` for all fields and all keywords.
-    * Pros: Very strict filtering.
-    * Cons: Often too restrictive for practical use.
+  * Pros: Very strict filtering.
+  * Cons: Often too restrictive for practical use.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -688,32 +687,32 @@ testers are expected to do more *exploratory* testing.
 
 1. Initial launch
 
-    1. Download the jar file and copy into an empty folder
+   1. Download the jar file and copy into an empty folder
 
-    2. Run the jar file as per [quick start](UserGuide.md/#running-tripscribe). <br>
-       Expected: GUI is shown with sample contacts
+   2. Run the jar file as per [quick start](UserGuide.md/#running-tripscribe). <br>
+      Expected: GUI is shown with sample contacts
 
 2. Saving window preferences
 
-    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-    2. Re-launch the app by double-clicking the jar file.<br>
+   2. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
 3. Exiting TripScribe using `exit`
-    1. Type `exit` into the command bar of TripScribe <br>
+   1. Type `exit` into the command bar of TripScribe <br>
        Expected: TripScribe application window is closed.
 
 4. Exiting TripScribe using the exit button
-    1. Click `File` in TripScribe and click the `Exit` button <br>
-       Expected: TripScribe application window is closed.
+   1. Click `File` in TripScribe and click the `Exit` button <br>
+      Expected: TripScribe application window is closed.
 
 ### Deleting a Person
 
 1. Deleting a person while all persons are being shown
-    1. Prerequisites: List all persons using the `list /all` command. Ensure there are multiple persons in the list.
-    2. Test case: `delete /contact 1`<br>
-       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   1. Prerequisites: List all persons using the `list /all` command. Ensure there are multiple persons in the list.
+   2. Test case: `delete /contact 1`<br>
+      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
    Other incorrect delete commands to try:
     1. Test case: `delete` (missing flag and index)<br>
