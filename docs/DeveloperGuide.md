@@ -653,8 +653,8 @@ Use case ends.
 ### Non-Functional Requirements
 
 1. The system should run on any mainstream OS that has Java 17 or above installed.
-2. The system should be able to support up to 1000 entries without a noticeable sluggishness in performance during typical usage.
-3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+2. The system should be able to support up to 1000 entries without a noticeable sluggishness (1-second delay from input to feedback) in performance during typical usage.
+3. A user with above average typing speed (50-70 words per minute) for regular English text (i.e. not code, not system admin commands) should be able to accomplish contact adding, itinerary adding, editing contact details, and searching for contacts related to itineraries faster using commands than using the mouse.
 4. The system should function without an Internet connection, allowing users to access and run the application offline.
 
 ### Glossary
