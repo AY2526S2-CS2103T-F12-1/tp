@@ -649,6 +649,83 @@ Use case ends.
     * 1c1. TripScribe displays an error message indicating the valid flags.
 
       Use case ends.
+---
+**UC05: Find**
+
+**MSS**
+1. User requests to delete a contact or itinerary by specifying the entry type and index.
+2. TripScribe deletes the specified contact or itinerary.
+3. If the deleted entry is a contact, TripScribe removes that contact from any associated itineraries.
+4. TripScribe displays a success message and the updated list.
+
+Use case ends.
+
+**Extensions**
+
+* 1a. TripScribe detects an error in the entered command format.
+    * 1a1. TripScribe displays a format error message with the correct command usage.
+
+      Use case ends.
+
+---
+**UC06: Edit**
+
+**MSS**
+1. User requests to edit a contact or itinerary by specifying the entry type and index
+2. User supplies fields to edit.
+3. TripScribe edits the specified contact or itinerary.
+4. TripScribe displays a success message and the updated list.
+
+Use case ends.
+
+**Extensions**
+
+* 1a. TripScribe detects an error in the entered command format.
+    * 1a1. TripScribe displays a format error message with the correct command usage.
+
+      Use case ends.
+
+* 1b. TripScribe detects an invalid index (e.g., not a positive integer or out of range).
+    * 1b1. TripScribe shows an error message indicating that the specified entry does not exist.
+
+      Use case ends.
+
+* 1c. TripScribe detects an invalid flag.
+    * 1c1. TripScribe displays an error message indicating the valid flags.
+
+      Use case ends.
+  
+* 2a. TripScribe detects no fields entered by user to edit.
+  * 2a1. TripScribe displays an error message indicating that at least 1 field must be edited for the entry.
+    
+      Use case ends.
+
+* 3a. TripScribe detects a field entered by user is for the wrong entry type (e.g. `from/` for contact).
+    * 2a1. TripScribe displays an error message indicating that at least 1 field must be edited for the entry.
+
+      Use case ends.
+---
+**UC07: Show**
+
+**MSS**
+1. User requests to show an itinerary and its associated contacts by specifying the itinerary index.
+2. TripScribe retrieves the itinerary, and retrieves contacts associated with it.
+4. TripScribe displays a success message and the view is updated to show the specified itinerary and its associated contacts.
+
+Use case ends.
+
+**Extensions**
+
+* 1a. TripScribe detects an error in the entered command format.
+    * 1a1. TripScribe displays a format error message with the correct command usage.
+
+      Use case ends.
+
+* 1b. TripScribe detects an invalid index (e.g., not a positive integer or out of range).
+    * 1b1. TripScribe shows an error message indicating that the specified entry does not exist.
+
+      Use case ends.
+
 
 ### Non-Functional Requirements
 
