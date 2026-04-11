@@ -752,6 +752,7 @@ This section defines all the specialized terms used in TripScribe to help you un
 
 * **Alphanumeric characters**: Characters consisting of letters (A–Z, a–z) and numbers (0–9).
 * **Case-Insensitive Text**: Text where uppercase and lowercase letters are treated as equivalent.
+* **Client**: A person who participates in a tour organized by the agency.
 * **Command Line Interface (CLI) Application**: An application that users interact with by typing commands.
 * **Domain-label**: A part of a domain name separated by dots, consisting of alphanumeric characters and hyphens, but not beginning or ending with a hyphen.
 * **Flag**: An option used with a command to specify or modify its behavior.
@@ -764,6 +765,7 @@ This section defines all the specialized terms used in TripScribe to help you un
 * **Parameter**: A piece of information you provide to a command.
 * **Prefix**: A short code that identifies the type of information which follows (e.g., `n/` for name, `p/` for phone, `e/` for email, etc.).
 * **Tag**: A label used to categorize any number of entries together.
+* **Vendor**: A party that provides goods or services for a tour.
 
 <div style="page-break-after: always;"></div>
 
