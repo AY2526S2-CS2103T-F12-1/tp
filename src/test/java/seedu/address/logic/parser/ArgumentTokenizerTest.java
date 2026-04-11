@@ -116,6 +116,17 @@ public class ArgumentTokenizerTest {
     }
 
     @Test
+    public void tokenize_multipleArgumentsDifferentCase() {
+        String argsString = "Different Preamble String ^q111 -T dashT-Value P/pSlash value";
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString, pSlash, dashT, hatQ);
+        assertPreamblePresent(argMultimap, "Different Preamble String");
+        assertArgumentPresent(argMultimap, pSlash, "pSlash value");
+        assertArgumentPresent(argMultimap, dashT, "dashT-Value");
+        assertArgumentPresent(argMultimap, hatQ, "111");
+    }
+
+
+    @Test
     public void tokenize_multipleArgumentsWithRepeats() {
         // Two arguments repeated, some have empty values
         String argsString = "SomePreambleString -t dashT-Value ^Q ^Q -t another dashT value p/ pSlash value -t";
@@ -138,13 +149,17 @@ public class ArgumentTokenizerTest {
 
     @Test
     public void equalsMethod() {
-        Prefix aaa = new Prefix("aaa");
+        Prefix lowerCase = new Prefix("aaa");
+        Prefix mixedCase = new Prefix("aaa");
+        Prefix upperCase = new Prefix("aaa");
 
-        assertEquals(aaa, aaa);
-        assertEquals(aaa, new Prefix("aaa"));
+        assertEquals(lowerCase, lowerCase);
+        assertEquals(lowerCase, mixedCase);
+        assertEquals(lowerCase, upperCase);
+        assertEquals(lowerCase, new Prefix("aaa"));
 
-        assertNotEquals(aaa, "aaa");
-        assertNotEquals(aaa, new Prefix("aab"));
+        assertNotEquals(lowerCase, "aaa");
+        assertNotEquals(lowerCase, new Prefix("aab"));
     }
 
 }
