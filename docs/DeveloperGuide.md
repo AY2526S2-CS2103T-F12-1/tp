@@ -653,7 +653,7 @@ Use case ends.
 **UC05: General Find**
 
 **MSS**
-1. User requests to find contacts and enters keywords.
+1. User requests to find contacts by specifying the keyword(s).
 2. TripScribe retrieves contacts that match any keyword in any searchable field.
 3. TripScribe displays a success message and the filtered list of contacts that match the keywords.
 
