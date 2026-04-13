@@ -12,7 +12,7 @@ import java.util.Locale;
 public class ItineraryName {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Invalid itinerary name: Please provide a non-empty name.";
+            "Invalid itinerary name: Ensure that it is non-empty and starts with an alphanumeric character.";
 
     public static final String VALIDATION_REGEX = "[\\p{L}\\p{N}].*";
 
