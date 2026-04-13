@@ -42,7 +42,7 @@ Jump to our [FAQ](#faq) and [Troubleshooting](#troubleshooting) sections.
     - [Adding an Itinerary : `addi`](#adding-an-itinerary-addi)
     - [Listing Contacts and Itineraries : `list`](#listing-contacts-and-itineraries--list)
     - [Editing Contacts and Itineraries : `edit`](#editing-contacts-and-itineraries--edit)
-    - [Showing Itinerary Details: `show`](#showing-contacts-by-itinerary-show)
+    - [Showing Itinerary Details: `show`](#showing-itinerary-details-show)
     - [Finding Contacts by Name : `find`](#finding-contacts-by-keywords-find)
     - [Deleting a Contact or Itinerary : `delete`](#deleting-a-contact-or-itinerary--delete)
     - [Clearing All Entries : `clear`](#clearing-all-entries--clear)
@@ -196,7 +196,7 @@ See an unfamiliar term? Jump to our [Glossary](#glossary) for its definition.
 
 <div style="page-break-after: always;"></div>
 
-### Viewing help : `help`
+### Viewing Help : `help`
 
 You can open a help window that summarizes all commands, their formats and helpful examples using this command. For more detailed instructions, you can copy the User Guide URL from the help window, and paste it into your browser to access this guide.
 
@@ -385,7 +385,7 @@ If you want to keep the contact's current tags, make sure to add **all existing 
 <div style="page-break-after: always;"></div>
 
 
-### Showing contacts by itinerary: `show`
+### Showing Itinerary Details: `show`
 
 You can show the details of a specific itinerary and its associated contacts associated using this command. 
 
