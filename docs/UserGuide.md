@@ -587,6 +587,8 @@ It is recommended that you back up your data regularly, especially if you plan t
 3. Copy the entire backup folder into the folder.
 4. Rename the backup folder to `data`.
 
+<div style="page-break-after: always;"></div>
+
 ### Editing Your Data File
 
 TripScribe stores your data automatically as a JSON file found in `[JAR file location]/data/tripscribe.json`.<br>
