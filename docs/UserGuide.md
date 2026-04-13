@@ -42,7 +42,7 @@ Jump to our [FAQ](#faq) and [Troubleshooting](#troubleshooting) sections.
     - [Adding an Itinerary : `addi`](#adding-an-itinerary-addi)
     - [Listing Contacts and Itineraries : `list`](#listing-contacts-and-itineraries-list)
     - [Editing Contacts and Itineraries : `edit`](#editing-contacts-and-itineraries-edit)
-    - [Showing details of an itinerary: `show`](#showing-contacts-by-itinerary-show)
+    - [Showing Itinerary Details: `show`](#showing-itinerary-details-show)
     - [Finding Contacts by Name : `find`](#finding-contacts-by-keywords-find)
     - [Deleting a Contact or Itinerary : `delete`](#deleting-a-contact-or-itinerary-delete)
     - [Clearing All Entries : `clear`](#clearing-all-entries-clear)
