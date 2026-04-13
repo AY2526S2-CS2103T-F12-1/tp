@@ -11,6 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -60,11 +61,19 @@ public class FindCommandParser implements Parser<FindCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_ROLE, PREFIX_NAME, PREFIX_PHONE,
+                PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+
         List<String> nameKeywords = argMultimap.getAllValues(PREFIX_NAME);
         List<String> phoneKeywords = argMultimap.getAllValues(PREFIX_PHONE);
         List<String> emailKeywords = argMultimap.getAllValues(PREFIX_EMAIL);
         List<String> addressKeywords = argMultimap.getAllValues(PREFIX_ADDRESS);
         List<String> tagKeywords = argMultimap.getAllValues(PREFIX_TAG);
+
+        if (hasBlankValue(nameKeywords, phoneKeywords, emailKeywords, addressKeywords, tagKeywords)) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        }
 
         nameKeywords = splitValuesIntoKeywords(nameKeywords);
         phoneKeywords = splitValuesIntoKeywords(phoneKeywords);
@@ -90,6 +99,16 @@ public class FindCommandParser implements Parser<FindCommand> {
                 .flatMap(value -> Arrays.stream(value.trim().split("\\s+")))
                 .filter(token -> !token.isEmpty())
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Returns true if any provided prefixed value is blank after trimming.
+     */
+    @SafeVarargs
+    private final boolean hasBlankValue(List<String>... valuesLists) {
+        return Stream.of(valuesLists)
+                .flatMap(List::stream)
+                .anyMatch(value -> value.trim().isEmpty());
     }
 
     /**

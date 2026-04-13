@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.getErrorMessageForDuplicatePrefixes;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -62,6 +64,22 @@ public class FindCommandParserTest {
     public void parse_fieldSearchWithPreamble_throwsParseException() {
         assertParseFailure(parser, " Alice n/Bob",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_fieldSearchWithEmptyPrefixedValue_throwsParseException() {
+        assertParseFailure(parser, " p/",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " n/alex p/ e/example.com",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_fieldSearchWithDuplicatePrefix_throwsParseException() {
+        assertParseFailure(parser, " n/alex p/ p/111",
+                getErrorMessageForDuplicatePrefixes(PREFIX_PHONE));
+        assertParseFailure(parser, " n/alex p/222 p/111",
+                getErrorMessageForDuplicatePrefixes(PREFIX_PHONE));
     }
 
 }
