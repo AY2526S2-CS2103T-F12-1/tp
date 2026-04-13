@@ -238,6 +238,8 @@ addc r/ROLE n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​
 - Tags only accept alphanumeric values (no symbols, punctuation, spaces, etc.).
   - Example: `PeanutAllergy` is allowed, but `Peanut Allergy` is not allowed as it contains a space.
 - TripScribe treats two contacts as duplicates if they share the **same name and phone number**. Duplicate contacts cannot be added.
+- Duplicate tags (case-insensitive) will be ignored, only the first tag will be added.
+  - Example: The input `t/BusDriver t/busdriver` will only be added as one tag, `BusDriver`.
 
 </box>
 
