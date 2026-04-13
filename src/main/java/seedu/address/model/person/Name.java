@@ -58,7 +58,7 @@ public class Name {
         }
 
         return value.substring(0, 1).toUpperCase(Locale.ROOT)
-                + value.substring(1).toLowerCase(Locale.ROOT);
+                + value.substring(1);
     }
 
     @Override
