@@ -6,9 +6,6 @@
 
 # TripScribe Developer Guide
 
-<!-- * Table of Contents -->
-<page-nav-print />
-
 --------------------------------------------------------------------------------------------------------------------
 ## Table of Contents
 
@@ -44,6 +41,7 @@
     - [Effort and Achievements](#effort-and-achievements)
 - [Appendix: Planned Enhancements](#appendix-planned-enhancements)
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## **Acknowledgements**
 
@@ -82,6 +80,8 @@ The bulk of the app's work is done by the following four components:
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 
+<div style="page-break-after: always;"></div>
+
 **How the architecture components interact with each other**
 
 The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete /contact 1`.
@@ -98,6 +98,8 @@ For example, the `Logic` component defines its API in the `Logic.java` interface
 <puml src="diagrams/ComponentManagers.puml" width="300" />
 
 The sections below give more details of each component.
+
+<div style="page-break-after: always;"></div>
 
 ### UI Component
 
@@ -116,13 +118,15 @@ The `UI` component,
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
 * depends on some classes in the `Model` component, as it displays `Person` and `Itinerary` objects that reside in `Model`.
 
+<div style="page-break-after: always;"></div>
+
 ### Logic Component
 
 **API** : [`Logic.java`](https://github.com/AY2526S2-CS2103T-F12-1/tp/tree/master/src/main/java/seedu/address/logic/Logic.java)
 
 Here's a (partial) class diagram of the `Logic` component:
 
-<puml src="diagrams/LogicClassDiagram.puml" width="550"/>
+<puml src="diagrams/LogicClassDiagram.puml" width="400"/>
 
 The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete /contact 1")` API call as an example.
 
@@ -133,6 +137,8 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
 
 </box>
+
+<div style="page-break-after: always;"></div>
 
 How the `Logic` component works:
 
@@ -149,6 +155,8 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 How the parsing works:
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible (e.g, during testing).
+
+<div style="page-break-after: always;"></div>
 
 ### Model Component
 **API** : [`Model.java`](https://github.com/AY2526S2-CS2103T-F12-1/tp/tree/master/src/main/java/seedu/address/model/Model.java)
@@ -171,6 +179,8 @@ The `Model` component,
 
 </box>
 
+<div style="page-break-after: always;"></div>
+
 ### Storage Component
 
 **API** : [`Storage.java`](https://github.com/AY2526S2-CS2103T-F12-1/tp/tree/master/src/main/java/seedu/address/storage/Storage.java)
@@ -187,6 +197,8 @@ The `Storage` component,
 Classes used by multiple components are in the `seedu.address.commons` package.
 
 --------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
 
 ## **Implementation**
 
@@ -218,6 +230,8 @@ The class diagram for `Itinerary` is shown below:
 * **Alternative 2:** Only allow alphanumeric characters
     * Pros: No unusual symbols allowed (i.e. `{`, `~`, etc.).
     * Cons: Itinerary names and destinations that use symbols like `:` and `,` are not allowed.
+
+<div style="page-break-after: always;"></div>
 
 ### Adding Itineraries
 #### Implementation
@@ -270,6 +284,8 @@ When reading the JSON file to construct the corresponding objects, we have the f
     * Pros: The `addi` command would be simpler to implement.
     * Cons: Reading and saving data becomes more complex.
 
+<div style="page-break-after: always;"></div>
+
 ### Edit Command
 
 The `edit` command modifies contact and itinerary details. The implementation uses an abstract `EditCommand` class with specialized subclasses to handle the editing of `Person` and `Itinerary` objects respectively.
@@ -291,6 +307,8 @@ The `edit` command is executed in four main steps:
 3. **Merging:** The descriptor created in step 1 combines the target entry's unchanged fields with the updated values.
 4. **Update:** `EditXYZCommand` creates an edited `XYZ` entry using the descriptor in step 3, and replaces the old entry in the list.
 
+<div style="page-break-after: always;"></div>
+
 The sequence diagram below illustrates how an `edit` command is executed:
 
 <puml src="diagrams/EditCommandSequenceDiagram.puml" width="600"/>
@@ -301,11 +319,12 @@ The sequence diagram below illustrates how an `edit` command is executed:
 
 </box>
 
+
 **Editing a person**
 
 The following class diagram shows the attributes and methods used in `EditCommand`, `EditPersonCommand` and `EditPersonDescriptor`.
 
-<puml src="diagrams/EditPersonClassDiagram.puml" width="600"/>
+<puml src="diagrams/EditPersonClassDiagram.puml" width="500"/>
 
 More on `EditPersonCommand`:
 * `executeEditCommand()`  —  Implements the abstract method in `EditCommand` to execute the edit.
@@ -332,6 +351,8 @@ Editing an itinerary follows the same pattern as editing a person (shown above) 
 * **Alternative 2:** Single `EditCommand` class to handle both `Person` and `Itinerary` editing.
     * Pros: Fewer classes.
     * Cons: Less type-safety. Long `EditCommand` class.
+
+<div style="page-break-after: always;"></div>
 
 ### Show Command
 
@@ -364,6 +385,8 @@ The sequence diagram below shows the interactions within the logic component.
 * **Alternative 2:** Show contacts as a part of `ItineraryListPanel`
     * Pros: Only 1 panel shown on GUI, resulting in cleaner user experience.
     * Cons: Complex implementation required to get respective `Person`s from `Model` for each itinerary. Every `Model` update requires updating each `ItineraryListPanel` for each itinerary.
+
+<div style="page-break-after: always;"></div>
 
 ### Find Command
 
@@ -424,6 +447,8 @@ For example, `find alex david` will return contacts whose name, phone, email, ad
 
 For example, `find n/alex yu p/996` will return contacts whose names contain `alex` or `yu`, and whose phone numbers contain `996`.
 
+<div style="page-break-after: always;"></div>
+
 The following sequence diagram shows how the `find` operation goes through the `Logic` component:
 
 <puml src="diagrams/FindSequenceDiagram-Logic.puml" alt="FindSequenceDiagram-Logic" />
@@ -449,6 +474,8 @@ For example, `find alex p/996` is rejected as invalid input format.
 For example, alex will match Alex, and lex will also match Alex.
 
 </box>
+
+<div style="page-break-after: always;"></div>
 
 #### Design considerations
 
@@ -492,6 +519,8 @@ For example, alex will match Alex, and lex will also match Alex.
 
 --------------------------------------------------------------------------------------------------------------------
 
+<div style="page-break-after: always;"></div>
+
 ## **Documentation, Logging, Testing, Configuration, Dev-ops**
 
 * [Documentation guide](Documentation.md)
@@ -501,6 +530,8 @@ For example, alex will match Alex, and lex will also match Alex.
 * [DevOps guide](DevOps.md)
 
 --------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
 
 ## **Appendix: Requirements**
 
@@ -520,6 +551,8 @@ Operations executives in small to mid-size tour agencies who
 **Value proposition**:
 
 Existing tools are too heavy or fragmented. Our app is a lightweight, single‑user solution for tour agency executives, enabling rapid typed commands to manage client contacts, addresses, itineraries, and vendor details. Data is stored locally in editable text files.
+
+<div style="page-break-after: always;"></div>
 
 ### User Stories
 
@@ -545,6 +578,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | tour agency operation executive           | clear all existing data                                                           | start fresh with a new data set                         |
 | `* *`    | tour agency operation executive           | find contacts with specific keywords                                              | locate contacts easily                                  |
 | `* *`    | tour agency operation executive           | see contacts associated with an itinerary                                         | view all contacts associated with an itinerary          |
+
+<div style="page-break-after: always;"></div>
 
 ### Use Cases
 
@@ -598,6 +633,9 @@ Similar to UC01, except that TripScribe also validates itinerary-specific fields
 * 1d. Similar to UC01 extension 1c.
 
 ---
+
+<div style="page-break-after: always;"></div>
+
 **UC03: List**
 
 **MSS**
@@ -651,6 +689,9 @@ Use case ends.
 
       Use case ends.
 ---
+
+<div style="page-break-after: always;"></div>
+
 **UC05: General Find**
 
 **MSS**
@@ -700,6 +741,8 @@ Use case ends.
 
 ---
 
+<div style="page-break-after: always;"></div>
+
 **UC07: Edit**
 
 **MSS**
@@ -737,6 +780,9 @@ Use case ends.
 
       Use case ends.
 ---
+
+<div style="page-break-after: always;"></div>
+
 **UC08: Show**
 
 **MSS**
@@ -758,6 +804,8 @@ Use case ends.
 
       Use case ends.
 
+
+<div style="page-break-after: always;"></div>
 
 ### Non-Functional Requirements
 
@@ -783,6 +831,8 @@ Use case ends.
 * **Vendor**: A party that provides goods or services for a tour.
 
 --------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
 
 ## **Appendix: Instructions for Manual Testing**
 
@@ -818,6 +868,8 @@ testers are expected to do more *exploratory* testing.
 4. Exiting TripScribe using the exit button
    1. Click `File` in TripScribe and click the `Exit` button <br>
       Expected: TripScribe application window is closed.
+
+<div style="page-break-after: always;"></div>
 
 ### Deleting a Person
 
@@ -856,6 +908,8 @@ testers are expected to do more *exploratory* testing.
     2. Test case: `delete /contact 1`<br>
        Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
+<div style="page-break-after: always;"></div>
+
 ### Deleting an Itinerary
 
 These test cases follow the same steps as manual testing for [Deleting a person](#deleting-a-person), with the following differences:
@@ -888,6 +942,8 @@ These test cases follow the same steps as manual testing for [Deleting a person]
        Example: `""startDate" : "09-12-2026"` , `"endDate" : "15 December 2026"`<br>
        Expected: Similar to test case 2.
 
+<div style="page-break-after: always;"></div>
+
 ## **Appendix: Effort**
 
 ### Difficulty and Challenges
@@ -899,6 +955,8 @@ These test cases follow the same steps as manual testing for [Deleting a person]
 
 1. Higher than average implementation effort from our team due to larger scope.
 2. Enhancement of existing features (i.e. `add` becomes `addc` & `addi`), and addition of new features to improve product (i.e. `show`).
+
+<div style="page-break-after: always;"></div>
 
 ## **Appendix: Planned Enhancements**
 
