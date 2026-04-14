@@ -84,7 +84,7 @@ The bulk of the app's work is done by the following four components:
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete /contact 1`.
 
 <puml src="diagrams/ArchitectureSequenceDiagram.puml" width="574" />
 
@@ -542,6 +542,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | tour agency operation executive           | undo and redo commands                                                            | recover from mistakes                                   |
 | `* *`    | tour agency operation executive           | archive completed itineraries                                                     | keep my workplace uncluttered                           |
 | `* *`    | tour agency operation executive           | add pictures to contacts                                                          | recognize the people I work with                        |
+| `* *`    | tour agency operation executive           | clear all existing data                                                           | start fresh with a new data set                         |
+| `* *`    | tour agency operation executive           | find contacts with specific keywords                                              | locate contacts easily                                  |
+| `* *`    | tour agency operation executive           | see contacts associated with an itinerary                                         | view all contacts associated with an itinerary          |
 
 ### Use Cases
 
@@ -552,42 +555,43 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User requests to add a contact and provides the contact details.
-2. TripScribe creates the contact and displays a success message and the updated contact list.
+2. TripScribe creates the contact and displays the updated contact list.
 
 Use case ends.
 
 **Extensions**
 
 * 1a. TripScribe detects an error in the entered command format.
-    * 1a1. TripScribe shows a format error message and displays the correct command usage.
+    * 1a1. TripScribe informs the user of the format error.
 
       Use case ends.
 
 * 1b. TripScribe detects invalid values in the entered contact details (e.g., invalid email/phone, empty name).
-
-    * 1b1. TripScribe shows a validation error message and displays the correct command usage (and/or which field is invalid).
+    * 1b1. TripScribe informs the user that the input is invalid.
 
       Use case ends.
+
 * 1c. TripScribe detects a duplicate contact.
-    * 1c1. TripScribe shows a duplicate message and does not create the contact.
+    * 1c1. TripScribe informs the user that the contact already exists.
 
       Use case ends.
 ---
 **UC02: Add an itinerary**
 
+**MSS**
 Similar to UC01, except that TripScribe also validates itinerary-specific fields such as dates and referenced contacts.
 
 **Extensions**
 
 * 1a. Similar to UC01 extension 1a.
 
-* 1b. TripScribe detects invalid itinerary details (e.g., invalid date format, end date earlier than start date).
-    * 1b1. TripScribe displays a validation error message.
+* 1b. TripScribe detects invalid values in the entered itinerary details (e.g., invalid date format, end date earlier than start date).
+    * 1b1. TripScribe informs the user that the input is invalid.
 
       Use case ends.
 
 * 1c. TripScribe cannot find a referenced client or vendor.
-    * 1c1. TripScribe displays an error message indicating that the referenced contact does not exist.
+    * 1c1. TripScribe informs the user that the referenced contact does not exist.
 
       Use case ends.
 
@@ -607,15 +611,15 @@ Use case ends.
 **Extensions**
 
 * 1a. TripScribe detects an error in the entered command format (e.g., Typo).
-    * 1a1. TripScribe displays a format error message with the correct command usage.
+    * 1a1. TripScribe informs the user that the input is invalid.
 
       Use case ends.
 * 1b. TripScribe detects an error in the entered command details (e.g., missing category / unrecognized category).
-    * 1b1. TripScribe displays a format error message with the correct command usage and list of supported categories.
+    * 1b1. TripScribe informs the user that the category is invalid.
 
       Use case ends.
 * 2a. TripScribe finds zero entries matching.
-    * 2a1. TripScribe displays an empty result message.
+    * 2a1. TripScribe informs the user that no matching entries were found.
 
       Use case ends.
 
@@ -633,25 +637,133 @@ Use case ends.
 **Extensions**
 
 * 1a. TripScribe detects an error in the entered command format.
-    * 1a1. TripScribe displays a format error message with the correct command usage.
+    * 1a1. TripScribe informs the user that the input is invalid.
 
       Use case ends.
 
 * 1b. TripScribe detects an invalid index (e.g., not a positive integer or out of range).
-    * 1b1. TripScribe shows an error message indicating that the specified entry does not exist.
+    * 1b1. TripScribe informs the user that the index is invalid.
 
       Use case ends.
 
 * 1c. TripScribe detects an invalid flag.
-    * 1c1. TripScribe displays an error message indicating the valid flags.
+    * 1c1. TripScribe informs the user that the flag provided was invalid.
 
       Use case ends.
+---
+**UC05: General Find**
+
+**MSS**
+1. User requests to find contacts by specifying the keyword(s).
+2. TripScribe retrieves contacts that match any keyword in any searchable field.
+3. TripScribe displays a success message and the filtered list of contacts that match the keywords.
+
+Use case ends.
+
+**Extensions**
+
+* 1a. TripScribe detects an error in the entered command format.
+    * 1a1. TripScribe informs the user that the input is invalid.
+
+      Use case ends.
+
+* 1b. TripScribe detects no keywords in the entered command format.
+    * 1b1. TripScribe informs the user that no keywords were provided.
+
+      Use case ends.
+
+* 2a. TripScribe finds zero entries matching.
+    * 2a1. TripScribe informs the user that no matching entries were found.
+
+      Use case ends.
+
+---
+
+**UC06: Multi-field Find**
+
+**MSS**
+1. User requests to find contacts by specifying the field(s) and keywords(s) to search.
+2. TripScribe retrieves contacts that match based on the following criteria: <br>
+   - within the same field, keywords are matched using OR
+   - across different fields, fields are matched using AND
+3. TripScribe displays a success message and the filtered list of contacts that match the keywords.
+
+Use case ends.
+
+**Extensions**
+
+* 1a. Similar to UC05 extension 1a.
+
+* 1b. Similar to UC05 extension 1b.
+
+* 2a. Similar to UC05 extension 2a.
+
+---
+
+**UC07: Edit**
+
+**MSS**
+1. User requests to edit a contact or itinerary.
+2. User supplies fields to edit.
+3. TripScribe edits the specified contact or itinerary.
+4. TripScribe displays a success message and the updated list.
+
+Use case ends.
+
+**Extensions**
+
+* 1a. TripScribe detects an error in the entered command format.
+    * 1a1. TripScribe informs the user that the input is invalid.
+
+      Use case ends.
+
+* 1b. TripScribe detects an invalid index (e.g., not a positive integer or out of range).
+    * 1b1. TripScribe informs the user that the index is invalid.
+
+      Use case ends.
+
+* 1c. TripScribe detects an invalid flag.
+    * 1c1. TripScribe informs the user that the flag provided was invalid.
+
+      Use case ends.
+  
+* 2a. TripScribe detects no fields entered by user to edit.
+    * 1b1. TripScribe informs the user that no fields were provided.
+    
+      Use case ends.
+
+* 3a. TripScribe detects a field entered by user is for the wrong entry type (e.g. `from/` for contact).
+    * 3a1. TripScribe informs that the field is for the wrong entity.
+
+      Use case ends.
+---
+**UC08: Show**
+
+**MSS**
+1. User requests to show an itinerary and its associated contacts by specifying the itinerary index.
+2. TripScribe retrieves the itinerary, and retrieves contacts associated with it.
+3. TripScribe displays a success message and the view is updated to show the specified itinerary and its associated contacts.
+
+Use case ends.
+
+**Extensions**
+
+* 1a. TripScribe detects an error in the entered command format.
+    * 1a1. TripScribe informs the user that the input is invalid.
+
+      Use case ends.
+
+* 1b. TripScribe detects an invalid index (e.g., not a positive integer or out of range).
+    * 1b1. TripScribe informs the user that the index is invalid.
+
+      Use case ends.
+
 
 ### Non-Functional Requirements
 
 1. The system should run on any mainstream OS that has Java 17 or above installed.
-2. The system should be able to support up to 1000 entries without a noticeable sluggishness in performance during typical usage.
-3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+2. The system should be able to support up to 1000 entries without a noticeable sluggishness (1-second delay from input to feedback) in performance during typical usage.
+3. A user with above average typing speed (50-70 words per minute) for regular English text (i.e. not code, not system admin commands) should be able to accomplish contact adding, itinerary adding, editing contact details, and searching for contacts related to itineraries faster using commands than using the mouse.
 4. The system should function without an Internet connection, allowing users to access and run the application offline.
 
 ### Glossary
@@ -756,7 +868,7 @@ These test cases follow the same steps as manual testing for [Deleting a person]
 1. Dealing with missing data file
 
     1. Prerequisites: Data file is not in the `data` folder
-    2. Test case: TripScribe.json is missing from `data` folder on launch. <br>
+    2. Test case: `tripscribe.json` is missing from `data` folder on launch. <br>
        Expected: TripScribe should still launch and function like normal, but with default set of data in view.
 
 2. Dealing with incorrect fields in data file
