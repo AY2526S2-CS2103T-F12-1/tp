@@ -849,7 +849,7 @@ testers are expected to do more *exploratory* testing.
 3. Deleting a person when only some persons are being shown
     1. Prerequisites: Use a filtering command (e.g. `list /vendor`, `list /client`) to display a subset of the full contact list. Ensure there is at least one person in the list.
     2. Test case: `delete /contact 1`<br>
-       Expected: First contact is deleted from the filtered list, not the full list.
+       Expected: The first contact **in the filtered list (current view)** is deleted, not the first contact in the full list.
 
 4. Deleting a person when no persons are being shown
     1. Prerequisites: Hide all persons and list all itineraries using the `list /itinerary` command.
@@ -912,16 +912,16 @@ Team size: 4
       We plan to update the `find` command to allow searching for itineraries based on the itinerary name, destination, and start and end dates.
 3. Updating tag restrictions to prevent UI issues.
    - Currently, if a contact has too many tags, or if a tag is too long, it may cause `PersonCard` in the main window to not show a contact's detail properly.<br> 
-     We plan to introduce a limit the number of tags per contact, and a limit to the length of a tag. 
+     We plan to introduce a limit to the number of tags per contact, and a limit to the length of a tag. 
 4. Show error message on startup in `ResultDisplay` to user when data file has invalid data.
    - Currently, when the data file is edited and saved in an incorrect format for some entries (not all), TripScribe starts up with only the data that is in the correct format. There is no message to the user in the main window, and the only message seen for this is in the logging.<br>
-     We plan update the UI such that when a file is detected to have some incorrectly formatted data, a message is shown to the user.
+     We plan to update the UI such that when a file is detected to have some incorrectly formatted data, a message is shown to the user.
 5. Fix data file creation to be in same folder as `.jar` file even when run from a different working directory.
    - When TripScribe is run from a different working directory from the one that `TripScribe.jar` is located in, the log and json files are created in the user's current working directory, and not the directory the `.jar` file is located in.<br>
      We plan to fix this by updating the file creation to always be in the same location as the `.jar` file.
 6. Fix prefixes being incorrectly accepted in certain fields (i.e `Name`).
    - When prefixes like `p/` are passed in the command without spacing from another prefix like `n/` for a contact, the value may be parsed as valid and will be taken as the value of the field.<br>
-     We plan to fix this my updating the prefix parsing such that prefixes are checked without a mandatory spacing between them.
+     We plan to fix this by updating the prefix parsing such that prefixes are checked without a mandatory spacing between them.
 7. Improved parsing for `Name`, `ItineraryName`, and `Destination`.
    - Currently, we allow special symbols such as `{` in these fields. Parsing for these fields is lax as users may have certain ways they want to store data. However, this could lead to confusion from a user if they are not careful with how they use these symbols.<br>
      We plan to update parsing such that it only allows certain characters like `,` and `&`, and disallows characters like `^` .
