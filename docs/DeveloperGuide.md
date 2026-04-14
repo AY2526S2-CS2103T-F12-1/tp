@@ -201,7 +201,7 @@ This section describes some noteworthy details on how certain features are imple
 * Both `ItineraryName` and `Destination` must be a non-empty `String`.
 * `DateRange` contains a start date and end date, where the start date must be before or on the same day as the end date.
 * Each `Id` in the list corresponds to a unique `Person` and cannot be repeated.
-* An `Id` belonging to a person of the *client* `Role` cannot be in the client list, an `Id` belonging to a person of the *vendor* `Role` cannot be in the vendor list.
+* An `Id` belonging to a person of the *client* `Role` cannot be in the vendor list, an `Id` belonging to a person of the *vendor* `Role` cannot be in the client list.
 
 The class diagram for `Itinerary` is shown below:
 
