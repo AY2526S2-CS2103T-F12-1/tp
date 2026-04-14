@@ -330,6 +330,8 @@ More on `EditPersonCommand`:
 * `executeEditCommand()`  —  Implements the abstract method in `EditCommand` to execute the edit.
 * `createEditedPerson()`  —  Creates a new `Person` based on the `EditPersonDescriptor` provided.
 
+<div style="page-break-after: always;"></div>
+
 More on `EditPersonDescriptor`:
 * Each `Person` field has a getter and setter
 * For each field, if the field was edited, the setter method is used to set the field to the updated value. Otherwise, the original value is retrieved by the getter method.
