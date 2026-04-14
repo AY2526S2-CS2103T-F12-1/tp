@@ -22,7 +22,6 @@ Jump to our [FAQ](#faq) and [Troubleshooting](#troubleshooting) sections.
 </box>
 
 --------------------------------------------------------------------------------------------------------------------
-<div style="page-break-after: always;"></div>
 
 ## Table of Contents
 
@@ -279,7 +278,7 @@ addi n/ITINERARY_NAME dest/DESTINATION from/START_DATE to/END_DATE [c/CLIENT_IND
 - `CLIENT_INDEX` and `VENDOR_INDEX` are the indexes of the contacts in the current TripScribe window.
 - An itinerary can have any number of clients and vendors (including zero).
 - If a contact is a client, you cannot add them as a vendor, and vice versa.
-  - Example: `c/2` will fail if the contact at index 2 is a vendor.  `v/3` will fail if the contact at index 3 is a client
+  - Example: `c/2` will fail if the contact at index 2 is a vendor.  `v/3` will fail if the contact at index 3 is a client.
 - If you want to add multiple clients or vendors into the itinerary, ensure that you indicate the correct prefix for each index.
   - Example: `c/2 c/3 c/4 v/1 v/5 v/6` will add the 2nd, 3rd and 4th contacts in the client list and the 1st, 5th and 6th contacts in the vendor list (if they are of the correct role).  
 </box>
@@ -336,7 +335,7 @@ list /FLAG
 
 ### Editing Contacts and Itineraries : `edit`
 
-You can edit an existing contact or itinerary in TripScribe using this command. TripScribe currently supports editing of all contacts fields, but only supports editing of name, destination and dates for itineraries. 
+You can edit an existing contact or itinerary in TripScribe using this command. TripScribe currently supports editing of all contact fields, but only supports editing of name, destination and dates for itineraries. 
 
 Use this when contact or itinerary details change and require an update.
 
@@ -386,7 +385,7 @@ If you want to keep the contact's current tags, make sure to add **all existing 
 
 ### Showing Itinerary Details : `show`
 
-You can show the details of a specific itinerary and its associated contacts associated using this command. 
+You can show the details of a specific itinerary and its associated contacts using this command. 
 
 Use this when you want to see all the contacts involved in a specific itinerary.  
 
@@ -422,7 +421,7 @@ show INDEX
 You can find contacts whose fields match the given keywords using this command. TripScribe currently supports two forms of searching.
 
 * Use general search to search **all** fields of a contact (excluding its role).
-    * A contact is returned if the given keyword(s) appears in any of its fields
+    * A contact is returned if the given keyword(s) appears in any of its fields.
 * Use multi-field search to search only **specific** field(s) of a contact (excluding its role).
     * If a contact contains the given keyword(s) in the specified field(s), it will be returned.
 
@@ -494,7 +493,7 @@ delete /FLAG INDEX
 * This will delete the contact or itinerary at the specified `INDEX`.
 * `FLAG` specifies the entry type you are deleting. It must be one of: `contact` , `itinerary`.
 * `INDEX` is the index number shown in the displayed person or itinerary list. It **must be a positive, non-zero number** (e.g., 1, 2, 3, …​)
-* When deleting a contact, the contact will be also be removed from any itineraries it is part of.
+* When deleting a contact, the contact will also be removed from any itineraries it is part of.
 
 </box>
 
@@ -659,7 +658,7 @@ Therefore, edit the data file only if you know what you are doing. If you wish t
 
 
 **Q**: How do I manually edit the data file?<br>
-**A**: We recommend that you do not make any manual edits, as it may cause errors when loading the data when you start TripScribe again. However, if you are sure of what do to, you may refer to [Editing Your Data File](#editing-your-data-file) for the steps needed to edit your data.
+**A**: We recommend that you do not make any manual edits, as it may cause errors when loading the data when you start TripScribe again. However, if you are sure of what to do, you may refer to [Editing Your Data File](#editing-your-data-file) for the steps needed to edit your data.
 
 
 **Q**: How do I resize the application window?<br>
@@ -678,7 +677,7 @@ Therefore, edit the data file only if you know what you are doing. If you wish t
 
 **Q**: How do I add new contacts to an existing itinerary in TripScribe?<br>
 **A**: Follow these steps below: <br>
-   1. Use the `show` command to find all the relevant contacts associated with the itinerary you are working on. **Note down the contacts and the itinerary details** (e.g., copy and paste all information on a Word document).
+   1. Use the `show` command to find all the relevant contacts associated with the itinerary you are working on. **Note down the contacts and the itinerary details** (e.g., copy and paste all information in a Word document).
    2. Using the `delete` command, delete the itinerary you want to add the contact to.
    3. Using the `addi` command, enter the itinerary details (itinerary name, destination, start and end date) you saved in Step 1. Use the `c/` and `v/` prefixes to add the contacts you saved in Step 1, and any new clients you want to add.
 
@@ -708,7 +707,7 @@ This section helps you resolve common issues you might encounter while using Tri
 - Fix 2: If your intention is to add a different contact, change the name slightly or use a different phone number.
 
 **Issue**: "Invalid role: ..." error
-- Scenario: TripScribe detected in invalid role (role can only be 'client' or 'vendor').
+- Scenario: TripScribe detected an invalid role (role can only be 'client' or 'vendor').
 - Fix 1: If your intention is to label the contact with something more specific, add that as a tag instead.
   - Example: `r/BusDriver` is invalid, correct it to `r/vendor t/BusDriver`
 - Fix 2: If you mistyped, correct the role to either 'client' or 'vendor' exactly.
@@ -732,7 +731,7 @@ This section helps you resolve common issues you might encounter while using Tri
     - Fix: Make sure the start date you enter is before or on the same day as the end date.
 
 **Issue**: "Invalid role: ..." error
-- Scenario: TripScribe detected a mismatch between the prefix given, and the contact's role format. (e.g., 3rd contact was added as a client `c/3`, but the 3rd contact in the list is a `vendor`).
+- Scenario: TripScribe detected a mismatch between the prefix given and the contact's role format (e.g., 3rd contact was added as a client `c/3`, but the 3rd contact in the list is a `vendor`).
       - Fix: Make sure you put the correct role prefix (either `c/` or `v/`) for each contact by referring to the currently displayed list.
 
 **Issue**: "Invalid command format!  ..." error when adding multiple contacts
@@ -776,7 +775,7 @@ This section defines all the specialized terms used in TripScribe to help you un
 * **Graphical User Interface (GUI) Application**: An application that users interact with through graphical elements such as buttons, icons, and menus using a mouse or keyboard.
 * **Index**: The position number of an entry as shown in the currently displayed list. For example, the 1st entry shown has index `1`. The index changes depending on the current list view. Indexes start from `1`.
 * **Itinerary**: A plan for a tour that includes the tour name, start and end dates, the clients participating in the tour, and the vendors involved.
-* **JAR file**: Java Archive file. Refers to the TripScribe application that you run, `TripScribe.jar`).
+* **JAR file**: Java Archive file. Refers to the TripScribe application that you run, `TripScribe.jar`.
 * **JSON file**: JavaScript Object Notation file. A text-based data format used to store TripScribe's data (e.g., `tripscribe.json`).
 * **Local-part**: A part of an email consisting of only alphanumeric characters and the following symbols: `+`,`_`, `.`, `-`, It cannot start or end with special characters.
 * **Mainstream OS**: Operating systems such as Windows, Linux, Unix and macOS.

@@ -107,9 +107,9 @@ The **API** of this component is specified in [`Ui.java`](https://github.com/AY2
 
 <puml src="diagrams/UiClassDiagram.puml" alt="Structure of the UI Component"/>
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `ItineraryListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
+The UI consists of a `MainWindow` that is made up of parts e.g., `CommandBox`, `ResultDisplay`, `PersonListPanel`, `ItineraryListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2526S2-CS2103T-F12-1/tp/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2526S2-CS2103T-F12-1/tp/tree/master/src/main/resources/view/MainWindow.fxml)
+The `UI` component uses the JavaFX UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2526S2-CS2103T-F12-1/tp/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2526S2-CS2103T-F12-1/tp/tree/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 
@@ -144,7 +144,7 @@ How the `Logic` component works:
 
 1. When `Logic` is called upon to execute a command, it is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
 2. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
-3. The command can communicate with the `Model` when it is executed (e.g. to delete a person).<br>
+3. The command can communicate with the `Model` when it is executed (e.g., to delete a person).<br>
    Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
@@ -167,7 +167,7 @@ How the parsing works:
 The `Model` component,
 
 * stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object) and `Itinerary` objects (which are contained in a `UniqueItineraryList` object).
-* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change. Similarly, for currently 'selected' `Itinerary` objects (e.g. when viewing a specific itinerary).
+* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g., the UI can be bound to this list so that the UI automatically updates when the data in the list change. Similarly, for currently 'selected' `Itinerary` objects (e.g., when viewing a specific itinerary).
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
@@ -208,7 +208,7 @@ This section describes some noteworthy details on how certain features are imple
 
 #### Implementation
 
-`Itinerary` is a class which has the following mandatory fields `ItineraryName`, `Destination`, `DateRange`. They also hold 2 `Id` lists, `clientIds` and `vendorIds`.
+`Itinerary` is a class which has the following mandatory fields `ItineraryName`, `Destination`, `DateRange`. It also holds 2 `Id` lists, `clientIds` and `vendorIds`.
 
 * Both `ItineraryName` and `Destination` must be a non-empty `String`.
 * `DateRange` contains a start date and end date, where the start date must be before or on the same day as the end date.
@@ -242,7 +242,7 @@ Every `Itinerary` object stores two lists of `Id`. One for `Id`s of clients and 
 <puml src="diagrams/AddiObjectDiagram.puml" />
 <br><br>
 
-Recall that `AddressBook` in `Model` component stores a `UniquePersonList` and a `UniqueItineraryList`. <br>
+Recall that `AddressBook` in the `Model` component stores a `UniquePersonList` and a `UniqueItineraryList`. <br>
 When adding an `Itinerary` object into the `AddressBook` object, `AddressBook` will be responsible for ensuring the consistency of address book data.
 That is, `AddressBook` will check if the `Id`s referenced by the itinerary belong to `Person` objects that already exist in the `UniquePersonList`. If not, the `AddressBook` will reject the itinerary and throw a `PersonNotFoundException`. In other words,
 `AddressBook` will ensure that an itinerary can only be added if all the `Person` objects it references already exist in the address book. The following sequence diagram illustrates the interactions when adding an itinerary:
@@ -279,7 +279,7 @@ When reading the JSON file to construct the corresponding objects, we have the f
 **Aspect: Managing the association between contacts and itineraries**
 * **Alternative 1 (current choice):** `Itinerary` stores the `Id`s of `Person`s.
     * Pros: Reading and saving data to JSON file is simple to implement with minimal data duplication. Reduces coupling between `Itinerary` and `Person` classes.
-    * Cons: Introduce slight overheads. When retrieving the clients and vendors of an itinerary, we need to resolve the `Id`s back to the `Person` objects.
+    * Cons: Introduces slight overhead. When retrieving the clients and vendors of an itinerary, we need to resolve the `Id`s back to the `Person` objects.
 * **Alternative 2:** `Itinerary` stores direct references to `Person`s.
     * Pros: The `addi` command would be simpler to implement.
     * Cons: Reading and saving data becomes more complex.
@@ -358,7 +358,7 @@ Editing an itinerary follows the same pattern as editing a person (shown above) 
 
 #### Implementation
 
-The `show` command shows the itinerary at the index specified by the user, and the contacts associated with it. Similar to how the `delete` command works [above](#logic-component), the show command is implemented in a similar way.
+The `show` command shows the itinerary at the index specified by the user, and the contacts associated with it. It is implemented similarly to the `delete` command described [above](#logic-component).
 
 On execution, the command creates and passes 2 predicates to update the filtered lists in `Model`:
 * `itineraryMatchesPredicate` — Return `true` if the itinerary is the same as the itinerary specified by the user.
@@ -487,7 +487,7 @@ For example, alex will match Alex, and lex will also match Alex.
 
 * **Alternative 2:** Support only general search.
   * Pros: Simpler parser and predicate logic.
-  * Cons: Users cannot restrict the search to specific fields, may return too much matching contacts.
+  * Cons: Users cannot restrict the search to specific fields, may return too many matching contacts.
 
 * **Alternative 3:** Support only multi-field search.
   * Pros: Clearer and more structured command format.
@@ -543,10 +543,10 @@ Operations executives in small to mid-size tour agencies who
 
 * need to manage a significant number of client bookings and itineraries
 * handle frequent updates to itineraries, client details and vendor booking notes
-* coordinate between multiple groups (e.g. transport, tour guides, tourists, vendors)
+* coordinate between multiple groups (e.g., transport, tour guides, tourists, vendors)
 * prefer desktop apps over other types
 * can type fast
-* prefers using CLI interfaces over mouse-based interfaces
+* prefer using CLI interfaces over mouse-based interfaces
 
 **Value proposition**:
 
@@ -563,7 +563,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | tour agency operation executive           | add a new contact with name, role, phone number, email, address, and tags         | record details of clients, vendors, tour guides, etc    |
 | `* * *`  | tour agency operation executive           | add a new itinerary with destination, duration and associated clients and vendors | record and view itinerary details at a glance           |
 | `* * *`  | tour agency operation executive           | list all itineraries                                                              | check that all details are in order                     |
-| `* * *`  | tour agency operation executive           | list all contacts which includes client and vendors                               | plan itineraries with the relevant information          |
+| `* * *`  | tour agency operation executive           | list all contacts which includes clients and vendors                              | plan itineraries with the relevant information          |
 | `* * *`  | tour agency operation executive           | delete a contact or itinerary                                                     | remove data that I no longer need                       |
 | `* * *`  | tour agency operation executive           | work offline without internet                                                     | manage trips even in areas with poor connectivity       |
 | `* * *`  | forgetful tour agency operation executive | view documentation through a help function                                        | find out how to use the app and what I can do with it   |
@@ -571,7 +571,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | tour agency operation executive           | update itinerary details                                                          | keep trip information accurate when plans change        |
 | `* *`    | tour agency operation executive           | filter contacts by tags                                                           | search or view contacts associated to a tag             |
 | `* *`    | tour agency operation executive           | sort itineraries by date                                                          | prioritize itineraries according to how urgent they are |
-| `* *`    | tour agency operation executive           | sort contact in alphabetical order                                                | find a contact easily                                   |
+| `* *`    | tour agency operation executive           | sort contacts in alphabetical order                                               | find a contact easily                                   |
 | `* *`    | tour agency operation executive           | undo and redo commands                                                            | recover from mistakes                                   |
 | `* *`    | tour agency operation executive           | archive completed itineraries                                                     | keep my workplace uncluttered                           |
 | `* *`    | tour agency operation executive           | add pictures to contacts                                                          | recognize the people I work with                        |
@@ -723,7 +723,7 @@ Use case ends.
 **UC06: Multi-field Find**
 
 **MSS**
-1. User requests to find contacts by specifying the field(s) and keywords(s) to search.
+1. User requests to find contacts by specifying the field(s) and keyword(s) to search.
 2. TripScribe retrieves contacts that match based on the following criteria: <br>
    - within the same field, keywords are matched using OR
    - across different fields, fields are matched using AND
@@ -770,12 +770,12 @@ Use case ends.
 
       Use case ends.
   
-* 2a. TripScribe detects no fields entered by user to edit.
-    * 1b1. TripScribe informs the user that no fields were provided.
+* 2a. TripScribe detects no fields entered by the user to edit.
+    * 2a1. TripScribe informs the user that no fields were provided.
     
       Use case ends.
 
-* 3a. TripScribe detects a field entered by user is for the wrong entry type (e.g. `from/` for contact).
+* 3a. TripScribe detects a field entered by the user is for the wrong entry type (e.g., `from/` for contact).
     * 3a1. TripScribe informs that the field is for the wrong entity.
 
       Use case ends.
@@ -811,7 +811,7 @@ Use case ends.
 
 1. The system should run on any mainstream OS that has Java 17 or above installed.
 2. The system should be able to support up to 1000 entries without a noticeable sluggishness (1-second delay from input to feedback) in performance during typical usage.
-3. A user with above average typing speed (50-70 words per minute) for regular English text (i.e. not code, not system admin commands) should be able to accomplish contact adding, itinerary adding, editing contact details, and searching for contacts related to itineraries faster using commands than using the mouse.
+3. A user with above-average typing speed (50-70 words per minute) for regular English text (i.e. not code, not system admin commands) should be able to accomplish contact adding, itinerary adding, editing contact details, and searching for contacts related to itineraries faster using commands than using the mouse.
 4. The system should function without an Internet connection, allowing users to access and run the application offline.
 
 ### Glossary
@@ -827,7 +827,7 @@ Use case ends.
 * **Itinerary**: A plan for a tour that includes the tour name, start and end dates, the clients participating in the tour, and the vendors involved.
 * **Mainstream OS**: Windows, Linux, Unix and macOS.
 * **Tag**: A label used to categorize any number of entries together.
-* **Universally Unique Identifier (UUID)**: A unique 36-character value used to distinguish contacts in TripScribe. In particular, it consists of numbers (0 - 9) and letters (a - f) separated by hyphens. (e.g.123e4567-e89b-12d3-a456-426614174000).
+* **Universally Unique Identifier (UUID)**: A unique 36-character value used to distinguish contacts in TripScribe. In particular, it consists of numbers (0 - 9) and letters (a - f) separated by hyphens. (e.g., 123e4567-e89b-12d3-a456-426614174000).
 * **Vendor**: A party that provides goods or services for a tour.
 
 --------------------------------------------------------------------------------------------------------------------
@@ -889,17 +889,17 @@ testers are expected to do more *exploratory* testing.
        Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
 2. Deleting a person associated with an itinerary
-    1. Prerequisites: Ensure a person is associated with an itinerary (e.g. person 1 linked to itinerary 2). Ensure the person is displayed in the person list (e.g. Using the `list /all` command).
+    1. Prerequisites: Ensure a person is associated with an itinerary (e.g., person 1 linked to itinerary 2). Ensure the person is displayed in the person list (e.g., Using the `list /all` command).
     2. Test case: `delete /contact x` (where x is the person's index in the displayed list)<br>
        Expected: Contact is deleted.
 
    Follow-up:
-    1. Ensure the itinerary is displayed in the itinerary list (e.g. Using the `list /all` command).
+    1. Ensure the itinerary is displayed in the itinerary list (e.g., Using the `list /all` command).
     2. Test case: `show y` (where y is the associated itinerary's index in the displayed list)<br>
        Expected: Deleted contact no longer appears in the itinerary’s associated contact list.
 
 3. Deleting a person when only some persons are being shown
-    1. Prerequisites: Use a filtering command (e.g. `list /vendor`, `list /client`) to display a subset of the full contact list. Ensure there is at least one person in the list.
+    1. Prerequisites: Use a filtering command (e.g., `list /vendor`, `list /client`) to display a subset of the full contact list. Ensure there is at least one person in the list.
     2. Test case: `delete /contact 1`<br>
        Expected: The first contact **in the filtered list (current view)** is deleted, not the first contact in the full list.
 
@@ -948,8 +948,8 @@ These test cases follow the same steps as manual testing for [Deleting a person]
 
 ### Difficulty and Challenges
 
-1. AB3 handles only 1 type of entity. TripScribe handles 2, Person and Itinerary, making it more complex.
-2. Required greater understanding of how AB3 stores contacts and conversion to JSON in order to apply it to our Itinerary implementation.
+1. AB3 handles only 1 type of entity. TripScribe handles 2, `Person` and `Itinerary`, making it more complex.
+2. This required greater understanding of how AB3 stores contacts and conversion to JSON in order to apply it to our `Itinerary` implementation.
 
 ### Effort and Achievements
 
@@ -970,12 +970,12 @@ Team size: 4
       We plan to update the `find` command to allow searching for itineraries based on the itinerary name, destination, and start and end dates.
 3. Updating tag restrictions to prevent UI issues.
    - Currently, if a contact has too many tags, or if a tag is too long, it may cause `PersonCard` in the main window to not show a contact's detail properly.<br> 
-     We plan to introduce a limit to the number of tags per contact, and a limit to the length of a tag. 
+     We plan to introduce a limit on the number of tags per contact, and a limit to the length of a tag. 
 4. Show error message on startup in `ResultDisplay` to user when data file has invalid data.
    - Currently, when the data file is edited and saved in an incorrect format for some entries (not all), TripScribe starts up with only the data that is in the correct format. There is no message to the user in the main window, and the only message seen for this is in the logging.<br>
      We plan to update the UI such that when a file is detected to have some incorrectly formatted data, a message is shown to the user.
 5. Fix data file creation to be in same folder as `.jar` file even when run from a different working directory.
-   - When TripScribe is run from a different working directory from the one that `TripScribe.jar` is located in, the log and json files are created in the user's current working directory, and not the directory the `.jar` file is located in.<br>
+   - When TripScribe is run from a different working directory from the one that `TripScribe.jar` is located in, the log and JSON files are created in the user's current working directory, and not the directory the `.jar` file is located in.<br>
      We plan to fix this by updating the file creation to always be in the same location as the `.jar` file.
 6. Fix prefixes being incorrectly accepted in certain fields (i.e `Name`).
    - When prefixes like `p/` are passed in the command without spacing from another prefix like `n/` for a contact, the value may be parsed as valid and will be taken as the value of the field.<br>
